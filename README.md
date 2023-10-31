@@ -2,4 +2,4 @@
 The wordpress Plugin to integrate neexa.ai into wordpress websites
 
 
-[neexa.ai](NEEXA.AI)
+[neexa.ai](https://neexa.ai)
