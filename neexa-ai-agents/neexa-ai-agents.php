@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: Neexa.AI Agents For WordPress
+Plugin Name: Neexa.AI Agents
 Plugin URI:  https://github.com/Campaignity/neexa-ai-wordpress-plugin
 Description: This plugin seamlessly integrates Neexa.AI's 24/7 AI Powered Sales Agent onto any WordPress site
 Version: 1.0
 Author: Campaignity's Neexa.AI
 Author URI: https://neexa.com
-License: MIT
+License: GPLv2 or later
  */
 
 add_action('wp_head', 'cam_neexai_add_header_script');
