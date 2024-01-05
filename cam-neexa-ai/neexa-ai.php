@@ -11,6 +11,27 @@ License: GPLv2 or later
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly 
 
+// Register activation hook
+register_activation_hook(__FILE__, 'cam_neexai_activate');
+add_action('admin_init', 'cam_neexai_activation_redirect');
+function cam_neexai_activate()
+{
+    add_option('cam_neexai_do_activation_redirect', true);
+}
+function cam_neexai_activation_redirect()
+{
+    // Check if the user has the capability to activate plugins
+    if (current_user_can('activate_plugins')) {
+
+        if (get_option('cam_neexai_do_activation_redirect', false)) {
+            delete_option('cam_neexai_do_activation_redirect');
+
+            // Redirect to the plugin's home page after activation
+            wp_redirect(admin_url('admin.php?page=neexa-ai-settings'));
+            exit;
+        }
+    }
+}
 
 add_action('wp_enqueue_scripts', 'cam_neexai_add_header_script');
 function cam_neexai_add_header_script()
@@ -47,14 +68,14 @@ function cam_neexai_create_menu()
         'Neexa AI Assistants Configuration',
         'Neexa AI',
         'manage_options',
-        'neexa-ai-agents-for-wordpress-settings',
+        'neexa-ai-settings',
         'cam_neexai_settings_page',
         NULL,
         2
     );
 
     add_submenu_page(
-        'neexa-ai-agents-for-wordpress-settings',
+        'neexa-ai-settings',
         'About Neexa AI',
         'How it Works',
         'manage_options',
