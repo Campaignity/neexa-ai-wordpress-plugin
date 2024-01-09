@@ -92,7 +92,7 @@ function cam_neexai_create_menu()
         'cam_neexai_how_it_works_page'
     );
 
-    //call register settings function
+    //call register settings callback
     add_action('admin_init', 'cam_neexai_register_settings');
 }
 
