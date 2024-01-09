@@ -11,6 +11,9 @@ License: GPLv2 or later
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly 
 
+define('CAM_NEEXAAI_VERSION', '1.0');
+define('CAM_NEEXAAI_PLUGIN_DIR', plugin_dir_path(__FILE__));
+
 // Register activation hook
 register_activation_hook(__FILE__, 'cam_neexai_activate');
 add_action('admin_init', 'cam_neexai_activation_redirect');
@@ -31,6 +34,12 @@ function cam_neexai_activation_redirect()
             exit;
         }
     }
+}
+
+add_action('admin_enqueue_scripts', 'cam_neexai_enqueue_admin_plugin_styles');
+function cam_neexai_enqueue_admin_plugin_styles()
+{
+    wp_enqueue_style('cam_neexai_admin_style', plugins_url('assets/admin-style.css', __FILE__, [], CAM_NEEXAAI_VERSION));
 }
 
 add_action('wp_enqueue_scripts', 'cam_neexai_add_header_script');
@@ -70,7 +79,7 @@ function cam_neexai_create_menu()
         'manage_options',
         'neexa-ai-settings',
         'cam_neexai_settings_page',
-        NULL,
+        plugins_url("assets/neexa-logo.svg", __FILE__),
         2
     );
 
@@ -106,7 +115,7 @@ function cam_neexai_sanitize_configs($input)
 function cam_neexai_settings_page()
 {
 ?>
-    <div class="wrap">
+    <div class="wrap neexa-settings">
         <h2>Neexa AI Assistant Configuration</h2>
         <form method="post" action="options.php">
             <?php settings_fields('neexa-ai-agents-config-group'); ?>
@@ -116,7 +125,7 @@ function cam_neexai_settings_page()
             <table class="form-table">
                 <tr valign="top">
                     <th scope="row">Assistant ID</th>
-                    <td><input type="text" name="neexa_ai_agents_configs[config_agent_id]" value="<?php echo esc_html(
+                    <td><input class="assistant-id" type="text" name="neexa_ai_agents_configs[config_agent_id]" value="<?php echo esc_html(
                                                                                                         !empty($neexa_ai_agents_configs['config_agent_id'])
                                                                                                             ? $neexa_ai_agents_configs['config_agent_id']
                                                                                                             : ""
@@ -143,50 +152,42 @@ function cam_neexai_settings_page()
 function cam_neexai_how_it_works_page()
 {
 ?>
-    <div class="wrap">
+    <div class="wrap neexa-how-it-works">
         <h2>How It Works</h2>
 
-        <h3>1. Create an Account</h3>
+        <h3> Step 1. You will need a Neexa AI account to use this plugin. </h3>
         <p>
-            To get started with our AI service, you'll need to create an account at <a href="https://app.neexa.ai/#signup" target="_blank">app.neexa.ai/#signup</a>. Follow the registration process and fill in the required information.
+            If you already have one, go to <a href="https://app.neexa.ai/#login" target="_blank">https://app.neexa.ai/#login</a> to log in,
+            or use <a href="https://app.neexa.ai/#signup" target="_blank">https://app.neexa.ai/#signup</a> to create your account.
         </p>
 
-        <h3>2. Create a New AI Assistant</h3>
+        <h3>Step 2. Add business Information to teach the AI about your business. </h3>
         <p>
-            Once you've successfully created your account, you can proceed to create a new AI agent by following these steps:
-        </p>
+            This is information about your business, products and services, as well as any other interesting information people would want to know about your business.
+
+            You Add business Information in 2 ways;
         <ol>
-            <li>Log in to your Neexa account.</li>
-            <li>Navigate to your account dashboard.</li>
-            <li>Click on "Create New AI Assistant."</li>
-            <li>Give your agent a name and configure any other desired settings.</li>
+            <li> Add plain text, where you can type manually or copy and paste from a document. </li>
+            <li> Use the website scraping feature where you simply give Neexa your website URL so it can scrape and find all the information available on your website. </li>
         </ol>
-
-        <h3>3. Copy the Assistant ID</h3>
-        <p>
-            You'll need to copy the Assistant ID associated with your AI agent. Here's how:
         </p>
-        <ol>
-            <li>Access the "Assistant Edit Page" within your Neexa account.</li>
-            <li>Locate the unique Assistant ID for your AI agent in the "Installation" Section</li>
-            <li>Copy this Assistant ID to your clipboard.</li>
-        </ol>
 
-        <h3>4. Paste the Assistant ID into WordPress</h3>
+        <h3>Step 3: Create a New AI Assistant, this will be the one chatting with people. </h3>
         <p>
-            Now, you'll need to integrate your AI agent into your WordPress website:
+            Once you've added your business information, now you can create your AI Assistant by clicking on the plus button in the 'Widgets' page(<a href="https://app.neexa.ai/#widget-chats" target="_blank">https://app.neexa.ai/#widget-chats</a>).
+            Here you will be able to give the AI its name, change its Avatar, choose the Role, assign it to the business you just created, etc.
         </p>
-        <ol>
-            <li>Log in to your WordPress admin dashboard.</li>
-            <li>Find the "AI Assistant Integration" settings.</li>
-            <li>Paste the Assistant ID you copied into the "Assistant ID" field.</li>
-            <li>Click "Save" to activate the AI agent.</li>
-        </ol>
 
-        <h3>The AI agent will be added to all pages on your website.</h3>
+        <h3>Step 4: Install the AI on your website or Integrate with WhatsApp business. </h3>
+        <p>
+            Inside the same page after creating your AI Assistant, Click the pen icon(edit) on the right side of the Assistant you just created.
+            This will open a modal to edit anything of the AI Assistant you just created. In this modal, you will also see the 'Installation' section. It has an Assistant ID which you will copy and past into this Wordpress Plugin.
+
+            After pasting this code in this plugin, you will be able to see the Neexa AI agent on your website where you and your website visitors can stat to engage/chat with it.
+        </p>
 
         <p>
-            Note: For even more precise responses related to your website and business, you can go to <a href="https://app.neexa.ai/#businesses" target="_blank">app.neexa.ai/#businesses</a> to provide additional information.
+            Learn more about Neexa AI at <a href="https://www.neexa.ai" target="_blank">www.neexa.ai</a>
         </p>
     </div>
 <?php
