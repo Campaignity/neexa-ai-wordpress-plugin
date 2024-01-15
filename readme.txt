@@ -1,8 +1,8 @@
 === Neexa AI ===
-Contributors: neexa
+Contributors: neexa, campaignity
 Tags: Chatbot, AI, Salesbot, Agent, AI Assistant
 Requires at least: 4.7
-Tested up to: 6.3
+Tested up to: 6.4
 Stable tag: 1.0
 Requires PHP: 7.0
 License: GPLv2 or later

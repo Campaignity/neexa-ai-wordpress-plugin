@@ -4,9 +4,10 @@ Plugin Name: Neexa AI
 Plugin URI:  https://github.com/Campaignity/neexa-ai-wordpress-plugin
 Description: This plugin seamlessly integrates Neexa AI's 24/7 AI Powered Sales Assistants onto any WordPress site
 Version: 1.0
-Author: Campaignity's Neexa AI
+Author: Campaignity's Neexa.AI
 Author URI: https://neexa.ai
 License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly 
