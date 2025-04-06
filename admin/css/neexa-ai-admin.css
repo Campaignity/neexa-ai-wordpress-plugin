@@ -1,5 +1,11 @@
-.toplevel_page_neexa-ai-settings .wp-menu-image img {
-    padding: 5px 0 0 !important;
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.toplevel_page_neexa-ai-home .wp-menu-image img {
+    width: 20px;
+    padding: 6px 0 0 !important;
 }
 
 /* Global Styles */
