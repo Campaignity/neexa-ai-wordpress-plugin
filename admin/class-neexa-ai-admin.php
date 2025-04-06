@@ -113,7 +113,7 @@ class Neexa_Ai_Admin {
 	public function add_plugin_admin_menu() {
 
 		add_menu_page(
-			'Neexa AI Assistants Configuration',
+			'Neexa AI Home',
 			'Neexa AI',
 			'manage_options',
 			'neexa-ai-home',
@@ -122,6 +122,17 @@ class Neexa_Ai_Admin {
 			},
 			plugin_dir_url(__FILE__). "img/neexa-logomark.png?v=5",
 			2
+		);
+
+		add_submenu_page(
+			'neexa-ai-home',
+			'Neexa AI Configuration',
+			'Configure',
+			'manage_options',
+			'neexa-ai-configuration',
+			function() {
+				require_once plugin_dir_path( __FILE__ ) . 'partials/neexa-ai-how-it-works.php';
+			},
 		);
 
 		add_submenu_page(

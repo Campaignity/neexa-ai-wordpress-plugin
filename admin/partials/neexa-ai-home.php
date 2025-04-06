@@ -56,7 +56,7 @@ $instagram_configured = false; // Replace with actual condition
 
                 <div style="display: flex; align-items: center;">
                     <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <strong>Value Features:</strong>
+                        <strong>Enabled:</strong>
                     </div>
                 </div>
 
