@@ -124,6 +124,7 @@ class Neexa_Ai_Admin {
 			2
 		);
 
+		
 		add_submenu_page(
 			'neexa-ai-home',
 			'Neexa AI Configuration',
@@ -131,7 +132,7 @@ class Neexa_Ai_Admin {
 			'manage_options',
 			'neexa-ai-configuration',
 			function() {
-				require_once plugin_dir_path( __FILE__ ) . 'partials/neexa-ai-how-it-works.php';
+				require_once plugin_dir_path( __FILE__ ) . 'partials/neexa-ai-configure.php';
 			},
 		);
 

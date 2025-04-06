@@ -13,11 +13,7 @@
  */
 ?>
 
-
-
 <?php
-
-
 $isAuthenticated = false;
 
 if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '') {
@@ -32,13 +28,13 @@ if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') !
 }
 
 if (!$isAuthenticated) {
-    $getStartedPage = "Home";
-
+    $getStartedPage = "Configure";
     require_once plugin_dir_path(__FILE__) . 'neexa-ai-get-started.php';
-
     exit();
 }
 ?>
+
+
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <div class="neexa-dashboard" style="font-family: sans-serif; max-width: 1000px; margin: auto; padding: 20px;">
