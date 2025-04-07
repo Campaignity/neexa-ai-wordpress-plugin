@@ -159,6 +159,7 @@ class Neexa_Ai {
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
 		$this->loader->add_action('admin_init', $plugin_admin, 'activation_welcome');
+		
 	}
 
 	/**

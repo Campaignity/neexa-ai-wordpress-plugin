@@ -1,4 +1,4 @@
-(function( $ ) {
+(function ($) {
 	'use strict';
 
 	/**
@@ -29,4 +29,91 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-})( jQuery );
+
+	$(function () {
+		let popupWindow;
+
+		// Open OAuth in Popup and show jQuery UI Dialog
+		$('#oauth-login-btn').on('click', function (e) {
+			e.preventDefault();
+
+			const oauthUrl = "<?php echo esc_url($your_identity_provider_oauth_url); ?>";
+			const w = 600, h = 700;
+			// Fixes dual-screen position                             Most browsers      Firefox
+			const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
+			const dualScreenTop = window.screenTop !== undefined ? window.screenTop : window.screenY;
+
+			const width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+			const height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+			const systemZoom = width / window.screen.availWidth;
+			const left = (width - w) / 2 / systemZoom + dualScreenLeft
+			const top = (height - h) / 2 / systemZoom + dualScreenTop
+
+			popupWindow = window.open(
+				oauthUrl,
+				"OAuth Login",
+				`width=${w/systemZoom},height=${h/systemZoom},top=${top},left=${left},scrollbars=yes,resizable=yes`
+			);
+
+			// Show Dialog
+			$("#oauth-dialog").dialog({
+				'dialogClass': 'wp-dialog',
+				modal: true,
+				width: 400,
+				closeOnEscape: false,
+				open: function () {
+					$(".ui-dialog-titlebar-close").hide(); // Disable close button
+				},
+				buttons: {
+					Cancel: function () {
+						popupWindow && popupWindow.close();
+
+						$(this).dialog("close");
+						showError("Login was cancelled.");
+					}
+				}
+			});
+
+			// Check if popup closes without auth
+			const popupChecker = setInterval(function () {
+				if (popupWindow && popupWindow.closed) {
+					clearInterval(popupChecker);
+					$("#oauth-dialog").dialog("close");
+					showError("Login window was closed before authentication.");
+				}
+			}, 500);
+		});
+
+		// Listen for postMessage from the Identity Provider
+		window.addEventListener("message", function (event) {
+			if (event.origin !== "<?php echo esc_js($your_identity_provider_origin); ?>") return;
+
+			if (event.data.status === "success") {
+				$("#oauth-dialog").dialog("close");
+				//!returns token, save it in db
+				//!test doing some fetch, if everything is okay, redirect to neexa-ai=home
+				location.reload(); // or update UI if needed
+			} else {
+				$("#oauth-dialog").dialog("close");
+				showError("Authentication failed.");
+			}
+		}, false);
+
+		function showError(msg) {
+			$('<div>')
+				.text(msg)
+				.dialog({
+					'dialogClass': 'wp-dialog',
+					title: "Authentication Error",
+					modal: true,
+					buttons: {
+						OK: function () {
+							$(this).dialog("close");
+						}
+					}
+				});
+		}
+	});
+
+})(jQuery);

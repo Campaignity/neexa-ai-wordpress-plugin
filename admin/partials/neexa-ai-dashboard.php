@@ -32,7 +32,7 @@ if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') !
 }
 
 if (!$isAuthenticated) {
-    $getStartedPage = "Home";
+    $getStartedExplainer = "manage, monitor";
 
     require_once plugin_dir_path(__FILE__) . 'neexa-ai-get-started.php';
 

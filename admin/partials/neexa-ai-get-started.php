@@ -9,12 +9,12 @@
         <!-- Welcome Heading -->
         <h1 style="font-size: 22px; margin-bottom: 10px; color: #1d2327; font-weight: 600;">Welcome to Neexa Sales Assistant 👋</h1>
         <p style="font-size: 14px; color: #50575e; margin-bottom: 30px;">
-            Get started with your AI-powered sales assistant — configure, connect, and grow effortlessly.
+            Get started with your AI-powered sales assistant — <?=$getStartedExplainer?>, and grow effortlessly.
         </p>
 
         <!-- Action Buttons -->
         <div style="display: flex; flex-direction: column; gap: 12px;">
-            <a href="/auth/login" style="background: #007cba; color: white; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 14px;">🔐 Log In</a>
+            <a id="oauth-login-btn" href="javascript:void(0)" style="background: #007cba; color: white; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 14px;">🔐 Log In</a>
             <a href="/onboard/start" style="background: #fff; color: #007cba; border: 1px solid #007cba; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 14px;">🚀 Get Started</a>
         </div>
 
@@ -24,4 +24,12 @@
             <a href="https://campaignity.com/terms/" style="color: #007cba; text-decoration: none;">Terms</a>.
         </div>
     </div>
+</div>
+
+<!-- jQuery Alert Placeholder -->
+<div id="oauth-dialog" title="Log Into Neexa" style="display: none;">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <div class="oauth-spinner" style="background: url('<?php echo admin_url('images/spinner.gif'); ?>') no-repeat center center;width: 20px; height: 20px; display: inline-block;"></div>
+    <p style="margin: 0;">Waiting for authentication...</p>
+  </div>
 </div>

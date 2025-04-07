@@ -74,6 +74,7 @@ class Neexa_Ai_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/neexa-ai-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style('wp-jquery-ui-dialog');
 
 	}
 
@@ -95,7 +96,7 @@ class Neexa_Ai_Admin {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/neexa-ai-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/neexa-ai-admin.js', array( 'jquery','jquery-ui-dialog' ), $this->version, false );
 
 	}
 
@@ -118,7 +119,7 @@ class Neexa_Ai_Admin {
 			'manage_options',
 			'neexa-ai-home',
 			function() {
-				require_once plugin_dir_path( __FILE__ ) . 'partials/neexa-ai-home.php';
+				require_once plugin_dir_path( __FILE__ ) . 'partials/neexa-ai-dashboard.php';
 			},
 			plugin_dir_url(__FILE__). "img/neexa-logomark.png?v=5",
 			2

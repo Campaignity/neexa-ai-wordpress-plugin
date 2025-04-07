@@ -28,7 +28,7 @@ if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') !
 }
 
 if (!$isAuthenticated) {
-    $getStartedPage = "Configure";
+    $getStartedExplainer = "configure, connect";
     require_once plugin_dir_path(__FILE__) . 'neexa-ai-get-started.php';
     exit();
 }
