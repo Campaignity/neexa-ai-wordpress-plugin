@@ -104,11 +104,30 @@ class Neexa_Ai_Admin
 		 */
 		$config = require_once plugin_dir_path(dirname(__FILE__)) . './includes/config.php';
 
+		/**
+		 * about site */
+		$current_user = wp_get_current_user();
+
+		$user_info = get_userdata($current_user->ID);
+
+		$about_info = [
+			'site'       => [
+				'url' =>	get_site_url(),
+				'name'      => get_bloginfo('name'),
+				'decs' => get_bloginfo('description'),
+			],
+			'user'        => [
+				$first_name => $user_info->first_name ? $user_info->first_name : $current_user->display_name,
+				$last_name => $user_info->last_name ? $user_info->last_name : ""
+			],
+		];
+
 		wp_register_script('neexa-ai-public-env-vars', null);
 		wp_enqueue_script('neexa-ai-public-env-vars');
 		wp_add_inline_script('neexa-ai-public-env-vars', 'window.neexa_ai_env_vars=' . json_encode(
 			[
 				...$config,
+				'about-info' => $about_info,
 				'plugin-home-url' => admin_url('admin.php?page=neexa-ai-home')
 			]
 		), 'before');

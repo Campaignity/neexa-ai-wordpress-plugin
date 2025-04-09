@@ -125,23 +125,29 @@
 		window.addEventListener("message", function (event) {
 			// SECURITY: Only allow messages from the correct origin
 			const allowedOrigin = window.neexa_ai_env_vars['frontend-url'];
-
 			if (event.origin !== allowedOrigin) {
-				console.warn("Blocked message from unknown origin:", event.origin);
 				return;
 			}
 
 			// Handle the message from the iframe
 			const data = event.data;
-			console.log("Message received from iframe:", data);
 
-			// Example: Perform action based on the message
+			// its a click action
 			if (data.type === "click-action") {
-				switch (data.data['click-name']) {
+				switch (data.payload['click-name']) {
 					case 'logout':
 						window.location.href = this.window.neexa_ai_env_vars['plugin-home-url'];
 						break;
 				}
+			}
+
+			// its a request for data
+			if (data.type === "request-what-we-know") {
+				const iframe = document.querySelector('#neexa-ai-onboarding-iframe-container .full-page-iframe');
+				iframe.contentWindow.postMessage({
+					type: "what-you-need-to-know",
+					payload: window.neexa_ai_env_vars['about-info']
+				}, '*');
 			}
 		}, false);
 
