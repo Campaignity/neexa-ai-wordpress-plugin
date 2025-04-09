@@ -20,7 +20,7 @@
 
 $isAuthenticated = false;
 
-if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '') {
+if (1 || get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '') {
 
     $accessToken = get_option('neexa_ai_access_token');
 
@@ -32,11 +32,11 @@ if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') !
 }
 
 if (!$isAuthenticated) {
-    $getStartedExplainer = "manage, monitor";
+    // $getStartedExplainer = "manage, monitor";
 
-    require_once plugin_dir_path(__FILE__) . 'neexa-ai-get-started.php';
+    // require_once plugin_dir_path(__FILE__) . 'neexa-ai-get-started.php';
 
-    exit();
+    // exit();
 }
 ?>
 
