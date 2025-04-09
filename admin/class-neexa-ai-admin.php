@@ -99,10 +99,7 @@ class Neexa_Ai_Admin
 		 * class.
 		 */
 
-		/**
-		 * the config
-		 */
-		$config = require_once plugin_dir_path(dirname(__FILE__)) . './includes/config.php';
+		global $neexa_ai_config;
 
 		/**
 		 * about site */
@@ -127,7 +124,7 @@ class Neexa_Ai_Admin
 		wp_enqueue_script('neexa-ai-public-env-vars');
 		wp_add_inline_script('neexa-ai-public-env-vars', 'window.neexa_ai_env_vars=' . json_encode(
 			[
-				...$config,
+				...$neexa_ai_config,
 				'about-info' => $about_info,
 				'plugin-home-url' => admin_url('admin.php?page=neexa-ai-home')
 			]

@@ -26,7 +26,7 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (! defined('WPINC')) {
 	die;
 }
 
@@ -35,14 +35,15 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'NEEXA_AI_VERSION', '2.0.0' );
+define('NEEXA_AI_VERSION', '2.0.0');
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-neexa-ai-activator.php
  */
-function activate_neexa_ai() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-neexa-ai-activator.php';
+function activate_neexa_ai()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-neexa-ai-activator.php';
 	Neexa_Ai_Activator::activate();
 }
 
@@ -50,19 +51,29 @@ function activate_neexa_ai() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-neexa-ai-deactivator.php
  */
-function deactivate_neexa_ai() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-neexa-ai-deactivator.php';
+function deactivate_neexa_ai()
+{
+	require_once plugin_dir_path(__FILE__) . 'includes/class-neexa-ai-deactivator.php';
 	Neexa_Ai_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_neexa_ai' );
-register_deactivation_hook( __FILE__, 'deactivate_neexa_ai' );
+register_activation_hook(__FILE__, 'activate_neexa_ai');
+register_deactivation_hook(__FILE__, 'deactivate_neexa_ai');
+
+
+/**
+ * the config
+ */
+global $neexa_ai_config;
+$neexa_ai_config = require_once plugin_dir_path(__FILE__) . 'includes/config.php';
+
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-neexa-ai.php';
+
+require plugin_dir_path(__FILE__) . 'includes/class-neexa-ai.php';
 
 /**
  * Begins execution of the plugin.
@@ -73,10 +84,10 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-neexa-ai.php';
  *
  * @since    1.0.0
  */
-function run_neexa_ai() {
+function run_neexa_ai()
+{
 
 	$plugin = new Neexa_Ai();
 	$plugin->run();
-
 }
 run_neexa_ai();

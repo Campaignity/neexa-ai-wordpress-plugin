@@ -1,7 +1,7 @@
 <?php
-$config = require plugin_dir_path(dirname(__FILE__)) . './../includes/config.php';
+global $neexa_ai_config;
 ?>
 
 <div id="neexa-ai-onboarding-iframe-container">
-    <iframe src="<?= $config["frontend-url"] ?>/#/get-started/wordpress" frameborder="0" class="full-page-iframe"></iframe>
+    <iframe src="<?= $neexa_ai_config["frontend-url"] ?>/#/get-started/wordpress" frameborder="0" class="full-page-iframe"></iframe>
 </div>
