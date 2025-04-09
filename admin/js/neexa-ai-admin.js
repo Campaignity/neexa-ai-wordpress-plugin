@@ -2,14 +2,14 @@
 	'use strict';
 
 	/**
-	 * All of the code for your admin-facing JavaScript source
+	 * All of the code for the admin-facing JavaScript source
 	 * should reside in this file.
 	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
+	 * Note: It has been assumed jQuery code will be written here, so the
 	 * $ function reference has been prepared for usage within the scope
 	 * of this function.
 	 *
-	 * This enables you to define handlers, for when the DOM is ready:
+	 * This enables us to define handlers, for when the DOM is ready:
 	 *
 	 * $(function() {
 	 *
@@ -29,7 +29,9 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-	$(function () {
+
+	/* OAuth-like access token acquiring */
+	const OAuthHandler = () => {
 		let popupWindow;
 
 		// Open OAuth in Popup and show jQuery UI Dialog
@@ -114,13 +116,12 @@
 					}
 				});
 		}
-	});
-
+	}
 
 	/*
-	* onboarding messages from iframe
+	* onboarding communication between parent and child
 	*/
-	$(function () {
+	const onboardingHandler = () => {
 
 		window.addEventListener("message", function (event) {
 			// SECURITY: Only allow messages from the correct origin
@@ -151,6 +152,12 @@
 			}
 		}, false);
 
+	};
+
+	$(function () {
+		OAuthHandler();
+
+		onboardingHandler();
 	});
 
 })(jQuery);
