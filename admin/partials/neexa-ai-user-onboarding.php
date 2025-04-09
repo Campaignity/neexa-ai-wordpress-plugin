@@ -1,7 +1,5 @@
 <?php
-
 $config = require plugin_dir_path(dirname(__FILE__)) . './../includes/config.php';
-
 ?>
 
 <div id="neexa-ai-onboarding-iframe-container">

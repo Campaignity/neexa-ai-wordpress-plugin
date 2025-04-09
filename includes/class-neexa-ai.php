@@ -83,6 +83,7 @@ class Neexa_Ai
 		}
 		$this->plugin_name = 'neexa-ai';
 
+
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
@@ -107,12 +108,6 @@ class Neexa_Ai
 	 */
 	private function load_dependencies()
 	{
-		/**
-		 * the config
-		 */
-		$this->config = require_once plugin_dir_path(dirname(__FILE__)) . 'includes/config.php';
-
-
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.

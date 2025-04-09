@@ -29,7 +29,6 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
-
 	$(function () {
 		let popupWindow;
 
@@ -53,7 +52,7 @@
 			popupWindow = window.open(
 				oauthUrl,
 				"OAuth Login",
-				`width=${w/systemZoom},height=${h/systemZoom},top=${top},left=${left},scrollbars=yes,resizable=yes`
+				`width=${w / systemZoom},height=${h / systemZoom},top=${top},left=${left},scrollbars=yes,resizable=yes`
 			);
 
 			// Show Dialog
@@ -87,6 +86,7 @@
 
 		// Listen for postMessage from the Identity Provider
 		window.addEventListener("message", function (event) {
+
 			if (event.origin !== "<?php echo esc_js($your_identity_provider_origin); ?>") return;
 
 			if (event.data.status === "success") {
@@ -114,6 +114,37 @@
 					}
 				});
 		}
+	});
+
+
+	/*
+	* onboarding messages from iframe
+	*/
+	$(function () {
+
+		window.addEventListener("message", function (event) {
+			// SECURITY: Only allow messages from the correct origin
+			const allowedOrigin = window.neexa_ai_env_vars['frontend-url'];
+
+			if (event.origin !== allowedOrigin) {
+				console.warn("Blocked message from unknown origin:", event.origin);
+				return;
+			}
+
+			// Handle the message from the iframe
+			const data = event.data;
+			console.log("Message received from iframe:", data);
+
+			// Example: Perform action based on the message
+			if (data.type === "click-action") {
+				switch (data.data['click-name']) {
+					case 'logout':
+						window.location.href = this.window.neexa_ai_env_vars['plugin-home-url'];
+						break;
+				}
+			}
+		}, false);
+
 	});
 
 })(jQuery);

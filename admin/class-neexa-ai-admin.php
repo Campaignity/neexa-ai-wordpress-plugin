@@ -98,6 +98,21 @@ class Neexa_Ai_Admin
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
+
+		/**
+		 * the config
+		 */
+		$config = require_once plugin_dir_path(dirname(__FILE__)) . './includes/config.php';
+
+		wp_register_script('neexa-ai-public-env-vars', null);
+		wp_enqueue_script('neexa-ai-public-env-vars');
+		wp_add_inline_script('neexa-ai-public-env-vars', 'window.neexa_ai_env_vars=' . json_encode(
+			[
+				...$config,
+				'plugin-home-url' => admin_url('admin.php?page=neexa-ai-home')
+			]
+		), 'before');
+
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/neexa-ai-admin.js', array('jquery', 'jquery-ui-dialog'), $this->version, false);
 	}
 
