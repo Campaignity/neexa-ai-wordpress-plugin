@@ -62,19 +62,6 @@ class Neexa_Ai_Admin
 	 */
 	public function enqueue_styles()
 	{
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Neexa_Ai_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Neexa_Ai_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/neexa-ai-admin.css', array(), $this->version, 'all');
 		wp_enqueue_style('wp-jquery-ui-dialog');
 	}
@@ -86,18 +73,6 @@ class Neexa_Ai_Admin
 	 */
 	public function enqueue_scripts()
 	{
-
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Neexa_Ai_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Neexa_Ai_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
 
 		wp_register_script('neexa-ai-public-env-vars','');
 		wp_enqueue_script('neexa-ai-public-env-vars','');
