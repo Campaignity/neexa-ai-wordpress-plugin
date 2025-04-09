@@ -1,6 +1,8 @@
 <?php
 // copy this and rename to config.php to access configs globally
 return [
-    'frontend-url' => 'http://localhost:7841',
-    'api-url' => 'http://localhost:8000'
+    'plugin-home-url' => admin_url('admin.php?page=neexa-ai-home'),
+    'frontend-host' => 'http://localhost:7841',
+    'auth-host' =>  'http://localhost:8000',
+    'api-host' => 'http://localhost:8000',
 ];

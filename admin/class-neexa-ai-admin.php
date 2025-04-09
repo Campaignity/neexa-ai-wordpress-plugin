@@ -99,6 +99,15 @@ class Neexa_Ai_Admin
 		 * class.
 		 */
 
+		wp_register_script('neexa-ai-public-env-vars','');
+		wp_enqueue_script('neexa-ai-public-env-vars','');
+		wp_add_inline_script('neexa-ai-public-env-vars', 'window.neexa_ai_env_vars=' . json_encode($this->get_global_script_info()), 'before');
+
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/neexa-ai-admin.js', array('jquery', 'jquery-ui-dialog'), $this->version, false);
+	}
+
+	private function get_global_script_info()
+	{
 		global $neexa_ai_config;
 
 		/**
@@ -120,17 +129,10 @@ class Neexa_Ai_Admin
 			],
 		];
 
-		wp_register_script('neexa-ai-public-env-vars', null);
-		wp_enqueue_script('neexa-ai-public-env-vars');
-		wp_add_inline_script('neexa-ai-public-env-vars', 'window.neexa_ai_env_vars=' . json_encode(
-			[
-				...$neexa_ai_config,
-				'about-info' => $about_info,
-				'plugin-home-url' => admin_url('admin.php?page=neexa-ai-home')
-			]
-		), 'before');
-
-		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/neexa-ai-admin.js', array('jquery', 'jquery-ui-dialog'), $this->version, false);
+		return [
+			...$neexa_ai_config,
+			'about-info' => $about_info,
+		];
 	}
 
 	public function activation_welcome()
