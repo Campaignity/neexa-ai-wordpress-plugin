@@ -117,8 +117,9 @@ class Neexa_Ai_Admin
 				'decs' => get_bloginfo('description'),
 			],
 			'user'        => [
-				$first_name => $user_info->first_name ? $user_info->first_name : $current_user->display_name,
-				$last_name => $user_info->last_name ? $user_info->last_name : ""
+				'first_name' => $user_info->first_name ? $user_info->first_name : $current_user->display_name,
+				'last_name' => $user_info->last_name ? $user_info->last_name : "",
+				'email' => $user_info->user_email
 			],
 		];
 
