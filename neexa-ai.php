@@ -33,7 +33,6 @@ if (! defined('WPINC')) {
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
- * Rename this for your plugin and update it as you release new versions.
  */
 define('NEEXA_AI_VERSION', '2.0.0');
 
