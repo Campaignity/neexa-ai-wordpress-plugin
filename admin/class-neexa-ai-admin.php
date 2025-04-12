@@ -74,8 +74,8 @@ class Neexa_Ai_Admin
 	public function enqueue_scripts()
 	{
 
-		wp_register_script('neexa-ai-public-env-vars','');
-		wp_enqueue_script('neexa-ai-public-env-vars','');
+		wp_register_script('neexa-ai-public-env-vars', '');
+		wp_enqueue_script('neexa-ai-public-env-vars', '');
 		wp_add_inline_script('neexa-ai-public-env-vars', 'window.neexa_ai_env_vars=' . json_encode($this->get_global_script_info()), 'before');
 
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/neexa-ai-admin.js', array('jquery', 'jquery-ui-dialog'), $this->version, false);
@@ -170,6 +170,20 @@ class Neexa_Ai_Admin
 				require_once plugin_dir_path(__FILE__) . 'partials/neexa-ai-user-onboarding.php';
 			},
 		);
+	}
+
+	public function save_access_token()
+	{
+		$access_token = sanitize_text_field($_POST['access_token']);
+
+		if (!empty($access_token)) {
+
+			update_option('neexa_ai_access_token', $access_token);
+
+			wp_send_json_success('Token saved successfully.');
+		} else {
+			wp_send_json_error('Invalid token.');
+		}
 	}
 
 	public function register_settings()

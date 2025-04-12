@@ -38,7 +38,7 @@
 		$('#oauth-login-btn').on('click', function (e) {
 			e.preventDefault();
 
-			const oauthUrl = `${window.neexa_ai_env_vars['frontend-host']}/#/signin`;
+			const oauthUrl = `${window.neexa_ai_env_vars['frontend-host']}/#/signin/wordpress`;
 
 			const w = 600, h = 700;
 			// Fixes dual-screen position                             Most browsers      Firefox
@@ -90,17 +90,36 @@
 		// Listen for postMessage from the Identity Provider
 		window.addEventListener("message", function (event) {
 
-			if (event.origin !==  window.neexa_ai_env_vars['frontend-host']) return;
-
-			if (event.data.status === "success") {
-				$("#oauth-dialog").dialog("close");
-				//!returns token, save it in db
-				//!test doing some fetch, if everything is okay, redirect to neexa-ai=home
-				location.reload(); // or update UI if needed
-			} else {
-				$("#oauth-dialog").dialog("close");
-				showError("Authentication failed.");
+			const allowedOrigin = window.neexa_ai_env_vars['frontend-host'];
+			if (event.origin !== allowedOrigin) {
+				return;
 			}
+
+			const data = event.data;
+
+			if (data.type === "auth-action") {
+				var accessToken = data.payload.access_token;
+				if (accessToken) {
+
+					/* post the token to the backend */
+					$.post(ajaxurl, {
+						action: 'save_neexa_ai_access_token',
+						access_token: accessToken
+					}, function (response) {
+						if (response.success) {
+							window.location.href = window.neexa_ai_env_vars['plugin-home-url'];
+							$("#oauth-dialog").dialog("close");
+						} else {
+							showError("Failed to save authentication information.");
+						}
+					});
+
+				} else {
+					$("#oauth-dialog").dialog("close");
+					showError("Authentication failed.");
+				}
+			}
+
 		}, false);
 
 		function showError(msg) {
@@ -125,25 +144,21 @@
 	const onboardingHandler = () => {
 
 		window.addEventListener("message", function (event) {
-			// SECURITY: Only allow messages from the correct origin
 			const allowedOrigin = window.neexa_ai_env_vars['frontend-host'];
 			if (event.origin !== allowedOrigin) {
 				return;
 			}
 
-			// Handle the message from the iframe
 			const data = event.data;
 
-			// its a click action
 			if (data.type === "click-action") {
 				switch (data.payload['click-name']) {
 					case 'logout':
-						window.location.href = this.window.neexa_ai_env_vars['plugin-home-url'];
+						window.location.href = window.neexa_ai_env_vars['plugin-home-url'];
 						break;
 				}
 			}
 
-			// its a request for data
 			if (data.type === "request-what-we-know") {
 				const iframe = document.querySelector('#neexa-ai-onboarding-iframe-container .full-page-iframe');
 				iframe.contentWindow.postMessage({
