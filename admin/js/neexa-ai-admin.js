@@ -38,7 +38,8 @@
 		$('#oauth-login-btn').on('click', function (e) {
 			e.preventDefault();
 
-			const oauthUrl = window.neexa_ai_env_vars['auth-host'];
+			const oauthUrl = `${window.neexa_ai_env_vars['frontend-host']}/#/signin`;
+
 			const w = 600, h = 700;
 			// Fixes dual-screen position                             Most browsers      Firefox
 			const dualScreenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screenX;
@@ -89,7 +90,7 @@
 		// Listen for postMessage from the Identity Provider
 		window.addEventListener("message", function (event) {
 
-			if (event.origin !==  window.neexa_ai_env_vars['auth-host']) return;
+			if (event.origin !==  window.neexa_ai_env_vars['frontend-host']) return;
 
 			if (event.data.status === "success") {
 				$("#oauth-dialog").dialog("close");
