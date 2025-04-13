@@ -109,6 +109,17 @@ class Neexa_Ai
 	private function load_dependencies()
 	{
 		/**
+		 * the config
+		 */
+		global $neexa_ai_config;
+		$neexa_ai_config = require_once plugin_dir_path(dirname(__FILE__)) . 'includes/config.php';
+
+		/**
+		 * response for external api calls
+		 */
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-neexa-ai-api-consumer.php';
+
+		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
@@ -169,8 +180,7 @@ class Neexa_Ai
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_menu', $plugin_admin, 'add_plugin_admin_menu');
 		$this->loader->add_action('admin_init', $plugin_admin, 'activation_welcome');
-		$this->loader->add_action('admin_init', $plugin_admin, 'register_settings');		
-
+		$this->loader->add_action('admin_init', $plugin_admin, 'register_settings');
 	}
 
 	/**

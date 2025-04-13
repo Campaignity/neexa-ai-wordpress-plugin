@@ -61,13 +61,6 @@ register_deactivation_hook(__FILE__, 'deactivate_neexa_ai');
 
 
 /**
- * the config
- */
-global $neexa_ai_config;
-$neexa_ai_config = require_once plugin_dir_path(__FILE__) . 'includes/config.php';
-
-
-/**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */

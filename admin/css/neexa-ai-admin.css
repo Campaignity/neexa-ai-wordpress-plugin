@@ -468,7 +468,7 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-#neexa-ai-onboarding-iframe-container{
+#neexa-ai-onboarding-iframe-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -486,7 +486,7 @@ input:checked+.slider:before {
     border: none;
 }
 
-.neexa-ai_page_get-started-with-neexa{
+.neexa-ai_page_get-started-with-neexa {
     overflow: hidden;
 }
 
@@ -496,7 +496,9 @@ input:checked+.slider:before {
     padding: 10px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-weight: bold;
 }
 
@@ -694,7 +696,7 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-#neexa-ai-onboarding-iframe-container{
+#neexa-ai-onboarding-iframe-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -712,7 +714,7 @@ input:checked+.slider:before {
     border: none;
 }
 
-.neexa-ai_page_get-started-with-neexa{
+.neexa-ai_page_get-started-with-neexa {
     overflow: hidden;
 }
 
@@ -720,4 +722,156 @@ button:disabled,
 button[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+
+
+/* -------------- */
+.agent-section {
+    margin-top: 30px;
+    font-family: Roboto, sans-serif;
+}
+
+.neexa-ai-configuration 
+.section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.neexa-ai-configuration 
+.agent-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.neexa-ai-configuration 
+.agent-card.active {
+    border-left: 4px solid #3f51b5;
+    background-color: #f9f9ff;
+}
+
+.neexa-ai-configuration 
+.agent-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.neexa-ai-configuration 
+.agent-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #ccc;
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.neexa-ai-configuration 
+.agent-info {
+    flex-grow: 1;
+}
+
+.neexa-ai-configuration 
+.agent-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.neexa-ai-configuration 
+.agent-desc {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.agent-meta {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 4px;
+}
+
+.neexa-ai-configuration 
+.agent-status {
+    font-size: 13px;
+    font-weight: 500;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.neexa-ai-configuration 
+.agent-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.neexa-ai-configuration 
+.make-live-btn,
+.edit-btn {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+.neexa-ai-configuration 
+.edit-btn {
+    background-color: #607d8b;
+}
+
+.neexa-ai-configuration 
+.make-live-btn:hover {
+    background-color: #303f9f;
+}
+
+.neexa-ai-configuration 
+.edit-btn:hover {
+    background-color: #455a64;
+}
+
+.neexa-ai-configuration 
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.neexa-ai-configuration 
+.pagination a {
+    background-color: #eee;
+    color: #333;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.neexa-ai-configuration 
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.card-subtext {
+    font-size: 13px;
+    color: #777;
+    display: block;
+    margin-top: -10px;
 }
