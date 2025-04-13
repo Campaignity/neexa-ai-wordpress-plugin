@@ -99,6 +99,7 @@ class Neexa_Ai_Admin
 				'last_name' => $user_info->last_name ? $user_info->last_name : "",
 				'email' => $user_info->user_email
 			],
+			'active_agent_id' => get_option('neexa-ai-active-options')['id'] ?? null
 		];
 
 		return array_merge(
@@ -183,6 +184,24 @@ class Neexa_Ai_Admin
 			wp_send_json_success('Token saved successfully.');
 		} else {
 			wp_send_json_error('Invalid token.');
+		}
+	}
+
+	public function save_neexa_ai_deployment()
+	{
+		$access_token = sanitize_text_field($_POST['access_token']);
+		$ai_agent_id = sanitize_text_field($_POST['ai_agent_id']);
+
+		if (!empty($access_token) && !empty($ai_agent_id)) {
+
+			update_option('neexa_ai_access_token', $access_token);
+			update_option('neexa-ai-active-options', [
+				'id' => $ai_agent_id
+			]);
+
+			wp_send_json_success('Values saved successfully.');
+		} else {
+			wp_send_json_error('Invalid values.');
 		}
 	}
 

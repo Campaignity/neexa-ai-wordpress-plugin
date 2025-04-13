@@ -114,7 +114,7 @@
 					});
 
 					/* post the token to the backend */
-					$.post(ajaxurl, {
+					$.post(window.neexa_ai_env_vars['ajax-url'], {
 						action: 'save_neexa_ai_access_token',
 						access_token: accessToken
 					}, function (response) {
@@ -162,6 +162,8 @@
 
 			const data = event.data;
 
+			const iframe = document.querySelector('#neexa-ai-onboarding-iframe-container .full-page-iframe');
+
 			if (data.type === "click-action") {
 				switch (data.payload['click-name']) {
 					case 'logout':
@@ -171,11 +173,45 @@
 			}
 
 			if (data.type === "request-what-we-know") {
-				const iframe = document.querySelector('#neexa-ai-onboarding-iframe-container .full-page-iframe');
 				iframe.contentWindow.postMessage({
 					type: "what-you-need-to-know",
 					payload: window.neexa_ai_env_vars['about-info']
 				}, '*');
+			}
+
+			if (data.type === "onboarding-done-action") {
+				window.location.href = window.neexa_ai_env_vars['plugin-home-url'];
+			}
+
+			if (data.type === "deploy-action") {
+				var accessToken = data.payload.access_token;
+				var aiAgentId = data.payload.agent_id;
+				if (accessToken && aiAgentId) {
+
+					/* post the token to the backend */
+					$.post(window.neexa_ai_env_vars['ajax-url'], {
+						action: 'save_neexa_ai_deployment',
+						'ai_agent_id': aiAgentId,
+						access_token: accessToken
+					}, function (response) {
+						if (response.success) {
+							iframe.contentWindow.postMessage({
+								type: "wordpresss-site-deployment-status",
+								payload: {
+									status: "success"
+								}
+							}, '*');
+						} else {
+							iframe.contentWindow.postMessage({
+								type: "wordpresss-site-deployment-status",
+								payload: {
+									error: response.data
+								}
+							}, '*');
+						}
+					});
+
+				}
 			}
 		}, false);
 

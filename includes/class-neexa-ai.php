@@ -174,6 +174,7 @@ class Neexa_Ai
 
 		$plugin_admin = new Neexa_Ai_Admin($this->get_plugin_name(), $this->get_version());
 
+		$this->loader->add_action('wp_ajax_save_neexa_ai_deployment', $plugin_admin, 'save_neexa_ai_deployment');
 		$this->loader->add_action('wp_ajax_save_neexa_ai_access_token', $plugin_admin, 'save_access_token');
 		$this->loader->add_action('wp_ajax_neexa_fetch_agents', $plugin_admin, 'fetch_ai_agents');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');

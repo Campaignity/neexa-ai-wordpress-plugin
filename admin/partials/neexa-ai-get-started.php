@@ -21,7 +21,7 @@
         <!-- Terms Footer -->
         <div style="margin-top: 25px; font-size: 12px; color: #777;">
             By continuing, you agree to our 
-            <a href="https://campaignity.com/terms/" style="color: #007cba; text-decoration: none;">Terms</a>.
+            <a href="https://campaignity.com/terms/" style="color: #007cba; text-decoration: none;">Terms</a> and <a href="https://campaignity.com/privacy/" style="color: #007cba; text-decoration: none;">Policy</a>.
         </div>
     </div>
 </div>
