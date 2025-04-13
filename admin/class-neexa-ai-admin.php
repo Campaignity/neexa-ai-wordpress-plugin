@@ -73,12 +73,9 @@ class Neexa_Ai_Admin
 	 */
 	public function enqueue_scripts()
 	{
-
-		wp_register_script('neexa-ai-public-env-vars', '');
-		wp_enqueue_script('neexa-ai-public-env-vars', '');
-		wp_add_inline_script('neexa-ai-public-env-vars', 'window.neexa_ai_env_vars=' . json_encode($this->get_global_script_info()), 'before');
-
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/neexa-ai-admin.js', array('jquery', 'jquery-ui-dialog'), $this->version, false);
+
+		wp_localize_script($this->plugin_name, 'neexa_ai_env_vars', $this->get_global_script_info());
 	}
 
 	private function get_global_script_info()
@@ -107,6 +104,7 @@ class Neexa_Ai_Admin
 		return [
 			...$neexa_ai_config,
 			'about-info' => $about_info,
+			'nonce' => wp_create_nonce('neexa_nonce')
 		];
 	}
 
@@ -186,13 +184,82 @@ class Neexa_Ai_Admin
 		}
 	}
 
+	public function fetch_ai_agents()
+	{
+		// Call Neexa backend API securely from WordPress backend
+		$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+		$per_page = 10;
+
+		// $response = wp_remote_get("https://api.neexa.ai/agents?page={$page}&per_page={$per_page}", [
+		//     'headers' => [
+		//         'Authorization' => 'Bearer ' . get_option('neexa_api_token') // Store token securely
+		//     ]
+		// ]);
+
+		$response = [
+
+			'agents' => [
+				[
+					'id' => 1,
+					'name' => 'Agent Alpha',
+					'status' => 'live',
+					'avatar_url' => 'https://example.com/avatars/agent-alpha.jpg',
+					'created_at' => '2024-01-15T14:35:00Z',
+					'updated_at' => '2024-04-10T09:15:00Z',
+				],
+				[
+					'id' => 2,
+					'name' => 'Agent Beta',
+					'status' => 'offline',
+					'avatar_url' => 'https://example.com/avatars/agent-beta.jpg',
+					'created_at' => '2024-02-20T10:25:00Z',
+					'updated_at' => '2024-04-11T12:30:00Z',
+				],
+				[
+					'id' => 3,
+					'name' => 'Agent Gamma',
+					'status' => 'live',
+					'avatar_url' => 'https://example.com/avatars/agent-gamma.jpg',
+					'created_at' => '2024-03-05T13:15:00Z',
+					'updated_at' => '2024-04-12T08:00:00Z',
+				],
+			],
+			'pagination' => [
+				'current_page' => 1,
+				'total_pages' => 5,
+				'per_page' => 10,
+				'total_items' => 50,
+			],
+		];
+
+		// Encode the array to JSON
+		$body = json_encode($response, JSON_PRETTY_PRINT);
+
+		// if (is_wp_error($response)) {
+		// 	wp_send_json_error($response->get_error_message());
+		// }
+
+		// $body = wp_remote_retrieve_body($response);
+
+		wp_send_json_success(json_decode($body));
+	}
+
 	public function register_settings()
 	{
 		//register our settings
 		register_setting(
-			'neexa-ai-agents-config-group',
-			'neexa_ai_agents_configs',
-			'neexa_ai_agents_sanitize_configs'
+			'neexa-ai',
+			'neexa-ai-options',
+			array(
+				// 'show_in_rest'      => true,
+				'type'              => 'array',
+				'sanitize_callback' => function ($input) {
+					return array(
+						'chat_position'   => isset($input['chat_position']) ? sanitize_text_field($input['chat_position']) : '',
+						'appearance_mode' => isset($input['appearance_mode']) ? sanitize_text_field($input['appearance_mode']) : '',
+					);
+				}
+			)
 		);
 	}
 }

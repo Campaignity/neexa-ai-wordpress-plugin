@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neexa AI Configuration</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://cdn.jsdelivr.net/npm/@material-ui/core@4.11.4/dist/material-ui.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabs div {
+            padding: 14px 28px;
+            cursor: pointer;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 4px 4px 0 0;
+            font-weight: 500;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .tabs .active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            border-top: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+            border: none;
+        }
+
+        .card-header {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tabs">
+        <div class="tab active" id="ai-agent-tab">AI Agent Settings</div>
+        <div class="tab" id="general-settings-tab">General Settings</div>
+    </div>
+
+    <!-- AI Agent Settings Tab -->
+    <div class="tab-content active" id="ai-agent-content">
+        <div class="card">
+            <div class="card-header">
+                AI Agent Settings (Placeholder)
+            </div>
+            <div class="card-body">
+                <!-- AI Agent Settings content goes here -->
+                <p>Content for AI Agent Settings will go here.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- General Settings Tab -->
+    <div class="tab-content" id="general-settings-content">
+        <div class="card">
+            <div class="card-header">
+                General Settings (Placeholder)
+            </div>
+            <div class="card-body">
+                <!-- General Settings content goes here -->
+                <p>Content for General Settings will go here.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Tab switching functionality
+            $(".tab").click(function () {
+                // Remove the active class from all tabs and contents
+                $(".tab").removeClass("active");
+                $(".tab-content").removeClass("active");
+
+                // Add the active class to the clicked tab
+                $(this).addClass("active");
+
+                // Show the corresponding content
+                $("#" + $(this).attr("id").replace("-tab", "-content")).addClass("active");
+            });
+        });
+    </script>
+</body>
+
+</html>

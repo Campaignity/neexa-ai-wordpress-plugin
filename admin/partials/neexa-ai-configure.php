@@ -14,9 +14,12 @@
 ?>
 
 <?php
-$isAuthenticated = false;
 
-if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '') {
+global $neexa_ai_config;
+
+$isAuthenticated = true;
+
+if (1 || get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '') {
 
     $accessToken = get_option('neexa_ai_access_token');
 
@@ -34,139 +37,206 @@ if (!$isAuthenticated) {
 }
 ?>
 
+<!-- TAB STYLES -->
+<style>
+    .plugin-tab-wrapper {
+        margin-top: 20px;
+    }
 
+    .plugin-tabs {
+        display: flex;
+        border-bottom: 1px solid #ccc;
+    }
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<div class="neexa-dashboard" style="font-family: sans-serif; max-width: 1000px; margin: auto; padding: 20px;">
-    <h1 style="font-size: 24px; margin-bottom: 20px;">👋 Welcome to Neexa</h1>
+    .plugin-tab {
+        padding: 10px 20px;
+        cursor: pointer;
+        background: #f1f1f1;
+        border: 1px solid #ccc;
+        border-bottom: none;
+        margin-right: 5px;
+        border-radius: 5px 5px 0 0;
+    }
 
-    <!-- Analytics Cards -->
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
-        <div style="flex: 2; min-width: 200px; background: #f0f0f1; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); padding: 20px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-                <!-- Agent Live Status -->
-                <div style="flex: 1; display: flex; align-items: center;">
-                    <!-- Square Avatar -->
-                    <div style="width: 50px; height: 50px; margin-right: 15px; overflow: hidden; border:1px solid #dcdcde; border-radius: 5px;">
-                        <img src="https://dummyimage.com/50" alt="Agent Avatar" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <!-- Agent Live Status -->
-                    <div>
-                        <h3 style="font-size: 16px; color: #333; margin-bottom: 10px; font-weight: 500;">Alice is Live</h3>
-                    </div>
-                </div>
+    .plugin-tab.active {
+        background: #fff;
+        font-weight: bold;
+    }
 
-                <!-- Toggle Switch and Status Text -->
-                <div style="display: flex; align-items: center;">
-                    <!-- Toggle Switch -->
-                    <label for="toggle-agent" class="switch">
-                        <input type="checkbox" id="toggle-agent" <?php echo $is_agent_live ? 'checked' : ''; ?> />
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </div>
+    .plugin-tab-content {
+        display: none;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-top: none;
+        background: #fff;
+        border-radius: 0 0 5px 5px;
+    }
 
+    .plugin-tab-content.active {
+        display: block;
+    }
+</style>
 
-            <div style="display: flex; gap: 5px; margin-top: 20px; flex-wrap: wrap;">
-
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <strong>Enabled:</strong>
-                    </div>
-                </div>
-
-                <!-- WhatsApp Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $whatsapp_configured ? '✔' : '❌'; ?>Data collection
-                    </div>
-                </div>
-
-                <!-- WhatsApp Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $whatsapp_configured ? '✔' : '❌'; ?>CRM
-                    </div>
-                </div>
-            </div>
-
-            <div style="display: flex; gap: 5px; margin-top: 20px; flex-wrap: wrap;">
-
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <strong>Channels:</strong>
-                    </div>
-                </div>
-
-                <!-- WhatsApp Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $whatsapp_configured ? '✔' : '❌'; ?>website
-                    </div>
-                </div>
-
-                <!-- WhatsApp Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $whatsapp_configured ? '✔' : '❌'; ?>WhatsApp
-                    </div>
-                </div>
-
-                <!-- Email Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $email_configured ? '✔' : '❌'; ?>Email
-                    </div>
-                </div>
-
-                <!-- Instagram Configured -->
-                <div class="badge badge-info" style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $instagram_configured ? '✔' : '❌'; ?>Instagram
-                    </div>
-                </div>
-
-                <!-- Instagram Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $instagram_configured ? '✔' : '❌'; ?>Facebook
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <a href="https://app.neexa.co/#/inbox" target="_blank" style="text-decoration: none;border-radius: 10px; flex: 1;">
-            <div style="min-width: 200px; background: #fff; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); padding: 20px;">
-                <h3 style="font-size: 16px; margin-bottom: 10px;">Conversations Today</h3>
-                <p style="font-size: 24px; font-weight: bold; color: #2271b1;">128</p>
-            </div>
-        </a>
-
-        <a href="https://app.neexa.co/#/autonomous-crm" target="_blank" style="text-decoration: none;border-radius: 10px; flex: 1;">
-            <div style="min-width: 200px; background: #fff; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); padding: 20px;">
-                <h3 style="font-size: 16px; margin-bottom: 10px;">In CRM</h3>
-                <p style="font-size: 24px; font-weight: bold; color: #2271b1;">3,542</p>
-            </div>
-        </a>
-
-        <a href="https://app.neexa.co/#/businesses" target="_blank" style="text-decoration: none;border-radius: 10px; flex: 1;">
-            <div style="min-width: 200px; background: #fff; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); padding: 20px;">
-                <h3 style="font-size: 16px; margin-bottom: 10px;">Campaigns This Month</h3>
-                <p style="font-size: 24px; font-weight: bold; color: #2271b1;">7</p>
-            </div>
-        </a>
+<!-- TAB HTML -->
+<div class="plugin-tab-wrapper">
+    <div class="plugin-tabs">
+        <div class="plugin-tab tab" id="tab1-tab">AI Agent</div>
+        <div class="plugin-tab tab active" id="tab2-tab">General Settings</div>
     </div>
 
-    <!-- Quick Links -->
-    <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 18px; margin-bottom: 15px;">🔗 Quick Access</h2>
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a href="https://app.neexa.co/#/inbox" class="button button-primary" target="_blank">Go to Conversations</a>
-            <a href="https://app.neexa.co/#/autonomous-crm" class="button button-secondary" target="_blank">Go to CRM</a>
-            <a href="https://app.neexa.co/#/businesses" class="button" target="_blank">Business Information</a>
-        </div>
+    <div class="plugin-tab-content tab-content" id="tab1-content">
+        <p>Here are your general settings...</p>
+        <!-- Insert form fields or content here -->
     </div>
 
-    <!-- Footer Note -->
-    <p style="color: #999; font-size: 12px;">Need help? <a href="https://docs.neexa.co/blog?ref=wordpress-plugin" target="_blank">Visit support</a>.</p>
+    <div class="plugin-tab-content tab-content active" id="tab2-content">
+        <!-- MATERIAL DESIGN STYLES -->
+        <style>
+            .material-setting-group {
+                margin-bottom: 30px;
+            }
+
+            .material-setting-label {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 10px;
+                display: block;
+            }
+
+            .material-radio-group {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            .material-radio {
+                position: relative;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                padding-left: 30px;
+                font-size: 14px;
+                user-select: none;
+                color: #444;
+            }
+
+            .material-radio input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .material-radio .checkmark {
+                position: absolute;
+                left: 0;
+                top: 2px;
+                height: 18px;
+                width: 18px;
+                background-color: #e0e0e0;
+                border-radius: 50%;
+                transition: background 0.3s;
+            }
+
+            .material-radio:hover input~.checkmark {
+                background-color: #ccc;
+            }
+
+            .material-radio input:checked~.checkmark {
+                background-color: #3f51b5;
+            }
+
+            .material-radio .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            .material-radio input:checked~.checkmark:after {
+                display: block;
+            }
+
+            .material-radio .checkmark:after {
+                top: 5px;
+                left: 5px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: white;
+            }
+
+            /* .material-save-button {
+                background-color: #3f51b5;
+                color: #fff;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.3s;
+                margin-top: 10px;
+            }
+
+            .material-save-button:hover {
+                background-color: #303f9f;
+            } */
+
+            button:disabled,
+            button[disabled] {
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+        </style>
+
+        <!-- FORM WRAPPER -->
+        <form method="post" action="options.php" id="neexa-settings-form">
+            <?php settings_fields('neexa-ai'); ?>
+            <?php $options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array())) ?>
+
+            <!-- CHAT POSITION -->
+            <div class="material-setting-group">
+                <label class="material-setting-label">Chat Widget Position</label>
+                <div class="material-radio-group">
+                    <?php
+                    $positions = [
+                        'bottom_left'   => 'Bottom Left',
+                        'bottom_center' => 'Bottom Middle',
+                        'bottom_right'  => 'Bottom Right',
+                    ];
+                    foreach ($positions as $value => $label) :
+                    ?>
+                        <label class="material-radio">
+                            <input class="track-change" type="radio" name="neexa-ai-options[chat_position]" value="<?php echo esc_attr($value); ?>" <?php checked($options['chat_position'] ?? '', $value); ?>>
+                            <span class="checkmark"></span>
+                            <?php echo esc_html($label); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- APPEARANCE MODE -->
+            <div class="material-setting-group">
+                <label class="material-setting-label">Appearance Mode</label>
+                <div class="material-radio-group">
+                    <?php
+                    $modes = [
+                        'light' => 'Light Mode',
+                        'dark'  => 'Dark Mode',
+                    ];
+                    foreach ($modes as $value => $label) :
+                    ?>
+                        <label class="material-radio">
+                            <input class="track-change" type="radio" name="neexa-ai-options[appearance_mode]" value="<?php echo esc_attr($value); ?>" <?php checked($options['appearance_mode'] ?? '', $value); ?>>
+                            <span class="checkmark"></span>
+                            <?php echo esc_html($label); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- SAVE BUTTON -->
+            <button type="submit" class="button button-primary" id="save-settings-btn" disabled>Save Settings</button>
+        </form>
+    </div>
 </div>

@@ -34,6 +34,8 @@
 	const OAuthHandler = () => {
 		let popupWindow;
 
+		let authSuccess = false;
+
 		// Open OAuth in Popup and show jQuery UI Dialog
 		$('#oauth-login-btn').on('click', function (e) {
 			e.preventDefault();
@@ -81,8 +83,11 @@
 			const popupChecker = setInterval(function () {
 				if (popupWindow && popupWindow.closed) {
 					clearInterval(popupChecker);
-					$("#oauth-dialog").dialog("close");
-					showError("Login window was closed before authentication.");
+
+					if (!authSuccess) {
+						$("#oauth-dialog").dialog("close");
+						showError("Login window was closed before authentication.");
+					}
 				}
 			}, 500);
 		});
@@ -101,14 +106,20 @@
 				var accessToken = data.payload.access_token;
 				if (accessToken) {
 
+					authSuccess = true;
+					popupWindow && popupWindow.close();
+
+					$("#oauth-dialog").dialog({
+						title: "Verifying Login..."
+					});
+
 					/* post the token to the backend */
 					$.post(ajaxurl, {
 						action: 'save_neexa_ai_access_token',
 						access_token: accessToken
 					}, function (response) {
 						if (response.success) {
-							window.location.href = window.neexa_ai_env_vars['plugin-home-url'];
-							$("#oauth-dialog").dialog("close");
+							window.location.href = window.neexa_ai_env_vars['plugin-configuration-url'];
 						} else {
 							showError("Failed to save authentication information.");
 						}
@@ -170,8 +181,113 @@
 
 	};
 
+
+	const agentsManagement = () => {
+		let currentPage = 1;
+		let agents = [];
+
+		function loadAgents(page = 1) {
+			$.get({
+				url: window.neexa_ai_env_vars['ajax-url'],
+				data: {
+					action: 'neexa_fetch_agents',
+					page: page
+				},
+				success: function (response) {
+					if (response.success) {
+						agents = response.data.agents || [];
+						const $dropdown = $('#neexa-agent-dropdown');
+						$dropdown.empty();
+						agents.forEach(agent => {
+							$dropdown.append(`<option value="${agent.id}" data-name="${agent.name}">${agent.name}</option>`);
+						});
+						$('#agent-status, #agent-links').hide();
+					} else {
+						alert("Failed to fetch agents.");
+					}
+				}
+			});
+		}
+
+		function updateLinks(agentId) {
+			const dashboardUrl = `${window.neexa_ai_env_vars['frontend-host']}/agent/${agentId}`;
+			$('#link-dashboard').attr('href', `${dashboardUrl}`);
+			$('#link-avatar').attr('href', `${dashboardUrl}/avatar`);
+			$('#link-training').attr('href', `${dashboardUrl}/training`);
+		}
+
+		$('#neexa-agent-dropdown').on('change', function () {
+			const agentId = $(this).val();
+			const agentName = $(this).find('option:selected').data('name');
+
+			$('#selected-agent-name').text(agentName);
+			$('#agent-status, #agent-links').show();
+			updateLinks(agentId);
+		});
+
+		$('#prev-page').click(function () {
+			if (currentPage > 1) {
+				currentPage--;
+				loadAgents(currentPage);
+			}
+		});
+
+		$('#next-page').click(function () {
+			currentPage++;
+			loadAgents(currentPage);
+		});
+
+		// Initial load
+		loadAgents(currentPage);
+
+
+		// Tab switching functionality
+		$(".tab").click(function () {
+			// Remove the active class from all tabs and contents
+			$(".tab").removeClass("active");
+			$(".tab-content").removeClass("active");
+
+			// Add the active class to the clicked tab
+			$(this).addClass("active");
+
+			// Show the corresponding content
+			$("#" + $(this).attr("id").replace("-tab", "-content")).addClass("active");
+		});
+
+
+		// save button state
+		const form = document.getElementById("neexa-settings-form");
+		const saveBtn = document.getElementById("save-settings-btn");
+		const originalValues = {};
+
+		// Store original selected values
+		form.querySelectorAll(".track-change").forEach(input => {
+			if (input.checked) {
+				originalValues[input.name] = input.value;
+			}
+		});
+
+		// Watch for changes
+		form.querySelectorAll(".track-change").forEach(input => {
+			input.addEventListener("change", () => {
+				let changed = false;
+				form.querySelectorAll(".track-change").forEach(inp => {
+					if (inp.checked && originalValues[inp.name] !== inp.value) {
+						changed = true;
+					}
+				});
+
+				saveBtn.disabled = !changed;
+			});
+		});
+
+	};
+
+
 	$(function () {
 		OAuthHandler();
+
+		agentsManagement();
 
 		onboardingHandler();
 	});

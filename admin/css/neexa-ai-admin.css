@@ -165,3 +165,71 @@ input:checked+.slider:before {
 .neexa-ai_page_get-started-with-neexa{
     overflow: hidden;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+#neexa-config-wrapper {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+h1, h2, h3 {
+    font-weight: bold;
+}
+
+.neexa-content {
+    display: flex;
+    flex-direction: row;
+}
+
+#neexa-agent-list {
+    width: 30%;
+    padding-right: 1em;
+}
+
+#neexa-agent-config {
+    width: 70%;
+}
+
+.neexa-avatar-container {
+    display: flex;
+    align-items: center;
+}
+
+.neexa-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.button {
+    padding: 5px 10px;
+    font-size: 14px;
+    margin: 5px;
+}
+
+#neexa-avatar-dialog {
+    padding: 20px;
+}
+
+.progress {
+    height: 20px;
+    margin-top: 10px;
+}
+
+.neexa-actions {
+    margin-top: 20px;
+}
+

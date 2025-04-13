@@ -22,6 +22,8 @@ $isAuthenticated = false;
 
 if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '') {
 
+    $isAuthenticated = true;
+
     $accessToken = get_option('neexa_ai_access_token');
 
     $is_agent_live = true; // Example flag (Set this based on the live agent status)
