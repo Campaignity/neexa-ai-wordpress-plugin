@@ -8,6 +8,330 @@
     padding: 6px 0 0 !important;
 }
 
+.plugin-tab-wrapper {
+    margin-top: 20px;
+}
+
+.plugin-tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.plugin-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #f1f1f1;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 5px 5px 0 0;
+}
+
+.plugin-tab.active {
+    background: #fff;
+    font-weight: bold;
+}
+
+.plugin-tab-content {
+    display: none;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+    background: #fff;
+    border-radius: 0 0 5px 5px;
+}
+
+.plugin-tab-content.active {
+    display: block;
+}
+
+.neexa-dashboard {
+    font-family: "Roboto", sans-serif;
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 20px;
+    color: #333;
+}
+
+.dashboard-header {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.analytics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    flex: 1;
+    min-width: 220px;
+}
+
+.card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2271b1;
+    margin: 0;
+}
+
+.agent-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    flex: 1.5;
+    min-width: 300px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.agent-info-h {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.agent-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #dcdcde;
+    margin-right: 15px;
+}
+
+.agent-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.agent-name {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.agent-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.agent-controls a.button {
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    background-color: #2271b1;
+    color: white;
+    font-weight: 500;
+}
+
+.agent-controls a.button-secondary {
+    background-color: #607d8b;
+}
+
+.agent-controls a:hover {
+    opacity: 0.9;
+}
+
+.status-strip {
+    background: #eef0f3;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.status-label {
+    font-weight: 600;
+    margin-right: 8px;
+    color: #444;
+}
+
+.quick-links {
+    margin-bottom: 30px;
+}
+
+.quick-links h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.quick-links .button {
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    display: inline-block;
+    background-color: #2271b1;
+    color: white;
+}
+
+.quick-links .button-secondary {
+    background-color: #777;
+}
+
+.quick-links .button:hover {
+    opacity: 0.9;
+}
+
+.dashboard-footer {
+    color: #999;
+    font-size: 12px;
+}
+
+
+.neexa-how-it-works {
+    font-family: "Roboto", sans-serif;
+    max-width: 800px;
+    margin: auto;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    color: #333;
+}
+
+.neexa-how-it-works h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #3f51b5;
+}
+
+.neexa-how-it-works h3 {
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.neexa-how-it-works p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.neexa-how-it-works ol {
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.neexa-how-it-works ol li {
+    margin-bottom: 10px;
+}
+
+.neexa-how-it-works a {
+    color: #2271b1;
+    text-decoration: none;
+}
+
+.neexa-how-it-works a:hover {
+    text-decoration: underline;
+}
+
+.material-setting-group {
+    margin-bottom: 30px;
+}
+
+.material-setting-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.material-radio-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.material-radio {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-left: 30px;
+    font-size: 14px;
+    user-select: none;
+    color: #444;
+}
+
+.material-radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.material-radio .checkmark {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    height: 18px;
+    width: 18px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    transition: background 0.3s;
+}
+
+.material-radio:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+.material-radio input:checked~.checkmark {
+    background-color: #3f51b5;
+}
+
+.material-radio .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.material-radio input:checked~.checkmark:after {
+    display: block;
+}
+
+.material-radio .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+button:disabled,
+button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* Global Styles */
 
 .wrap.neexa-settings,
@@ -166,18 +490,6 @@ input:checked+.slider:before {
     overflow: hidden;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 #neexa-config-wrapper {
     max-width: 1000px;
     margin: 20px auto;
@@ -233,3 +545,179 @@ h1, h2, h3 {
     margin-top: 20px;
 }
 
+
+
+/* -------------- */
+/**
+ * All of the CSS for the admin-specific functionality should be
+ * included in this file.
+ */
+
+.toplevel_page_neexa-ai-home .wp-menu-image img {
+    width: 20px;
+    padding: 6px 0 0 !important;
+}
+
+/* Global Styles */
+
+.wrap.neexa-settings,
+.wrap.neexa-how-it-works {
+    font-family: 'Helvetica', sans-serif;
+    max-width: 800px;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #e1e1e1;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #0073aa;
+}
+
+/* Neexa Settings Page Styles */
+.neexa-settings form {
+    margin-top: 20px;
+}
+
+.neexa-settings form .assistant-id {
+    min-width: 70%;
+}
+
+.neexa-settings .description {
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.neexa-settings .help-section {
+    margin-top: 20px;
+}
+
+.neexa-settings .button-primary {
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+}
+
+.neexa-settings .button-primary:hover {
+    background-color: #005e88;
+}
+
+/* How It Works Page Styles */
+.neexa-how-it-works {
+    margin: 20px auto;
+}
+
+.neexa-how-it-works h3 {
+    color: #0073aa;
+}
+
+.neexa-how-it-works ol {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.neexa-how-it-works a.button-secondary {
+    background-color: #0073aa;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.neexa-how-it-works a.button-secondary:hover {
+    background-color: #005e88;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #28a745;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #28a745;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+#neexa-ai-onboarding-iframe-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    z-index: 999999999;
+}
+
+#neexa-ai-onboarding-iframe-container .full-page-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.neexa-ai_page_get-started-with-neexa{
+    overflow: hidden;
+}
+
+button:disabled,
+button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

@@ -37,45 +37,6 @@ if (!$isAuthenticated) {
 }
 ?>
 
-<!-- TAB STYLES -->
-<style>
-    .plugin-tab-wrapper {
-        margin-top: 20px;
-    }
-
-    .plugin-tabs {
-        display: flex;
-        border-bottom: 1px solid #ccc;
-    }
-
-    .plugin-tab {
-        padding: 10px 20px;
-        cursor: pointer;
-        background: #f1f1f1;
-        border: 1px solid #ccc;
-        border-bottom: none;
-        margin-right: 5px;
-        border-radius: 5px 5px 0 0;
-    }
-
-    .plugin-tab.active {
-        background: #fff;
-        font-weight: bold;
-    }
-
-    .plugin-tab-content {
-        display: none;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-top: none;
-        background: #fff;
-        border-radius: 0 0 5px 5px;
-    }
-
-    .plugin-tab-content.active {
-        display: block;
-    }
-</style>
 
 <!-- TAB HTML -->
 <div class="plugin-tab-wrapper">
@@ -288,88 +249,6 @@ if (!$isAuthenticated) {
     </div>
 
     <div class="plugin-tab-content tab-content" id="tab2-content">
-        <!-- MATERIAL DESIGN STYLES -->
-        <style>
-            .material-setting-group {
-                margin-bottom: 30px;
-            }
-
-            .material-setting-label {
-                font-size: 14px;
-                font-weight: 600;
-                color: #333;
-                margin-bottom: 10px;
-                display: block;
-            }
-
-            .material-radio-group {
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-
-            .material-radio {
-                position: relative;
-                display: flex;
-                align-items: center;
-                cursor: pointer;
-                padding-left: 30px;
-                font-size: 14px;
-                user-select: none;
-                color: #444;
-            }
-
-            .material-radio input {
-                position: absolute;
-                opacity: 0;
-                cursor: pointer;
-            }
-
-            .material-radio .checkmark {
-                position: absolute;
-                left: 0;
-                top: 2px;
-                height: 18px;
-                width: 18px;
-                background-color: #e0e0e0;
-                border-radius: 50%;
-                transition: background 0.3s;
-            }
-
-            .material-radio:hover input~.checkmark {
-                background-color: #ccc;
-            }
-
-            .material-radio input:checked~.checkmark {
-                background-color: #3f51b5;
-            }
-
-            .material-radio .checkmark:after {
-                content: "";
-                position: absolute;
-                display: none;
-            }
-
-            .material-radio input:checked~.checkmark:after {
-                display: block;
-            }
-
-            .material-radio .checkmark:after {
-                top: 5px;
-                left: 5px;
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: white;
-            }
-
-            button:disabled,
-            button[disabled] {
-                opacity: 0.5;
-                cursor: not-allowed;
-            }
-        </style>
-
         <!-- FORM WRAPPER -->
         <form method="post" action="options.php" id="neexa-settings-form">
             <?php settings_fields('neexa-ai'); ?>

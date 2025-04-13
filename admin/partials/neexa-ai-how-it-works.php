@@ -12,56 +12,6 @@
  * @subpackage Neexa_Ai/admin/partials
  */
 ?>
-<style>
-  .neexa-how-it-works {
-    font-family: "Roboto", sans-serif;
-    max-width: 800px;
-    margin: auto;
-    padding: 40px 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    color: #333;
-  }
-
-  .neexa-how-it-works h2 {
-    font-size: 28px;
-    margin-bottom: 30px;
-    color: #3f51b5;
-  }
-
-  .neexa-how-it-works h3 {
-    font-size: 20px;
-    margin-top: 25px;
-    margin-bottom: 10px;
-    color: #222;
-  }
-
-  .neexa-how-it-works p {
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 15px;
-  }
-
-  .neexa-how-it-works ol {
-    padding-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-
-  .neexa-how-it-works ol li {
-    margin-bottom: 10px;
-  }
-
-  .neexa-how-it-works a {
-    color: #2271b1;
-    text-decoration: none;
-  }
-
-  .neexa-how-it-works a:hover {
-    text-decoration: underline;
-  }
-</style>
 
 <div class="wrap neexa-how-it-works">
   <h2>🚀 How Neexa Works</h2>
