@@ -183,63 +183,6 @@
 
 
 	const agentsManagement = () => {
-		let currentPage = 1;
-		let agents = [];
-
-		function loadAgents(page = 1) {
-			$.get({
-				url: window.neexa_ai_env_vars['ajax-url'],
-				data: {
-					action: 'neexa_fetch_agents',
-					page: page
-				},
-				success: function (response) {
-					if (response.success) {
-						agents = response.data.agents || [];
-						const $dropdown = $('#neexa-agent-dropdown');
-						$dropdown.empty();
-						agents.forEach(agent => {
-							$dropdown.append(`<option value="${agent.id}" data-name="${agent.name}">${agent.name}</option>`);
-						});
-						$('#agent-status, #agent-links').hide();
-					} else {
-						alert("Failed to fetch agents.");
-					}
-				}
-			});
-		}
-
-		function updateLinks(agentId) {
-			const dashboardUrl = `${window.neexa_ai_env_vars['frontend-host']}/agent/${agentId}`;
-			$('#link-dashboard').attr('href', `${dashboardUrl}`);
-			$('#link-avatar').attr('href', `${dashboardUrl}/avatar`);
-			$('#link-training').attr('href', `${dashboardUrl}/training`);
-		}
-
-		$('#neexa-agent-dropdown').on('change', function () {
-			const agentId = $(this).val();
-			const agentName = $(this).find('option:selected').data('name');
-
-			$('#selected-agent-name').text(agentName);
-			$('#agent-status, #agent-links').show();
-			updateLinks(agentId);
-		});
-
-		$('#prev-page').click(function () {
-			if (currentPage > 1) {
-				currentPage--;
-				loadAgents(currentPage);
-			}
-		});
-
-		$('#next-page').click(function () {
-			currentPage++;
-			loadAgents(currentPage);
-		});
-
-		// Initial load
-		loadAgents(currentPage);
-
 
 		// Tab switching functionality
 		$(".tab").click(function () {
@@ -254,25 +197,32 @@
 			$("#" + $(this).attr("id").replace("-tab", "-content")).addClass("active");
 		});
 
-
-		// save button state
+		// Save button logic
 		const form = document.getElementById("neexa-settings-form");
 		const saveBtn = document.getElementById("save-settings-btn");
 		const originalValues = {};
 
-		// Store original selected values
+		// Store initial states
 		form.querySelectorAll(".track-change").forEach(input => {
-			if (input.checked) {
+			if (input.type === "radio" || input.type === "checkbox") {
+				originalValues[input.name + input.value] = input.checked;
+			} else {
 				originalValues[input.name] = input.value;
 			}
 		});
 
-		// Watch for changes
+		// Listen for changes
 		form.querySelectorAll(".track-change").forEach(input => {
 			input.addEventListener("change", () => {
 				let changed = false;
+
 				form.querySelectorAll(".track-change").forEach(inp => {
-					if (inp.checked && originalValues[inp.name] !== inp.value) {
+					if (inp.type === "radio" || inp.type === "checkbox") {
+						const key = inp.name + inp.value;
+						if (originalValues[key] !== inp.checked) {
+							changed = true;
+						}
+					} else if (originalValues[inp.name] !== inp.value) {
 						changed = true;
 					}
 				});
@@ -280,7 +230,6 @@
 				saveBtn.disabled = !changed;
 			});
 		});
-
 	};
 
 

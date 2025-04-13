@@ -17,8 +17,11 @@
 
 <?php
 
+global $neexa_ai_config;
 
 $hasToken = get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '';
+
+$options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array()));
 
 $neexaResponseError = null;
 
@@ -29,15 +32,17 @@ if ($hasToken) {
     $neexaAPI = new Neexa_Ai_Api_Consumer();
 
     /* get info about active agent */
-    if ($liveAgentId = get_option("neexa-ai-active-agent-id")) {
+    $liveAgentId = $options["neexa_ai_active_agent_id"] ?? null;
+    if ($liveAgentId) {
 
         $response = $neexaAPI->get_ai_agent_info($liveAgentId, ['append' => 'featureStatus,deploymentStatus']);
 
         if (!empty($response['success']) && $response['success']) {
-            $liveAgent = [
-                ...$response['data']['attributes'],
-                'id' => $response['data']['id']
-            ];
+
+            $liveAgent = array_merge(
+                $response['data']['data']['attributes'],
+                ['id' => $response['data']['data']['id']]
+            );
         }
     } else {
         $neexaResponseError = $response['error'] ?? null;
@@ -77,7 +82,7 @@ if ($hasToken) {
             <div class="agent-info-h">
                 <?php if ($liveAgent) { ?>
                     <div class="agent-avatar">
-                        <img src="https://dummyimage.com/50" alt="Agent Avatar">
+                        <img src="<?= empty($liveAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . 'v1/fs/' . $liveAgent['avatar']['path'] ?>" alt="Agent Avatar">
                     </div>
                 <?php } ?>
                 <?php if ($liveAgent) { ?>
@@ -87,9 +92,9 @@ if ($hasToken) {
                 <?php } ?>
             </div>
             <div class="agent-controls">
-                <a href="admin.php?page=neexa-agent-settings" class="button">Switch Agent</a>
+                <a href="<?= $neexa_ai_config['plugin-configuration-url'] ?>" class="button">Switch Agent</a>
                 <?php if ($liveAgent) { ?>
-                    <a href="https://app.neexa.co/#/agents/edit/alice" target="_blank" class="button button-secondary">Edit</a>
+                    <a href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" target="_blank" class="button button-secondary">Edit</a>
                 <?php } ?>
             </div>
         </div>

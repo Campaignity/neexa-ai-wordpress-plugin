@@ -19,6 +19,8 @@ global $neexa_ai_config;
 
 $hasToken = get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '';
 
+$options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array()));
+
 $neexaResponseError = null;
 
 if ($hasToken) {
@@ -29,18 +31,19 @@ if ($hasToken) {
     $neexaAPI = new Neexa_Ai_Api_Consumer();
 
     /* get info about active agent */
-    if ($liveAgentId = get_option("neexa-ai-active-agent-id")) {
+    $liveAgentId = $options["neexa_ai_active_agent_id"] ?? null;
+    if ($liveAgentId) {
 
         $response = $neexaAPI->get_ai_agent_info($liveAgentId);
 
         if (!empty($response['success']) && $response['success']) {
-            $liveAgent = [
-                ...$response['data']['attributes'],
-                'id' => $response['data']['id']
-            ];
+
+            $liveAgent = array_merge(
+                $response['data']['data']['attributes'],
+                ['id' => $response['data']['data']['id']]
+            );
         }
     }
-
 
     /** get the others */
     $otherAgents = [];
@@ -107,7 +110,7 @@ if ($hasToken) {
             <div class="section-title">Currently Active AI Agent</div>
             <?php if ($liveAgent) { ?>
                 <div class="agent-card active">
-                    <div class="agent-avatar" style="background-image: url(<?= empty($liveAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . '/' . $liveAgent['avatar']['path'] ?>);"></div>
+                    <div class="agent-avatar" style="background-image: url(<?= empty($liveAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . 'v1/fs/' . $liveAgent['avatar']['path'] ?>);"></div>
                     <div class="agent-info">
                         <div class="agent-name"><?= wp_trim_words($liveAgent['name'] ?? "", 20) ?></div>
                         <div class="agent-desc">Greeting: <?= esc_attr($liveAgent['first_message'] ?? "") ?></div>
@@ -129,7 +132,7 @@ if ($hasToken) {
 
 
             <?php foreach ($otherAgents as $_otherAgent) { ?>
-                <?php $otherAgent = array_merge($_otherAgent['attributes'], ['id' => $_otherAgent['id']]);?>
+                <?php $otherAgent = array_merge($_otherAgent['attributes'], ['id' => $_otherAgent['id']]); ?>
                 <div class="agent-card">
                     <div class="agent-avatar" style="background-image: url(<?= empty($otherAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . 'v1/fs/' . $otherAgent['avatar']['path'] ?>);"></div>
                     <div class="agent-info">
@@ -142,7 +145,7 @@ if ($hasToken) {
                         <form method="post" action="options.php">
                             <?php settings_fields('neexa-ai'); ?>
                             <?php $options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array())) ?>
-                            <input type="hidden" name="neexa-ai-options[neexa-ai-active-agent-id]" value="<?= $otherAgent['id'] ?>">
+                            <input type="hidden" name="neexa-ai-options[neexa_ai_active_agent_id]" value="<?= $otherAgent['id'] ?>">
                             <button type="submit" class="make-live-btn">Make Live</button>
                             <a href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $otherAgent['id'] ?>/_?show_edit=true" target="_blank" class="edit-btn">Edit</a>
                         </form>
@@ -168,7 +171,6 @@ if ($hasToken) {
         <!-- FORM WRAPPER -->
         <form method="post" action="options.php" id="neexa-settings-form">
             <?php settings_fields('neexa-ai'); ?>
-            <?php $options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array())) ?>
 
             <!-- CHAT POSITION -->
             <div class="material-setting-group">
@@ -208,6 +210,18 @@ if ($hasToken) {
                             <?php echo esc_html($label); ?>
                         </label>
                     <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- LIVE STATUS TOGGLE -->
+            <div class="material-setting-group">
+                <label class="material-setting-label" for="live_status_toggle">Visibility Status</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <label class="switch">
+                        <input class="track-change" type="checkbox" name="neexa-ai-options[live_status]" id="live_status_toggle" value="1" <?php checked($options['live_status'] ?? '', '1'); ?>>
+                        <span class="slider round"></span>
+                    </label>
+                    <span style="font-size: 14px; color: #555;"><?= $options['live_status'] ? 'Currently Showing' : 'Not Showing' ?></span>
                 </div>
             </div>
 

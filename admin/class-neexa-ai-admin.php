@@ -101,11 +101,13 @@ class Neexa_Ai_Admin
 			],
 		];
 
-		return [
-			...$neexa_ai_config,
-			'about-info' => $about_info,
-			'nonce' => wp_create_nonce('neexa_nonce')
-		];
+		return array_merge(
+			$neexa_ai_config,
+			[
+				'about-info' => $about_info,
+				'nonce' => wp_create_nonce('neexa_nonce')
+			]
+		);
 	}
 
 	public function activation_welcome()
@@ -194,9 +196,15 @@ class Neexa_Ai_Admin
 				// 'show_in_rest'      => true,
 				'type'              => 'array',
 				'sanitize_callback' => function ($input) {
-					return array(
-						'chat_position'   => isset($input['chat_position']) ? sanitize_text_field($input['chat_position']) : '',
-						'appearance_mode' => isset($input['appearance_mode']) ? sanitize_text_field($input['appearance_mode']) : '',
+					$current = get_option('neexa-ai-options', []);
+					return array_merge(
+						$current,
+						array(
+							'live_status' => isset($input['live_status']) ? sanitize_text_field($input['live_status']) :  "",
+							'chat_position'   => isset($input['chat_position']) ? sanitize_text_field($input['chat_position']) : ($current['chat_position'] ?? ""),
+							'appearance_mode' => isset($input['appearance_mode']) ? sanitize_text_field($input['appearance_mode']) : ($current['appearance_mode'] ?? ""),
+							'neexa_ai_active_agent_id' => isset($input['neexa_ai_active_agent_id']) ? sanitize_text_field($input['neexa_ai_active_agent_id']) : ($current['neexa_ai_active_agent_id'] ?? ""),
+						)
 					);
 				}
 			)
