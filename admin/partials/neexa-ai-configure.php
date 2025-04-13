@@ -75,10 +75,10 @@ if ($hasToken) {
 <!-- TAB HTML -->
 
 <?php if (!empty($neexaResponseError)) : ?>
-  <div class="notice notice-error" style="margin: 20px;">
-    <p><strong>Neexa Error:</strong> <?php echo esc_html($neexaResponseError); ?></p>
-  </div>
-  <?php return; ?>
+    <div class="notice notice-error" style="margin: 20px;">
+        <p><strong>Neexa Error:</strong> <?php echo esc_html($neexaResponseError); ?></p>
+    </div>
+    <?php return; ?>
 <?php endif; ?>
 
 <div class="plugin-tab-wrapper neexa-ai-configuration">
@@ -111,7 +111,7 @@ if ($hasToken) {
                     <div class="agent-info">
                         <div class="agent-name"><?= wp_trim_words($liveAgent['name'] ?? "", 20) ?></div>
                         <div class="agent-desc">Greeting: <?= esc_attr($liveAgent['first_message'] ?? "") ?></div>
-                        <div class="agent-meta">Role: <?= ['salesman' => "Sales Assistant", "qa-agent" => "Inquiry Assistant"][esc_attr($liveAgent['role'] ?? "", 20)] ?? "Sales Assistant" ?></div>
+                        <div class="agent-meta">Role: <?= ($neexa_ai_config['ai-agent-roles-full-name'][esc_attr($liveAgent['role'] ?? "", 20)]) ?? "Sales Assistant" ?></div>
                         <div class="agent-meta">Business: <?= esc_attr($liveAgent['business']['name'] ?? "") ?></div>
                     </div>
                     <div class="agent-actions">
@@ -128,14 +128,15 @@ if ($hasToken) {
             <div class="section-title">Other Available Agents</div>
 
 
-            <?php foreach ($otherAgents as $otherAgent) { ?>
+            <?php foreach ($otherAgents as $_otherAgent) { ?>
+                <?php $otherAgent = array_merge($_otherAgent['attributes'], ['id' => $_otherAgent['id']]);?>
                 <div class="agent-card">
-                    <div class="agent-avatar" style="background-image: url('avatar2.jpg');"></div>
+                    <div class="agent-avatar" style="background-image: url(<?= empty($otherAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . 'v1/fs/' . $otherAgent['avatar']['path'] ?>);"></div>
                     <div class="agent-info">
-                        <div class="agent-name">Neexa SupportBot v1.0</div>
-                        <div class="agent-desc">"Let me help you with support!"</div>
-                        <div class="agent-meta">Role: Support Specialist</div>
-                        <div class="agent-meta">Business: Acme Corp</div>
+                        <div class="agent-name"><?= wp_trim_words($otherAgent['name'] ?? "", 20) ?></div>
+                        <div class="agent-desc">Greeting Message: <?= esc_attr($otherAgent['first_message'] ?? "") ?></div>
+                        <div class="agent-meta">Role: <?= ($neexa_ai_config['ai-agent-roles-full-name'][esc_attr($otherAgent['role'] ?? "", 20)]) ?? "Sales Assistant" ?></div>
+                        <div class="agent-meta">Business: <?= esc_attr($otherAgent['business']['name'] ?? "") ?></div>
                     </div>
                     <div class="agent-actions">
                         <form method="post" action="options.php">
