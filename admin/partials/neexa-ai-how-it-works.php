@@ -12,43 +12,93 @@
  * @subpackage Neexa_Ai/admin/partials
  */
 ?>
+<style>
+  .neexa-how-it-works {
+    font-family: "Roboto", sans-serif;
+    max-width: 800px;
+    margin: auto;
+    padding: 40px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    color: #333;
+  }
 
+  .neexa-how-it-works h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #3f51b5;
+  }
+
+  .neexa-how-it-works h3 {
+    font-size: 20px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #222;
+  }
+
+  .neexa-how-it-works p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  .neexa-how-it-works ol {
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .neexa-how-it-works ol li {
+    margin-bottom: 10px;
+  }
+
+  .neexa-how-it-works a {
+    color: #2271b1;
+    text-decoration: none;
+  }
+
+  .neexa-how-it-works a:hover {
+    text-decoration: underline;
+  }
+</style>
 
 <div class="wrap neexa-how-it-works">
-    <h2>How It Works</h2>
+  <h2>🚀 How Neexa Works</h2>
 
-    <h3> Step 1. You will need a Neexa AI account to use this plugin. </h3>
-    <p>
-        If you already have one, go to <a href="https://app.neexa.ai/#login" target="_blank">https://app.neexa.ai/#login</a> to log in,
-        or use <a href="https://app.neexa.ai/#signup" target="_blank">https://app.neexa.ai/#signup</a> to create your account.
-    </p>
+  <h3>Step 1: Create or Log Into Your Neexa AI Account</h3>
+  <p>
+    To use this plugin, you need a Neexa AI account.
+    If you already have one, <a href="https://app.neexa.ai/#login" target="_blank">log in here</a>.
+    Otherwise, <a href="https://app.neexa.ai/#signup" target="_blank">sign up for free</a>.
+  </p>
 
-    <h3>Step 2. Add business Information to teach the AI about your business. </h3>
-    <p>
-        This is information about your business, products and services, as well as any other interesting information people would want to know about your business.
+  <h3>Step 2: Add Business Information</h3>
+  <p>
+    Help your AI understand your business by adding details like products, services, FAQs, and more. You can do this in two ways:
+  </p>
+  <ol>
+    <li>Type or paste your content manually (from docs, PDFs, etc).</li>
+    <li>Use Neexa’s website scraper — just enter your website URL and Neexa will extract the info.</li>
+  </ol>
 
-        You Add business Information in 2 ways;
-    <ol>
-        <li> Add plain text, where you can type manually or copy and paste from a document. </li>
-        <li> Use the website scraping feature where you simply give Neexa your website URL so it can scrape and find all the information available on your website. </li>
-    </ol>
-    </p>
+  <h3>Step 3: Create Your AI Assistant</h3>
+  <p>
+    Go to the <a href="https://app.neexa.ai/#widget-chats" target="_blank">Widgets page</a> and click the ➕ button to create a new assistant. 
+    You'll set its name, avatar, role, and link it to your business.
+  </p>
 
-    <h3>Step 3: Create a New AI Assistant, this will be the one chatting with people. </h3>
-    <p>
-        Once you've added your business information, now you can create your AI Assistant by clicking on the plus button in the 'Widgets' page(<a href="https://app.neexa.ai/#widget-chats" target="_blank">https://app.neexa.ai/#widget-chats</a>).
-        Here you will be able to give the AI its name, change its Avatar, choose the Role, assign it to the business you just created, etc.
-    </p>
+  <h3>Step 4: Install on Your Website or WhatsApp</h3>
+  <p>
+    After creating your assistant, click the ✏️ icon (edit) next to it. 
+    In the popup, you’ll find the <strong>Installation</strong> tab with your Assistant ID. 
+    Copy this ID and paste it into this plugin's settings.
+  </p>
+  <p>
+    Once saved, the assistant will appear on your website or integrate into WhatsApp — ready to chat with your visitors.
+  </p>
 
-    <h3>Step 4: Install the AI on your website or Integrate with WhatsApp business. </h3>
-    <p>
-        Inside the same page after creating your AI Assistant, Click the pen icon(edit) on the right side of the Assistant you just created.
-        This will open a modal to edit anything of the AI Assistant you just created. In this modal, you will also see the 'Installation' section. It has an Assistant ID which you will copy and past into this Wordpress Plugin.
-
-        After pasting this code in this plugin, you will be able to see the Neexa AI agent on your website where you and your website visitors can stat to engage/chat with it.
-    </p>
-
-    <p>
-        Learn more about Neexa AI at <a href="https://www.neexa.ai" target="_blank">www.neexa.ai</a>
-    </p>
+  <p>
+    Learn more at <a href="https://www.neexa.ai" target="_blank">www.neexa.ai</a>
+  </p>
 </div>

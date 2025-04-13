@@ -20,17 +20,20 @@
 
 $isAuthenticated = false;
 
-if (get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '') {
+if (1 || get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '') {
 
     $isAuthenticated = true;
 
     $accessToken = get_option('neexa_ai_access_token');
 
+    $crm_configured=false;
     $is_agent_live = true; // Example flag (Set this based on the live agent status)
     $agent_avatar_url = 'https://via.placeholder.com/50'; // Replace with actual agent avatar URL
     $whatsapp_configured = true; // Replace with actual condition
     $email_configured = true; // Replace with actual condition
     $instagram_configured = false; // Replace with actual condition
+    $website_configured = false;
+    $facebook_configured = false;
 }
 
 if (!$isAuthenticated) {
@@ -42,137 +45,219 @@ if (!$isAuthenticated) {
 }
 ?>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
-<div class="neexa-dashboard" style="font-family: sans-serif; max-width: 1000px; margin: auto; padding: 20px;">
-    <h1 style="font-size: 24px; margin-bottom: 20px;">👋 Welcome to Neexa</h1>
+<style>
+  .neexa-dashboard {
+    font-family: "Roboto", sans-serif;
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 20px;
+    color: #333;
+  }
 
-    <!-- Analytics Cards -->
-    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px;">
-        <div style="flex: 2; min-width: 200px; background: #f0f0f1; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); padding: 20px;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-                <!-- Agent Live Status -->
-                <div style="flex: 1; display: flex; align-items: center;">
-                    <!-- Square Avatar -->
-                    <div style="width: 50px; height: 50px; margin-right: 15px; overflow: hidden; border:1px solid #dcdcde; border-radius: 5px;">
-                        <img src="https://dummyimage.com/50" alt="Agent Avatar" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <!-- Agent Live Status -->
-                    <div>
-                        <h3 style="font-size: 16px; color: #333; margin-bottom: 10px; font-weight: 500;">Alice is Live</h3>
-                    </div>
-                </div>
+  .dashboard-header {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
 
-                <!-- Toggle Switch and Status Text -->
-                <div style="display: flex; align-items: center;">
-                    <!-- Toggle Switch -->
-                    <label for="toggle-agent" class="switch">
-                        <input type="checkbox" id="toggle-agent" <?php echo $is_agent_live ? 'checked' : ''; ?> />
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </div>
+  .analytics-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
 
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    flex: 1;
+    min-width: 220px;
+  }
 
-            <div style="display: flex; gap: 5px; margin-top: 20px; flex-wrap: wrap;">
+  .card h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
 
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <strong>Enabled:</strong>
-                    </div>
-                </div>
+  .card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2271b1;
+    margin: 0;
+  }
 
-                <!-- WhatsApp Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $whatsapp_configured ? '✔' : '❌'; ?>Data collection
-                    </div>
-                </div>
+  .agent-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+    flex: 1.5;
+    min-width: 300px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-                <!-- WhatsApp Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $whatsapp_configured ? '✔' : '❌'; ?>CRM
-                    </div>
-                </div>
-            </div>
+  .agent-info {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
 
-            <div style="display: flex; gap: 5px; margin-top: 20px; flex-wrap: wrap;">
+  .agent-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #dcdcde;
+    margin-right: 15px;
+  }
 
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <strong>Channels:</strong>
-                    </div>
-                </div>
+  .agent-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-                <!-- WhatsApp Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $whatsapp_configured ? '✔' : '❌'; ?>website
-                    </div>
-                </div>
+  .agent-name {
+    font-size: 16px;
+    font-weight: 500;
+  }
 
-                <!-- WhatsApp Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $whatsapp_configured ? '✔' : '❌'; ?>WhatsApp
-                    </div>
-                </div>
+  .agent-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
 
-                <!-- Email Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $email_configured ? '✔' : '❌'; ?>Email
-                    </div>
-                </div>
+  .agent-controls a.button {
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    background-color: #2271b1;
+    color: white;
+    font-weight: 500;
+  }
 
-                <!-- Instagram Configured -->
-                <div class="badge badge-info" style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $instagram_configured ? '✔' : '❌'; ?>Instagram
-                    </div>
-                </div>
+  .agent-controls a.button-secondary {
+    background-color: #607d8b;
+  }
 
-                <!-- Instagram Configured -->
-                <div style="display: flex; align-items: center;">
-                    <div style="font-size: 14px; font-weight: 500; margin-right: 10px;">
-                        <?php echo $instagram_configured ? '✔' : '❌'; ?>Facebook
-                    </div>
-                </div>
-            </div>
+  .agent-controls a:hover {
+    opacity: 0.9;
+  }
+
+  .status-strip {
+    background: #eef0f3;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    font-size: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+
+  .status-label {
+    font-weight: 600;
+    margin-right: 8px;
+    color: #444;
+  }
+
+  .quick-links {
+    margin-bottom: 30px;
+  }
+
+  .quick-links h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .quick-links .button {
+    padding: 10px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    display: inline-block;
+    background-color: #2271b1;
+    color: white;
+  }
+
+  .quick-links .button-secondary {
+    background-color: #777;
+  }
+
+  .quick-links .button:hover {
+    opacity: 0.9;
+  }
+
+  .dashboard-footer {
+    color: #999;
+    font-size: 12px;
+  }
+</style>
+
+<div class="neexa-dashboard">
+  <h1 class="dashboard-header">👋 Welcome to Neexa</h1>
+  <div class="analytics-row">
+    <!-- Agent Card -->
+    <div class="agent-card">
+      <div class="agent-info">
+        <div class="agent-avatar">
+          <img src="https://dummyimage.com/50" alt="Agent Avatar">
         </div>
-
-        <a href="https://app.neexa.co/#/inbox" target="_blank" style="text-decoration: none;border-radius: 10px; flex: 1;">
-            <div style="min-width: 200px; background: #fff; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); padding: 20px;">
-                <h3 style="font-size: 16px; margin-bottom: 10px;">Conversations Today</h3>
-                <p style="font-size: 24px; font-weight: bold; color: #2271b1;">128</p>
-            </div>
-        </a>
-
-        <a href="https://app.neexa.co/#/autonomous-crm" target="_blank" style="text-decoration: none;border-radius: 10px; flex: 1;">
-            <div style="min-width: 200px; background: #fff; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); padding: 20px;">
-                <h3 style="font-size: 16px; margin-bottom: 10px;">In CRM</h3>
-                <p style="font-size: 24px; font-weight: bold; color: #2271b1;">3,542</p>
-            </div>
-        </a>
-
-        <a href="https://app.neexa.co/#/businesses" target="_blank" style="text-decoration: none;border-radius: 10px; flex: 1;">
-            <div style="min-width: 200px; background: #fff; border-radius: 10px; box-shadow: 0 1px 5px rgba(0,0,0,0.05); padding: 20px;">
-                <h3 style="font-size: 16px; margin-bottom: 10px;">Campaigns This Month</h3>
-                <p style="font-size: 24px; font-weight: bold; color: #2271b1;">7</p>
-            </div>
-        </a>
+        <div class="agent-name">Alice is Live</div>
+      </div>
+      <div class="agent-controls">
+        <a href="admin.php?page=neexa-agent-settings" class="button">Switch Live</a>
+        <a href="https://app.neexa.co/#/agents/edit/alice" target="_blank" class="button button-secondary">Edit</a>
+      </div>
     </div>
 
-    <!-- Quick Links -->
-    <div style="margin-bottom: 30px;">
-        <h2 style="font-size: 18px; margin-bottom: 15px;">🔗 Quick Access</h2>
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a href="https://app.neexa.co/#/inbox" class="button button-primary" target="_blank">Go to Conversations</a>
-            <a href="https://app.neexa.co/#/autonomous-crm" class="button button-secondary" target="_blank">Go to CRM</a>
-            <a href="https://app.neexa.co/#/businesses" class="button" target="_blank">Business Information</a>
-        </div>
-    </div>
+    <!-- Metric Cards -->
+    <a href="https://app.neexa.co/#/inbox" target="_blank" class="card">
+      <h3>Conversations Today</h3>
+      <p>128</p>
+    </a>
 
-    <!-- Footer Note -->
-    <p style="color: #999; font-size: 12px;">Need help? <a href="https://docs.neexa.co/blog?ref=wordpress-plugin" target="_blank">Visit support</a>.</p>
+    <a href="https://app.neexa.co/#/autonomous-crm" target="_blank" class="card">
+      <h3>In CRM</h3>
+      <p>3,542</p>
+    </a>
+
+    <a href="https://app.neexa.co/#/businesses" target="_blank" class="card">
+      <h3>Campaigns This Month</h3>
+      <p>7</p>
+    </a>
+  </div>
+
+  <!-- Agent Config & Channels -->
+  <div class="status-strip">
+    <div><span class="status-label">Enabled:</span> <?php echo $whatsapp_configured ? '✔' : '❌'; ?> Data Collection | <?php echo $crm_configured ? '✔' : '❌'; ?> CRM</div>
+    <div><span class="status-label">Channels:</span> <?php echo $website_configured ? '✔' : '❌'; ?> Website | <?php echo $whatsapp_configured ? '✔' : '❌'; ?> WhatsApp | <?php echo $email_configured ? '✔' : '❌'; ?> Email | <?php echo $instagram_configured ? '✔' : '❌'; ?> Instagram | <?php echo $facebook_configured ? '✔' : '❌'; ?> Facebook</div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="quick-links">
+    <h2>🔗 Quick Access</h2>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+      <a href="https://app.neexa.co/#/inbox" class="button" target="_blank">Go to Conversations</a>
+      <a href="https://app.neexa.co/#/autonomous-crm" class="button button-secondary" target="_blank">Go to CRM</a>
+      <a href="https://app.neexa.co/#/businesses" class="button" target="_blank">Training AI Agent</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <p class="dashboard-footer">
+    Need help? <a href="https://docs.neexa.co/blog?ref=wordpress-plugin" target="_blank">Visit support</a>.
+  </p>
 </div>
+
