@@ -157,8 +157,8 @@ if ($hasToken) {
             </div>
             <div style="margin-top: 10px;">
                 <span class="status-label">Channels:</span>
-                <span class="status-icon <?php echo isset($options['live_status']) ? 'material-check' : 'material-cross'; ?>">
-                    <?php echo isset($options['live_status']) ? '✔ Website' : '✖ Website'; ?>
+                <span class="status-icon <?php echo isset($options['live_status']) &&  $options['live_status'] ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo isset($options['live_status']) &&  $options['live_status'] ? '✔ Website' : '✖ Website'; ?>
                     <a href="<?= $neexa_ai_config['plugin-configuration-url'] ?>&tab=general-settings">Edit</a>
                 </span>
                 <span class="status-icon <?php echo $liveAgent['deployment_status']['whatsapp'] ? 'material-check' : 'material-cross'; ?>">
