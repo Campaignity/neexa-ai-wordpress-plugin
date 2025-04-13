@@ -152,11 +152,11 @@ if ($hasToken) {
                 <span class="status-label">Enabled:</span>
                 <span class="status-icon <?php echo $liveAgent['feature_status']['data_collection'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['feature_status']['data_collection'] ? '✔ Data Collection' : '✖ Data Collection'; ?>
-                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automation&subtab=database" target="_blank">Edit</a>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automations&subtab=data-collection" target="_blank">Edit</a>
                 </span>
                 <span class="status-icon <?php echo $liveAgent['feature_status']['crm'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['feature_status']['crm'] ? '✔ CRM' : '✖ CRM'; ?>
-                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automation&subtab=crm" target="_blank">Edit</a>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automations&subtab=follow-ups" target="_blank">Edit</a>
                 </span>
                 <span class="status-icon <?php echo $liveAgent['feature_status']['out_reach'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['feature_status']['out_reach'] ? '✔ Outreach' : '✖ Outreach'; ?>
