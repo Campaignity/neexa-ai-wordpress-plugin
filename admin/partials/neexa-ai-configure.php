@@ -19,6 +19,8 @@ global $neexa_ai_config;
 
 $hasToken = get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '';
 
+$neexaResponseError = null;
+
 if ($hasToken) {
 
     /** the live one */
@@ -54,6 +56,8 @@ if ($hasToken) {
         $otherAgents = $response['data']['data'];
 
         $otherAgentsPagination = $response['data']['meta'];
+    } else {
+        $neexaResponseError = $response['error'] ?? null;
     }
 
     global $wp;
@@ -69,6 +73,14 @@ if ($hasToken) {
 
 
 <!-- TAB HTML -->
+
+<?php if (!empty($neexaResponseError)) : ?>
+  <div class="notice notice-error" style="margin: 20px;">
+    <p><strong>Neexa Error:</strong> <?php echo esc_html($neexaResponseError); ?></p>
+  </div>
+  <?php return; ?>
+<?php endif; ?>
+
 <div class="plugin-tab-wrapper neexa-ai-configuration">
     <div class="plugin-tabs" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div style="display: flex; gap: 10px;">
@@ -103,7 +115,7 @@ if ($hasToken) {
                         <div class="agent-meta">Business: <?= esc_attr($liveAgent['business']['name'] ?? "") ?></div>
                     </div>
                     <div class="agent-actions">
-                        <a href="<?php $neexa_ai_config["frontend-host"] ?>/#/inbox/<?= $liveAgent['id'] ?>?show_edit=true" target="_blank" class="edit-btn">Edit</a>
+                        <a href="<?php $neexa_ai_config["frontend-host"] ?>/#/inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" target="_blank" class="edit-btn">Edit</a>
                     </div>
                 </div>
             <?php } else { ?>
@@ -115,6 +127,7 @@ if ($hasToken) {
 
             <div class="section-title">Other Available Agents</div>
 
+
             <?php foreach ($otherAgents as $otherAgent) { ?>
                 <div class="agent-card">
                     <div class="agent-avatar" style="background-image: url('avatar2.jpg');"></div>
@@ -125,14 +138,17 @@ if ($hasToken) {
                         <div class="agent-meta">Business: Acme Corp</div>
                     </div>
                     <div class="agent-actions">
-                        <form method="post" action="">
-                            <input type="hidden" name="make_live" value="supportbot-1.0">
+                        <form method="post" action="options.php">
+                            <?php settings_fields('neexa-ai'); ?>
+                            <?php $options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array())) ?>
+                            <input type="hidden" name="neexa-ai-options[neexa-ai-active-agent-id]" value="<?= $otherAgent['id'] ?>">
                             <button type="submit" class="make-live-btn">Make Live</button>
+                            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $otherAgent['id'] ?>/_?show_edit=true" target="_blank" class="edit-btn">Edit</a>
                         </form>
-                        <a href="https://edit-link.com/supportbot" target="_blank" class="edit-btn">Edit</a>
                     </div>
                 </div>
             <?php } ?>
+
 
             <?php if (count($otherAgents) < 1) { ?>
                 <div class="notice notice-warning" style="margin-bottom: 20px;">

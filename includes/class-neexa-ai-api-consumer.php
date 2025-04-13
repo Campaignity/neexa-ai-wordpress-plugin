@@ -25,6 +25,7 @@
 class Neexa_Ai_Api_Consumer
 {
 
+    const UNAUTHENTICATED_ERROR_RESPONSE = "Unauthenticated.";
     private $api_base_url;
     private $api_key;
 
@@ -34,6 +35,11 @@ class Neexa_Ai_Api_Consumer
 
         $this->api_key = get_option('neexa_ai_access_token');
         $this->api_base_url = $neexa_ai_config['api-host'];
+    }
+
+    private function handle_unauthenticated_error_response()
+    {
+        // update_option('neexa_ai_access_token', null);
     }
 
     /**
@@ -51,11 +57,27 @@ class Neexa_Ai_Api_Consumer
         ]);
 
         if (is_wp_error($response)) {
-            return ['error' => $response->get_error_message()];
+            return ['error' => $response->get_error__message()];
         }
 
         $body = wp_remote_retrieve_body($response);
-        return json_decode($body, true);
+
+        $body = json_decode($body, true);
+
+        if (wp_remote_retrieve_response_code($response) !== 200) {
+            $errorMessage = $body["message"] ?? "Data fetching failed. Reload page to retry...";
+
+            if ($errorMessage == self::UNAUTHENTICATED_ERROR_RESPONSE) {
+                $this->handle_unauthenticated_error_response();
+            }
+
+            return ['error' =>  $errorMessage];
+        }
+
+        return [
+            'success' => true,
+            'data' => $body
+        ];
     }
 
     /**
@@ -78,7 +100,7 @@ class Neexa_Ai_Api_Consumer
      */
     public function get_ai_agent_info($agent_id, $params = [])
     {
-        return $this->get("/v1/chat_widgets/{$agent_id}",$params);
+        return $this->get("/v1/chat_widgets/{$agent_id}", $params);
     }
 
     /**
@@ -86,7 +108,7 @@ class Neexa_Ai_Api_Consumer
      */
     public function get_ai_agents($params = [])
     {
-        return $this->get("/v1/chat_widgets",$params);
+        return $this->get("/v1/chat_widgets", $params);
     }
 
     private function get_today_date_range()

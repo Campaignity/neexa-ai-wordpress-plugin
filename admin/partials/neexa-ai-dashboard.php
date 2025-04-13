@@ -20,6 +20,8 @@
 
 $hasToken = get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '';
 
+$neexaResponseError = null;
+
 if ($hasToken) {
 
     $liveAgent = (null);
@@ -37,6 +39,8 @@ if ($hasToken) {
                 'id' => $response['data']['id']
             ];
         }
+    } else {
+        $neexaResponseError = $response['error'] ?? null;
     }
 
     $crm_configured = false;
@@ -57,6 +61,13 @@ if ($hasToken) {
 }
 ?>
 
+<?php if (!empty($neexaResponseError)) : ?>
+    <div class="notice notice-error" style="margin: 20px;">
+        <p><strong>Neexa Error:</strong> <?php echo esc_html($neexaResponseError); ?></p>
+    </div>
+    <?php return; ?>
+<?php endif; ?>
+
 <div class="neexa-dashboard">
     <h1 class="dashboard-header">👋 Welcome to Neexa</h1>
 
@@ -70,7 +81,7 @@ if ($hasToken) {
                     </div>
                 <?php } ?>
                 <?php if ($liveAgent) { ?>
-                    <div class="agent-name"><?= wp_trim_words($liveAgent['name'] ?? "",20) ?> is Live</div>
+                    <div class="agent-name"><?= wp_trim_words($liveAgent['name'] ?? "", 20) ?> is Live</div>
                 <?php } else { ?>
                     <div class="notice notice-warning">No AI Agent is Live</div>
                 <?php } ?>
