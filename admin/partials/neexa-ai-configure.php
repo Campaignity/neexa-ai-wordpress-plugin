@@ -45,20 +45,21 @@ if ($hasToken) {
 
     $otherAgentsPagination = [];
 
-    $response = $neexaAPI->get_ai_agents();
+    $response = $neexaAPI->get_ai_agents([
+        'page[cursor]' => $_GET['cursor'] ?? ""
+    ]);
 
     if (!empty($response['success']) && $response['success']) {
 
         $otherAgents = $response['data']['data'];
 
-        $otherAgentsPagination = $response['data']['links'];
+        $otherAgentsPagination = $response['data']['meta'];
     }
 
-    $is_agent_live = true; // Example flag (Set this based on the live agent status)
-    $agent_avatar_url = 'https://via.placeholder.com/50'; // Replace with actual agent avatar URL
-    $whatsapp_configured = true; // Replace with actual condition
-    $email_configured = true; // Replace with actual condition
-    $instagram_configured = false; // Replace with actual condition
+    global $wp;
+    $url =  add_query_arg($wp->query_vars, home_url($wp->request));
+    $otherAgentsPagination['page_prev_link'] =  !empty($otherAgentsPagination['prev_cursor']) ?  $url . "&cursor=" . $otherAgentsPagination['prev_cursor'] : "javascript:void(0)";
+    $otherAgentsPagination['page_next_link'] =  !empty($otherAgentsPagination['next_cursor']) ?  $url . "&cursor=" . $otherAgentsPagination['next_cursor'] : "javascript:void(0)";
 } else {
     $getStartedExplainer = "configure, connect";
     require_once plugin_dir_path(__FILE__) . 'neexa-ai-get-started.php';
@@ -94,7 +95,7 @@ if ($hasToken) {
             <div class="section-title">Currently Active AI Agent</div>
             <?php if ($liveAgent) { ?>
                 <div class="agent-card active">
-                    <div class="agent-avatar" style="background-image: url(<?= $liveAgent['avatar']['path'] ?>);"></div>
+                    <div class="agent-avatar" style="background-image: url(<?= empty($liveAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . '/' . $liveAgent['avatar']['path'] ?>);"></div>
                     <div class="agent-info">
                         <div class="agent-name"><?= wp_trim_words($liveAgent['name'] ?? "", 20) ?></div>
                         <div class="agent-desc">Greeting: <?= esc_attr($liveAgent['first_message'] ?? "") ?></div>
@@ -114,43 +115,34 @@ if ($hasToken) {
 
             <div class="section-title">Other Available Agents</div>
 
-            <div class="agent-card">
-                <div class="agent-avatar" style="background-image: url('avatar2.jpg');"></div>
-                <div class="agent-info">
-                    <div class="agent-name">Neexa SupportBot v1.0</div>
-                    <div class="agent-desc">"Let me help you with support!"</div>
-                    <div class="agent-meta">Role: Support Specialist</div>
-                    <div class="agent-meta">Business: Acme Corp</div>
+            <?php foreach ($otherAgents as $otherAgent) { ?>
+                <div class="agent-card">
+                    <div class="agent-avatar" style="background-image: url('avatar2.jpg');"></div>
+                    <div class="agent-info">
+                        <div class="agent-name">Neexa SupportBot v1.0</div>
+                        <div class="agent-desc">"Let me help you with support!"</div>
+                        <div class="agent-meta">Role: Support Specialist</div>
+                        <div class="agent-meta">Business: Acme Corp</div>
+                    </div>
+                    <div class="agent-actions">
+                        <form method="post" action="">
+                            <input type="hidden" name="make_live" value="supportbot-1.0">
+                            <button type="submit" class="make-live-btn">Make Live</button>
+                        </form>
+                        <a href="https://edit-link.com/supportbot" target="_blank" class="edit-btn">Edit</a>
+                    </div>
                 </div>
-                <div class="agent-actions">
-                    <form method="post" action="">
-                        <input type="hidden" name="make_live" value="supportbot-1.0">
-                        <button type="submit" class="make-live-btn">Make Live</button>
-                    </form>
-                    <a href="https://edit-link.com/supportbot" target="_blank" class="edit-btn">Edit</a>
-                </div>
-            </div>
+            <?php } ?>
 
-            <div class="agent-card">
-                <div class="agent-avatar" style="background-image: url('avatar3.jpg');"></div>
-                <div class="agent-info">
-                    <div class="agent-name">Neexa FollowUpBot v1.3</div>
-                    <div class="agent-desc">"I'll check in again soon!"</div>
-                    <div class="agent-meta">Role: Follow-Up Manager</div>
-                    <div class="agent-meta">Business: Acme Corp</div>
+            <?php if (count($otherAgents) < 1) { ?>
+                <div class="notice notice-warning" style="margin-bottom: 20px;">
+                    <p>List is empty</p>
                 </div>
-                <div class="agent-actions">
-                    <form method="post" action="">
-                        <input type="hidden" name="make_live" value="followupbot-1.3">
-                        <button type="submit" class="make-live-btn">Make Live</button>
-                    </form>
-                    <a href="https://edit-link.com/followupbot" target="_blank" class="edit-btn">Edit</a>
-                </div>
-            </div>
+            <?php } ?>
 
             <div class="pagination">
-                <a href="?before=prev_cursor">« Prev</a>
-                <a href="?after=next_cursor">Next »</a>
+                <a class="button <?= empty($otherAgentsPagination["prev_cursor"]) ? "disabled" : "" ?>" href="<?= $otherAgentsPagination["page_prev_link"] ?>">« Prev</a>
+                <a class="button <?= empty($otherAgentsPagination["next_cursor"]) ? "disabled" : "" ?>" href="<?= $otherAgentsPagination["page_next_link"] ?>">Next »</a>
             </div>
         </div>
     </div>
