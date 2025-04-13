@@ -186,6 +186,28 @@ class Neexa_Ai_Admin
 		}
 	}
 
+	public function deauthentication()
+	{
+
+		global $neexa_ai_config;
+
+		if (isset($_POST['neexa_deauth']) && check_admin_referer('neexa_deauth_action', 'neexa_deauth_nonce')) {
+
+			delete_option('neexa_ai_access_token');
+			delete_option('neexa-ai-options');
+
+			wp_redirect($neexa_ai_config['plugin-home-url'] . '&deauth=1');
+			exit;
+		}
+	}
+
+	public function neexa_admin_notices()
+	{
+		if (isset($_GET['deauth']) && $_GET['deauth'] == '1') {
+			echo '<div class="notice notice-success is-dismissible"><p>✅ Neexa has been disconnected successfully.</p></div>';
+		}
+	}
+
 	public function register_settings()
 	{
 		//register our settings
@@ -196,6 +218,7 @@ class Neexa_Ai_Admin
 				// 'show_in_rest'      => true,
 				'type'              => 'array',
 				'sanitize_callback' => function ($input) {
+
 					$current = get_option('neexa-ai-options', []);
 					return array_merge(
 						$current,
@@ -203,7 +226,26 @@ class Neexa_Ai_Admin
 							'live_status' => isset($input['live_status']) ? sanitize_text_field($input['live_status']) :  "",
 							'chat_position'   => isset($input['chat_position']) ? sanitize_text_field($input['chat_position']) : ($current['chat_position'] ?? ""),
 							'appearance_mode' => isset($input['appearance_mode']) ? sanitize_text_field($input['appearance_mode']) : ($current['appearance_mode'] ?? ""),
-							'neexa_ai_active_agent_id' => isset($input['neexa_ai_active_agent_id']) ? sanitize_text_field($input['neexa_ai_active_agent_id']) : ($current['neexa_ai_active_agent_id'] ?? ""),
+						)
+					);
+				}
+			)
+		);
+
+		//register our settings
+		register_setting(
+			'neexa-ai-active',
+			'neexa-ai-active-options',
+			array(
+				// 'show_in_rest'      => true,
+				'type'              => 'array',
+				'sanitize_callback' => function ($input) {
+
+					$current = get_option('neexa-ai-options', []);
+					return array_merge(
+						$current,
+						array(
+							'id' => isset($input['id']) ? sanitize_text_field($input['id']) :  "",
 						)
 					);
 				}

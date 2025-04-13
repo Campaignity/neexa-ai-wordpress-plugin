@@ -19,6 +19,8 @@
 
 global $neexa_ai_config;
 
+$activeOptions =  get_option('neexa-ai-active-options');
+
 $hasToken = get_option('neexa_ai_access_token') && get_option('neexa_ai_access_token') != '';
 
 $options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array()));
@@ -34,7 +36,7 @@ if ($hasToken) {
     $neexaAPI = new Neexa_Ai_Api_Consumer();
 
     /* get info about active agent */
-    $liveAgentId = $options["neexa_ai_active_agent_id"] ?? null;
+    $liveAgentId = $activeOptions["id"] ?? null;
     if ($liveAgentId) {
 
         /* agent info */
@@ -54,16 +56,6 @@ if ($hasToken) {
     } else {
         $neexaResponseError = $response['error'] ?? null;
     }
-
-    $crm_configured = false;
-    $is_agent_live = true; // Example flag (Set this based on the live agent status)
-    $agent_avatar_url = 'https://via.placeholder.com/50'; // Replace with actual agent avatar URL
-    $whatsapp_configured = true; // Replace with actual condition
-    $email_configured = true; // Replace with actual condition
-    $instagram_configured = false; // Replace with actual condition
-    $website_configured = false;
-    $facebook_configured = false;
-    $outreach_configured = false;
 } else {
     $getStartedExplainer = "manage, monitor";
 
@@ -89,7 +81,7 @@ if ($hasToken) {
             <div class="agent-info-h">
                 <?php if ($liveAgent) { ?>
                     <div class="agent-avatar">
-                        <img src="<?= empty($liveAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . 'v1/fs/' . $liveAgent['avatar']['path'] ?>" alt="Agent Avatar">
+                        <img src="<?= empty($liveAgent['avatar']['path']) ? $neexa_ai_config["frontend-host"]."/assets/media/neexa-extras/ai-avatar.png" : $neexa_ai_config['api-host'] . 'v1/fs/' . $liveAgent['avatar']['path'] ?>" alt="Agent Avatar">
                     </div>
                 <?php } ?>
                 <?php if ($liveAgent) { ?>
@@ -194,9 +186,9 @@ if ($hasToken) {
     <div class="quick-links">
         <h2>🔗 Quick Access</h2>
         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a href="https://app.neexa.co/#/inbox/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button" target="_blank">Go to Conversations</a>
-            <a href="https://app.neexa.co/#/autonomous-crm/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-secondary" target="_blank">Go to CRM</a>
-            <a href="https://app.neexa.co/#/businesses/<?php echo $liveAgent ? $liveAgent['business']['id'] : '' ?>" class="button" target="_blank">Train AI Agent</a>
+            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button" target="_blank">Go to Conversations</a>
+            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-secondary" target="_blank">Go to CRM</a>
+            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#/businesses/<?php echo $liveAgent ? $liveAgent['business']['id'] : '' ?>" class="button" target="_blank">Train AI Agent</a>
         </div>
     </div>
 

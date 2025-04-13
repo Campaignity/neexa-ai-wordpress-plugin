@@ -203,7 +203,7 @@
 		const originalValues = {};
 
 		// Store initial states
-		form.querySelectorAll(".track-change").forEach(input => {
+		form && form.querySelectorAll(".track-change").forEach(input => {
 			if (input.type === "radio" || input.type === "checkbox") {
 				originalValues[input.name + input.value] = input.checked;
 			} else {
@@ -212,7 +212,7 @@
 		});
 
 		// Listen for changes
-		form.querySelectorAll(".track-change").forEach(input => {
+		form && form.querySelectorAll(".track-change").forEach(input => {
 			input.addEventListener("change", () => {
 				let changed = false;
 

@@ -73,6 +73,8 @@ class Neexa_Ai_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/neexa-ai-public.js', array( 'jquery' ), $this->version, false );
 
+		$options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array()));
+
 		$neexa_ai_agents_configs = get_option('neexa_ai_agents_configs');
 
 		if (!empty($neexa_ai_agents_configs["config_agent_id"])) {

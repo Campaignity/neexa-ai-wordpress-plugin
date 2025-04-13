@@ -14,7 +14,7 @@
 
         <!-- Action Buttons -->
         <div style="display: flex; flex-direction: column; gap: 12px;">
-            <a id="oauth-login-btn" href="javascript:void(0)" style="background: #007cba; color: white; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 14px;">🔐 Log In</a>
+            <a id="oauth-login-btn" href="javascript:void(0)" style="background: #007cba; color: white; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 14px;">🔐 Connect to Neexa</a>
             <a href="<?=admin_url('admin.php?page=get-started-with-neexa')?>" style="background: #fff; color: #007cba; border: 1px solid #007cba; padding: 12px; border-radius: 4px; text-decoration: none; font-weight: 500; font-size: 14px;">🚀 Get Started</a>
         </div>
 
