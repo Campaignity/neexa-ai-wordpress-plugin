@@ -67,6 +67,10 @@ if ($hasToken) {
     $url =  add_query_arg($wp->query_vars, home_url($wp->request));
     $otherAgentsPagination['page_prev_link'] =  !empty($otherAgentsPagination['prev_cursor']) ?  $url . "&cursor=" . $otherAgentsPagination['prev_cursor'] : "javascript:void(0)";
     $otherAgentsPagination['page_next_link'] =  !empty($otherAgentsPagination['next_cursor']) ?  $url . "&cursor=" . $otherAgentsPagination['next_cursor'] : "javascript:void(0)";
+
+
+    /** active tab */
+    $tab = $_GET['tab'] ?? "ai-agent";    
 } else {
     $getStartedExplainer = "configure, connect";
     require_once plugin_dir_path(__FILE__) . 'neexa-ai-get-started.php';
@@ -87,8 +91,8 @@ if ($hasToken) {
 <div class="plugin-tab-wrapper neexa-ai-configuration">
     <div class="plugin-tabs" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div style="display: flex; gap: 10px;">
-            <div class="plugin-tab tab active" id="tab1-tab">AI Agent</div>
-            <div class="plugin-tab tab" id="tab2-tab">General Settings</div>
+            <div class="plugin-tab tab <?= $tab=="ai-agent"? "active":"" ?>" id="tab1-tab">AI Agent</div>
+            <div class="plugin-tab tab <?= $tab=="general-settings"? "active":"" ?>" id="tab2-tab">General Settings</div>
         </div>
         <a href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/_/_?show_create=true" target="_blank" style="
     background-color: #3f51b5;
@@ -105,7 +109,7 @@ if ($hasToken) {
         </a>
     </div>
 
-    <div class="plugin-tab-content tab-content active" id="tab1-content">
+    <div class="plugin-tab-content tab-content <?= $tab=="ai-agent"? "active":"" ?>" id="tab1-content">
         <div class="agent-section">
             <div class="section-title">Currently Active AI Agent</div>
             <?php if ($liveAgent) { ?>
@@ -134,7 +138,7 @@ if ($hasToken) {
             <?php $hasOthers = false; ?>
             <?php foreach ($otherAgents as $_otherAgent) { ?>
                 <?php $otherAgent = array_merge($_otherAgent['attributes'], ['id' => $_otherAgent['id']]); ?>
-                <?php if ($otherAgent['id'] == $liveAgent["id"] ?? null) continue; ?>
+                <?php if ($otherAgent['id'] == ($liveAgent["id"] ?? null)) continue; ?>
                 <div class="agent-card">
                     <div class="agent-avatar" style="background-image: url(<?= empty($otherAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . 'v1/fs/' . $otherAgent['avatar']['path'] ?>);"></div>
                     <div class="agent-info">
@@ -169,7 +173,7 @@ if ($hasToken) {
         </div>
     </div>
 
-    <div class="plugin-tab-content tab-content" id="tab2-content">
+    <div class="plugin-tab-content tab-content <?= $tab=="general-settings"? "active":"" ?>" id="tab2-content">
         <!-- FORM WRAPPER -->
         <form method="post" action="options.php" id="neexa-settings-form">
             <?php settings_fields('neexa-ai'); ?>

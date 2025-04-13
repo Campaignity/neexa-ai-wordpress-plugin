@@ -27,6 +27,8 @@ $neexaResponseError = null;
 
 if ($hasToken) {
 
+    $stats = [];
+
     $liveAgent = (null);
 
     $neexaAPI = new Neexa_Ai_Api_Consumer();
@@ -35,14 +37,19 @@ if ($hasToken) {
     $liveAgentId = $options["neexa_ai_active_agent_id"] ?? null;
     if ($liveAgentId) {
 
+        /* agent info */
         $response = $neexaAPI->get_ai_agent_info($liveAgentId, ['append' => 'featureStatus,deploymentStatus']);
-
         if (!empty($response['success']) && $response['success']) {
-
             $liveAgent = array_merge(
                 $response['data']['data']['attributes'],
                 ['id' => $response['data']['data']['id']]
             );
+        }
+
+        /* agent statistics */
+        $response = $neexaAPI->get_ai_agent_summary_stats($liveAgentId);
+        if (!empty($response['success']) && $response['success']) {
+            $stats = $response['data'];
         }
     } else {
         $neexaResponseError = $response['error'] ?? null;
@@ -141,18 +148,55 @@ if ($hasToken) {
     <!-- Agent Config & Channels -->
     <?php if ($liveAgent) { ?>
         <div class="status-strip">
-            <div><span class="status-label">Enabled:</span> <?php echo $whatsapp_configured ? '✔' : '❌'; ?> Data Collection | <?php echo $crm_configured ? '✔' : '❌'; ?> CRM | <?php echo $outreach_configured ? '✔' : '❌'; ?> Outreach</div>
-            <div><span class="status-label">Channels:</span> <?php echo $website_configured ? '✔' : '❌'; ?> Website | <?php echo $whatsapp_configured ? '✔' : '❌'; ?> WhatsApp | <?php echo $email_configured ? '✔' : '❌'; ?> Email | <?php echo $instagram_configured ? '✔' : '❌'; ?> Instagram | <?php echo $facebook_configured ? '✔' : '❌'; ?> Facebook</div>
+            <div>
+                <span class="status-label">Enabled:</span>
+                <span class="status-icon <?php echo $liveAgent['feature_status']['data_collection'] ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo $liveAgent['feature_status']['data_collection'] ? '✔ Data Collection' : '✖ Data Collection'; ?>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automation&subtab=database" target="_blank">Edit</a>
+                </span>
+                <span class="status-icon <?php echo $liveAgent['feature_status']['crm'] ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo $liveAgent['feature_status']['crm'] ? '✔ CRM' : '✖ CRM'; ?>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automation&subtab=crm" target="_blank">Edit</a>
+                </span>
+                <span class="status-icon <?php echo $liveAgent['feature_status']['out_reach'] ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo $liveAgent['feature_status']['out_reach'] ? '✔ Outreach' : '✖ Outreach'; ?>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/out-reach" target="_blank">Edit</a>
+                </span>
+            </div>
+            <div style="margin-top: 10px;">
+                <span class="status-label">Channels:</span>
+                <span class="status-icon <?php echo isset($options['live_status']) ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo isset($options['live_status']) ? '✔ Website' : '✖ Website'; ?>
+                    <a href="<?= $neexa_ai_config['plugin-configuration-url'] ?>&tab=general-settings">Edit</a>
+                </span>
+                <span class="status-icon <?php echo $liveAgent['deployment_status']['whatsapp'] ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo $liveAgent['deployment_status']['whatsapp'] ? '✔ WhatsApp' : '✖ WhatsApp'; ?>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=whatsapp" target="_blank">Edit</a>
+                </span>
+                <span class="status-icon <?php echo $liveAgent['deployment_status']['email'] ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo $liveAgent['deployment_status']['email'] ? '✔ Email' : '✖ Email'; ?>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=email" target="_blank">Edit</a>
+                </span>
+                <span class="status-icon <?php echo $liveAgent['deployment_status']['instagram'] ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo $liveAgent['deployment_status']['instagram'] ? '✔ Instagram' : '✖ Instagram'; ?>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=instagram" target="_blank">Edit</a>
+                </span>
+                <span class="status-icon <?php echo $liveAgent['deployment_status']['facebook'] ? 'material-check' : 'material-cross'; ?>">
+                    <?php echo $liveAgent['deployment_status']['facebook'] ? '✔ Facebook' : '✖ Facebook'; ?>
+                    <a href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=facebook" target="_blank">Edit</a>
+                </span>
+            </div>
         </div>
+
     <?php } ?>
 
     <!-- Quick Links -->
     <div class="quick-links">
         <h2>🔗 Quick Access</h2>
         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a href="https://app.neexa.co/#/inbox<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button" target="_blank">Go to Conversations</a>
-            <a href="https://app.neexa.co/#/autonomous-crm<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-secondary" target="_blank">Go to CRM</a>
-            <a href="https://app.neexa.co/#/businesses<?php echo $liveAgent ? $liveAgent['business']['id'] : '' ?>" class="button" target="_blank">Train AI Agent</a>
+            <a href="https://app.neexa.co/#/inbox/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button" target="_blank">Go to Conversations</a>
+            <a href="https://app.neexa.co/#/autonomous-crm/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-secondary" target="_blank">Go to CRM</a>
+            <a href="https://app.neexa.co/#/businesses/<?php echo $liveAgent ? $liveAgent['business']['id'] : '' ?>" class="button" target="_blank">Train AI Agent</a>
         </div>
     </div>
 
