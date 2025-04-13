@@ -131,8 +131,10 @@ if ($hasToken) {
             <div class="section-title">Other Available Agents</div>
 
 
+            <?php $hasOthers = false; ?>
             <?php foreach ($otherAgents as $_otherAgent) { ?>
                 <?php $otherAgent = array_merge($_otherAgent['attributes'], ['id' => $_otherAgent['id']]); ?>
+                <?php if ($otherAgent['id'] == $liveAgent["id"] ?? null) continue; ?>
                 <div class="agent-card">
                     <div class="agent-avatar" style="background-image: url(<?= empty($otherAgent['avatar']['path']) ? "https://via.placeholder.com/50" : $neexa_ai_config['api-host'] . 'v1/fs/' . $otherAgent['avatar']['path'] ?>);"></div>
                     <div class="agent-info">
@@ -151,10 +153,10 @@ if ($hasToken) {
                         </form>
                     </div>
                 </div>
+                <?php $hasOthers = true; ?>
             <?php } ?>
 
-
-            <?php if (count($otherAgents) < 1) { ?>
+            <?php if (!$hasOthers) { ?>
                 <div class="notice notice-warning" style="margin-bottom: 20px;">
                     <p>List is empty</p>
                 </div>
