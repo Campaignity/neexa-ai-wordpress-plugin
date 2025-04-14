@@ -79,7 +79,7 @@ class Neexa_Ai_Public {
 
 		$activeOptions =  get_option('neexa-ai-active-options');
 
-		if (!empty($activeOptions["id"])) {
+		if (!empty($activeOptions["id"]) && isset($options['live_status']) &&  $options['live_status']) {
 
 			$liveAgentId = $activeOptions["id"];
 	
