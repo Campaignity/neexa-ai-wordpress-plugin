@@ -212,9 +212,10 @@ class Neexa_Ai_Admin
 
 		if (isset($_POST['neexa_deauth']) && check_admin_referer('neexa_deauth_action', 'neexa_deauth_nonce')) {
 
+			// delete_option('neexa-ai-options');
 			delete_option('neexa_ai_access_token');
-			delete_option('neexa-ai-options');
-
+			delete_option('neexa-ai-active-options');
+			
 			wp_redirect($neexa_ai_config['plugin-home-url'] . '&deauth=1');
 			exit;
 		}

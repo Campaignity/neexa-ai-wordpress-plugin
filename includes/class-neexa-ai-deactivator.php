@@ -30,7 +30,9 @@ class Neexa_Ai_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
+		// delete_option('neexa-ai-options');
+		delete_option('neexa_ai_access_token');
+		delete_option('neexa-ai-active-options');
 	}
 
 }
