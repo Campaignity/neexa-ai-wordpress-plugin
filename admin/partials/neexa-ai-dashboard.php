@@ -52,9 +52,9 @@ if ($hasToken) {
         $response = $neexaAPI->get_ai_agent_summary_stats($liveAgentId);
         if (!empty($response['success']) && $response['success']) {
             $stats = $response['data'];
+        } else {
+            $neexaResponseError = $response['error'] ?? null;
         }
-    } else {
-        $neexaResponseError = $response['error'] ?? null;
     }
 } else {
     $getStartedExplainer = "manage, monitor";
@@ -81,7 +81,7 @@ if ($hasToken) {
             <div class="agent-info-h">
                 <?php if ($liveAgent) { ?>
                     <div class="agent-avatar">
-                        <img src="<?= empty($liveAgent['avatar']['path']) ? $neexa_ai_config["frontend-host"]."/assets/media/neexa-extras/ai-avatar.png" : $neexa_ai_config['api-host'] . 'v1/fs/' . $liveAgent['avatar']['path'] ?>" alt="Agent Avatar">
+                        <img src="<?= empty($liveAgent['avatar']['path']) ? $neexa_ai_config["frontend-host"] . "/assets/media/neexa-extras/ai-avatar.png" : $neexa_ai_config['api-host'] . 'v1/fs/' . $liveAgent['avatar']['path'] ?>" alt="Agent Avatar">
                     </div>
                 <?php } ?>
                 <?php if ($liveAgent) { ?>
