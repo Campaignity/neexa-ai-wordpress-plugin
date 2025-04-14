@@ -69,12 +69,13 @@ if ($hasToken) {
     $otherAgentsPagination['page_prev_link'] =  !empty($otherAgentsPagination['prev_cursor']) ?  $url . "&cursor=" . $otherAgentsPagination['prev_cursor'] : "javascript:void(0)";
     $otherAgentsPagination['page_next_link'] =  !empty($otherAgentsPagination['next_cursor']) ?  $url . "&cursor=" . $otherAgentsPagination['next_cursor'] : "javascript:void(0)";
 
-
     /** active tab */
     $tab = $_GET['tab'] ?? "ai-agent";
 } else {
     $getStartedExplainer = "configure, connect";
+
     require_once plugin_dir_path(__FILE__) . 'neexa-ai-get-started.php';
+
     exit();
 }
 ?>
