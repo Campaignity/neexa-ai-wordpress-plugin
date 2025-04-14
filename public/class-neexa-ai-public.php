@@ -71,17 +71,21 @@ class Neexa_Ai_Public {
 	 */
 	public function enqueue_scripts() {
 
+		global $neexa_ai_config;
+
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/neexa-ai-public.js', array( 'jquery' ), $this->version, false );
 
-		$options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array()));
+		$options = array_merge($neexa_ai_config['default-settings'], get_option('neexa-ai-options', array()));	
 
-		$neexa_ai_agents_configs = get_option('neexa_ai_agents_configs');
+		$activeOptions =  get_option('neexa-ai-active-options');
 
-		if (!empty($neexa_ai_agents_configs["config_agent_id"])) {
+		if (!empty($activeOptions["id"])) {
+
+			$liveAgentId = $activeOptions["id"];
 	
 			wp_enqueue_script(
 				"cam_neexai_agent_id",
-				"https://chat-widget.neexa.ai/main.js",
+				$neexa_ai_config['widget-loader-script-url'],
 				[],
 				time(),
 				[
@@ -91,7 +95,13 @@ class Neexa_Ai_Public {
 	
 			wp_add_inline_script(
 				"cam_neexai_agent_id",
-				'var neexa_xgmx_cc_wpq_ms = "' . esc_html($neexa_ai_agents_configs["config_agent_id"]) . '";',
+				'var neexa_xgmx_cc_wpq_ms = "' . esc_html($liveAgentId) . '";',
+				"before"
+			);
+
+			wp_add_inline_script(
+				"cam_neexai_agent_id",
+				'var neexa_xgmx_cc_wpq_ms_preference = ' . wp_json_encode($options) . ';',
 				"before"
 			);
 		}
