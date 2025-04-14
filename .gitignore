@@ -49,5 +49,4 @@ wp-config.php
 zip.sh
 
 includes/config.php
-includes/config-prod.php
 includes/config-staging.php
