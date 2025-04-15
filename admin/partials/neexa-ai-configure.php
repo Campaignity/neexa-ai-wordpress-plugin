@@ -125,7 +125,7 @@ if ($hasToken) {
                         <div class="agent-meta">Business: <?= esc_attr($liveAgent['business']['name'] ?? "") ?></div>
                     </div>
                     <div class="agent-actions">
-                        <a href="<?php $neexa_ai_config["frontend-host"] ?>/#/inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" target="_blank" class="edit-btn">Edit</a>
+                        <a href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" target="_blank" class="edit-btn">Edit</a>
                     </div>
                 </div>
             <?php } else { ?>
