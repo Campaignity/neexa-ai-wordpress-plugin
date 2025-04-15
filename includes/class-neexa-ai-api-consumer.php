@@ -49,35 +49,39 @@ class Neexa_Ai_Api_Consumer
     {
         $url = add_query_arg($params, trailingslashit($this->api_base_url) . ltrim($endpoint, '/'));
 
-        $response = wp_remote_get($url, [
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->api_key,
-                'Accept'        => 'application/json',
-            ]
-        ]);
+        try {
+            $response = wp_remote_get($url, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->api_key,
+                    'Accept'        => 'application/json',
+                ]
+            ]);
 
-        if (is_wp_error($response)) {
-            return ['error' => $response->get_error__message()];
-        }
-
-        $body = wp_remote_retrieve_body($response);
-
-        $body = json_decode($body, true);
-
-        if (wp_remote_retrieve_response_code($response) !== 200) {
-            $errorMessage = $body["message"] ?? "Data fetching failed. Reload page to retry...";
-
-            if ($errorMessage == self::UNAUTHENTICATED_ERROR_RESPONSE) {
-                $this->handle_unauthenticated_error_response();
+            if (is_wp_error($response)) {
+                return ['error' => $response->get_error__message()];
             }
 
-            return ['error' =>  $errorMessage];
-        }
+            $body = wp_remote_retrieve_body($response);
 
-        return [
-            'success' => true,
-            'data' => $body
-        ];
+            $body = json_decode($body, true);
+
+            if (wp_remote_retrieve_response_code($response) !== 200) {
+                $errorMessage = $body["message"] ?? "Data fetching failed. Reload page to retry...";
+
+                if ($errorMessage == self::UNAUTHENTICATED_ERROR_RESPONSE) {
+                    $this->handle_unauthenticated_error_response();
+                }
+
+                return ['error' =>  $errorMessage];
+            }
+
+            return [
+                'success' => true,
+                'data' => $body
+            ];
+        } catch (\Throwable $th) {
+            return ['error' =>  "Data fetching failed. Reload page to retry..."];
+        }
     }
 
     /**

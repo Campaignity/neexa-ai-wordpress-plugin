@@ -128,7 +128,7 @@ class Neexa_Ai_Admin
 
 		add_menu_page(
 			'Neexa AI Home',
-			'Home',
+			'Neexa AI',
 			'manage_options',
 			'neexa-ai-home',
 			function () {
@@ -138,6 +138,16 @@ class Neexa_Ai_Admin
 			2
 		);
 
+		add_submenu_page(
+			'neexa-ai-home',
+			'Neexa AI Home',
+			'Home',
+			'manage_options',
+			'neexa-ai-home',
+			function () {
+				require_once plugin_dir_path(__FILE__) . 'partials/neexa-ai-dashboard.php';
+			},
+		);
 
 		add_submenu_page(
 			'neexa-ai-home',
@@ -155,7 +165,7 @@ class Neexa_Ai_Admin
 			'About Neexa AI',
 			'How it Works',
 			'manage_options',
-			'neexa-ai-agents-sub-how-it-works',
+			'neexa-ai-how-it-works',
 			function () {
 				require_once plugin_dir_path(__FILE__) . 'partials/neexa-ai-how-it-works.php';
 			},
@@ -215,7 +225,7 @@ class Neexa_Ai_Admin
 			// delete_option('neexa-ai-options');
 			delete_option('neexa_ai_access_token');
 			delete_option('neexa-ai-active-options');
-			
+
 			wp_redirect($neexa_ai_config['plugin-home-url'] . '&deauth=1');
 			exit;
 		}
