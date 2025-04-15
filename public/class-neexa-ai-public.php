@@ -101,7 +101,7 @@ class Neexa_Ai_Public {
 
 			wp_add_inline_script(
 				"cam_neexai_agent_id",
-				'var neexa_xgmx_cc_wpq_ms_preference = ' . wp_json_encode($options) . ';',
+				'var neexa_xgmx_cc_wpq_ms_preferences = ' . wp_json_encode($options) . ';',
 				"before"
 			);
 		}
