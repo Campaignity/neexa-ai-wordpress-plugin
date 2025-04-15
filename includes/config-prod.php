@@ -21,7 +21,7 @@ return [
     'widget-loader-script-url'=>'https://chat-widget.neexa.ai/dev/main.js',    
     'plugin-home-url' => admin_url('admin.php?page=neexa-ai-home'),    
     'frontend-host' => 'https://staging.neexa.ai',
-    'api-host' => 'https://dev-bkd.neexa.ai/api',
+    'api-host' => 'https://dev-bkd.neexa.ai/api/',
     'ajax-url' => admin_url('admin-ajax.php'),
     'default-settings' => array(
         'chat_position'   => 'bottom_right',
