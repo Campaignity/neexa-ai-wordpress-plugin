@@ -3,6 +3,14 @@
  * included in this file.
  */
 
+ .neexa-d-logo {
+    width: 30px; /* adjust size as needed */
+    height: 30px;
+    background-size: cover;
+    background-position: center;
+    margin-right: 8px;
+  }
+
 .toplevel_page_neexa-ai-home .wp-menu-image img {
     width: 20px;
     padding: 6px 0 0 !important;

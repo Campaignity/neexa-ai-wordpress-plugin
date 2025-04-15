@@ -73,7 +73,10 @@ if ($hasToken) {
 <?php endif; ?>
 
 <div class="neexa-dashboard">
-    <h1 class="dashboard-header">👋 Welcome to Neexa</h1>
+    <h1 class="dashboard-header" style="display: flex; flex-wrap:wrap;">
+        <div class="neexa-d-logo" style="align-self:center;background-image: url('<?php echo plugin_dir_url(__FILE__); ?>../img/neexa-logomark.svg')"></div>
+        <span style="align-self:center">Welcome to Neexa</span>
+    </h1>
 
     <div class="analytics-row">
         <!-- Agent Card -->
