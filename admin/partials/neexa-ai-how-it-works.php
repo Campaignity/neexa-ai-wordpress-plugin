@@ -12,43 +12,44 @@
  * @subpackage Neexa_Ai/admin/partials
  */
 ?>
-
 <div class="wrap neexa-how-it-works">
   <h2>🚀 How Neexa Works</h2>
 
-  <h3>Step 1: Create or Log Into Your Neexa AI Account</h3>
+  <h3>Step 1: Connect Your Neexa Account</h3>
   <p>
-    To use this plugin, you need a Neexa AI account.
-    If you already have one, <a href="https://app.neexa.ai/#login" target="_blank">log in here</a>.
-    Otherwise, <a href="https://app.neexa.ai/#signup" target="_blank">sign up for free</a>.
+    Get started by <a href="https://app.neexa.co/#login" target="_blank">logging into your Neexa account</a> or 
+    <a href="https://app.neexa.co/#get-started" target="_blank">signing up for a new one</a>. It’s quick and free!
   </p>
 
-  <h3>Step 2: Add Business Information</h3>
+  <h3>Step 2: Add Your Business Info</h3>
   <p>
-    Help your AI understand your business by adding details like products, services, FAQs, and more. You can do this in two ways:
+    Let Neexa understand your business. Add important details like your products, services, FAQs, and more.
+    You can either:
   </p>
   <ol>
-    <li>Type or paste your content manually (from docs, PDFs, etc).</li>
-    <li>Use Neexa’s website scraper — just enter your website URL and Neexa will extract the info.</li>
+    <li>Manually enter your content (copy-paste from your documents or site), or</li>
+    <li>Use Neexa’s website scraper to auto-import details from your URL.</li>
   </ol>
 
-  <h3>Step 3: Create Your AI Assistant</h3>
+  <h3>Step 3: Enable Extra Features</h3>
   <p>
-    Go to the <a href="https://app.neexa.ai/#widget-chats" target="_blank">Widgets page</a> and click the ➕ button to create a new assistant. 
-    You'll set its name, avatar, role, and link it to your business.
+    Unlock powerful tools like CRM, data collection, and outreach automation to supercharge your business.
+    These features help streamline customer interactions and maximize engagement.
   </p>
 
-  <h3>Step 4: Install on Your Website or WhatsApp</h3>
+  <h3>Step 4: Connect Your Channels</h3>
   <p>
-    After creating your assistant, click the ✏️ icon (edit) next to it. 
-    In the popup, you’ll find the <strong>Installation</strong> tab with your Assistant ID. 
-    Copy this ID and paste it into this plugin's settings.
+    Bring your conversations into one place by linking your WhatsApp, Facebook, Instagram, and more. 
+    Neexa makes it easy to manage all your channels seamlessly.
   </p>
+
+  <h3>Step 5: Add Your WhatsApp Number</h3>
   <p>
-    Once saved, the assistant will appear on your website or integrate into WhatsApp — ready to chat with your visitors.
+    Stay in the loop! Add your WhatsApp number to get instant notifications when there’s a new deal 
+    or a conversation that needs your attention.
   </p>
 
   <p>
-    Learn more at <a href="https://www.neexa.ai" target="_blank">www.neexa.ai</a>
+    Learn more at <a href="https://www.neexa.co" target="_blank">www.neexa.co</a>
   </p>
 </div>
