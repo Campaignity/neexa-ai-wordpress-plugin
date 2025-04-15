@@ -128,7 +128,7 @@ class Neexa_Ai_Admin
 
 		add_menu_page(
 			'Neexa AI Home',
-			'Neexa AI',
+			'Home',
 			'manage_options',
 			'neexa-ai-home',
 			function () {

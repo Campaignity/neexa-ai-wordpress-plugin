@@ -13,7 +13,7 @@
  * @package           Neexa_Ai
  *
  * @wordpress-plugin
- * Plugin Name:       Neexa AI
+ * Plugin Name:       Neexa | Sales AI Agent for B2C Businesses
  * Plugin URI:        https://neexa.co
  * Description:       This plugin seamlessly integrates Neexa.AI's 24/7 AI Powered Sales Agent/Assistant onto any WordPress site.
  * Version:           2.0.0
