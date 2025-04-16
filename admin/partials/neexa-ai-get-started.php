@@ -3,12 +3,12 @@
 
         <!-- Optional Brand Icon -->
         <div style="margin-bottom: 25px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/977/977597.png" alt="Neexa Logo" style="width: 50px; height: 50px;" />
+            <img src="<?php echo plugin_dir_url(__FILE__); ?>../img/neexa-logomark.svg" alt="Neexa Logo" style="width: 50px; height: 50px;" />
         </div>
 
         <!-- Welcome Heading -->
-        <h1 style="font-size: 22px; margin-bottom: 10px; color: #1d2327; font-weight: 600;">Welcome to Neexa Sales Assistant 👋</h1>
-        <p style="font-size: 14px; color: #50575e; margin-bottom: 30px;">
+        <h1 style="font-size: 22px; margin-bottom: 10px; color: #1d2327; font-weight: 600;">Neexa | Sales AI Agent for B2C Businesses</h1>
+        <p style="font-size: 14px; color: #50575e; margin-bottom: 45px;">
             Get started with your AI-powered sales assistant — <?=$getStartedExplainer?>, and grow effortlessly.
         </p>
 
@@ -21,7 +21,7 @@
         <!-- Terms Footer -->
         <div style="margin-top: 25px; font-size: 12px; color: #777;">
             By continuing, you agree to our 
-            <a href="https://campaignity.com/terms/" style="color: #007cba; text-decoration: none;">Terms</a> and <a href="https://campaignity.com/privacy/" style="color: #007cba; text-decoration: none;">Policy</a>.
+            <a target="_blank" href="https://campaignity.com/terms/" style="color: #007cba; text-decoration: none;">Terms</a> and <a target="_blank" href="https://campaignity.com/privacy/" style="color: #007cba; text-decoration: none;">Policy</a>.
         </div>
     </div>
 </div>

@@ -13,11 +13,15 @@
  */
 ?>
 <div class="wrap neexa-how-it-works">
-  <h2>🚀 How Neexa Works</h2>
+
+  <h2  style="display: flex; flex-wrap:wrap;">
+    <div class="neexa-d-logo" style="align-self:center;background-image: url('<?php echo plugin_dir_url(__FILE__); ?>../img/neexa-logomark.svg')"></div>
+    <span style="align-self:center">How Neexa Works</span>
+  </h2>
 
   <h3>Step 1: Connect Your Neexa Account</h3>
   <p>
-    Get started by <a href="https://app.neexa.co/#login" target="_blank">logging into your Neexa account</a> or 
+    Get started by <a href="https://app.neexa.co/#login" target="_blank">logging into your Neexa account</a> or
     <a href="https://app.neexa.co/#get-started" target="_blank">signing up for a new one</a>. It’s quick and free!
   </p>
 
@@ -39,13 +43,13 @@
 
   <h3>Step 4: Connect Your Channels</h3>
   <p>
-    Bring your conversations into one place by linking your WhatsApp, Facebook, Instagram, and more. 
+    Bring your conversations into one place by linking your WhatsApp, Facebook, Instagram, and more.
     Neexa makes it easy to manage all your channels seamlessly.
   </p>
 
   <h3>Step 5: Add Your WhatsApp Number</h3>
   <p>
-    Stay in the loop! Add your WhatsApp number to get instant notifications when there’s a new deal 
+    Stay in the loop! Add your WhatsApp number to get instant notifications when there’s a new deal
     or a conversation that needs your attention.
   </p>
 
