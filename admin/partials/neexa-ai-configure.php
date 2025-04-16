@@ -97,7 +97,7 @@ if ($hasToken) {
             <div class="plugin-tab tab <?= $tab == "general-settings" ? "active" : "" ?>" id="tab2-tab">General Settings</div>
             <div class="plugin-tab tab <?= $tab == "authentication" ? "active" : "" ?>" id="tab3-tab">Authentication</div>
         </div>
-        <a href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/_/_?show_create=true" target="_blank" class="button button-secondary">
+        <a style="margin-right:10px;" href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/_/_?show_create=true" target="_blank" class="button button-secondary">
             ➕ Create New AI Agent
         </a>
     </div>
