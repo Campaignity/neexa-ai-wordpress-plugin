@@ -28,6 +28,7 @@ class Neexa_Ai_Api_Consumer
     const UNAUTHENTICATED_ERROR_RESPONSE = "Unauthenticated.";
     private $api_base_url;
     private $api_key;
+    private $guest_token;
 
     public function __construct()
     {
@@ -35,6 +36,7 @@ class Neexa_Ai_Api_Consumer
 
         $this->api_key = get_option('neexa_ai_access_token');
         $this->api_base_url = $neexa_ai_config['api-host'];
+        $this->guest_token = $neexa_ai_config['guest_token'];
     }
 
     private function handle_unauthenticated_error_response()
@@ -168,4 +170,55 @@ class Neexa_Ai_Api_Consumer
             $end_of_month_utc,
         ];
     }
+
+    public function send_feedback_to_platform($data)
+    {
+        try {
+            $payload = [
+                'data' => [
+                    'type' => 'plugin_feedback',
+                    'attributes' => $data,
+                ],
+            ];
+
+            $is_authenticated = !empty($this->api_key);
+            $endpoint = $is_authenticated
+                ? 'v1/plugin/feedback'
+                : 'v1/plugin/feedback/anonymous';
+
+            $url = trailingslashit($this->api_base_url) . $endpoint;
+
+            $response = wp_remote_post($url, [
+                'headers' => $is_authenticated
+            ? [
+                'Authorization' => 'Bearer ' . $this->api_key,
+                'Content-Type'  => 'application/json',
+            ]
+            : [
+                'X-Plugin-Token' => $this->guest_token,
+                'Content-Type'   => 'application/json',
+            ],
+
+                'body' => json_encode($payload),
+                'timeout' => 10,
+            ]);
+
+            if (is_wp_error($response)) {
+                return false;
+            }
+
+            $code = wp_remote_retrieve_response_code($response);
+            $body = wp_remote_retrieve_body($response);
+
+            if ($code !== 200 && $code !== 201) {
+                return false;
+            }
+
+            return true;
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+
 }

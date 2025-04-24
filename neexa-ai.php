@@ -1,4 +1,7 @@
 <?php
+if (!headers_sent()) {
+	ob_start();
+}
 
 /**
  * The plugin bootstrap file
@@ -35,6 +38,7 @@ if (! defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
 define('NEEXA_AI_VERSION', '2.0.0');
+define('NEEXA_AI_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 /**
  * The code that runs during plugin activation.
@@ -45,6 +49,7 @@ function activate_neexa_ai()
 	require_once plugin_dir_path(__FILE__) . 'includes/class-neexa-ai-activator.php';
 	Neexa_Ai_Activator::activate();
 }
+
 
 /**
  * The code that runs during plugin deactivation.
@@ -66,6 +71,7 @@ register_deactivation_hook(__FILE__, 'deactivate_neexa_ai');
  */
 
 require plugin_dir_path(__FILE__) . 'includes/class-neexa-ai.php';
+require plugin_dir_path(__FILE__) . 'includes/class-neexa-ai-feedback.php';
 
 /**
  * Begins execution of the plugin.
