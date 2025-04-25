@@ -268,6 +268,72 @@
 		});
 	};
 
+	function openFullScreenChildWindow(url) {
+		const screenWidth = screen.width;
+		const screenHeight = screen.height;
+
+		const features = `width=${screenWidth},height=${screenHeight},left=0,top=0,` +
+			`toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=yes`;
+
+		const child = window.open(url, 'NeexaPopupWindow', features);
+		if (child) {
+			child.focus();
+		} else {
+			alert('Popup blocked! Please allow popups for this site.');
+		}
+
+		return child;
+	}
+
+	const externalLinksManagement = () => {
+		document.querySelectorAll("a.open-in-child").forEach(anchor => {
+			anchor.addEventListener("click", function (e) {
+				e.preventDefault();
+
+				const nextUrl = anchor.dataset.href;
+
+				const initialUrl = window.neexa_ai_env_vars['frontend-host'] + '/wordpress/next';
+
+				const child = openFullScreenChildWindow(initialUrl);
+
+				// Listen for message from child
+				window.addEventListener("message", function handleMessage(event) {
+
+					const allowedOrigin = window.neexa_ai_env_vars['frontend-host'];
+					if (event.origin !== allowedOrigin) {
+						return;
+					}
+
+					const data = event.data;
+					if (data.type === "issue-next") {
+						child.postMessage(
+							{
+								token: window.neexa_ai_env_vars['auth-token'],
+								next_url: nextUrl
+							},
+							"*"
+						);
+					}
+				});
+			});
+		});
+	};
+
+	const deactivationForm = () => {
+		const modal = document.getElementById("neexa-feedback-modal");
+		const otherBox = document.getElementById("neexa-other-textarea");
+		const radios = document.querySelectorAll("input[name='neexa_reason']");
+
+		// Show modal immediately on load
+		modal.style.display = "flex";
+
+		radios.forEach(function (radio) {
+			radio.addEventListener("change", function () {
+				otherBox.style.display = this.value === "other" ? "block" : "none";
+			});
+		});
+	}
+
 
 	$(function () {
 		OAuthHandler();
@@ -275,6 +341,10 @@
 		agentsManagement();
 
 		onboardingHandler();
+
+		externalLinksManagement();
+
+		deactivationForm();
 	});
 
 })(jQuery);

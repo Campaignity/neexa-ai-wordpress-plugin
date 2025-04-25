@@ -106,7 +106,8 @@ class Neexa_Ai_Admin
 			$neexa_ai_config,
 			[
 				'about-info' => $about_info,
-				'nonce' => wp_create_nonce('neexa_nonce')
+				'nonce' => wp_create_nonce('neexa_nonce'),
+				'auth-token' => get_option('neexa_ai_access_token'),
 			]
 		);
 	}
@@ -181,6 +182,18 @@ class Neexa_Ai_Admin
 				require_once plugin_dir_path(__FILE__) . 'partials/neexa-ai-user-onboarding.php';
 			},
 		);
+
+		add_submenu_page(
+			NEEXA_AI_PLUGIN_BASENAME,
+			'Plugin Feedback',
+			'',
+			'manage_options',
+			'neexa-feedback-before-deactivate',
+			function () {
+
+				require_once plugin_dir_path(__FILE__) . 'partials/neexa-ai-user-ondeactivation-feedback.php';
+			},
+		);
 	}
 
 	public function save_access_token()
@@ -213,6 +226,20 @@ class Neexa_Ai_Admin
 		} else {
 			wp_send_json_error('Invalid values.');
 		}
+	}
+
+	public function override_deactivate_link($links)
+	{
+		if (current_user_can('activate_plugins')) {
+			$custom_url = admin_url('admin.php?page=neexa-feedback-before-deactivate');
+			foreach ($links as $index => $link) {
+				if (strpos($link, 'deactivate') !== false) {
+					$links[$index] = '<a href="' . esc_url($custom_url) . '">Deactivate</a>';
+					break;
+				}
+			}
+		}
+		return $links;
 	}
 
 	public function deauthentication()
