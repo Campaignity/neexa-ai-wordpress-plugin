@@ -184,7 +184,7 @@ class Neexa_Ai_Admin
 		);
 
 		add_submenu_page(
-			NEEXA_AI_PLUGIN_BASENAME,
+			'neexa-ai-home',
 			'Plugin Feedback',
 			'',
 			'manage_options',

@@ -168,4 +168,39 @@ class Neexa_Ai_Api_Consumer
             $end_of_month_utc,
         ];
     }
+
+    public function send_feedback_to_platform($data)
+    {
+        try {
+            $payload = [
+                'data' => [
+                    'type' => 'plugin_feedback',
+                    'attributes' => $data,
+                ],
+            ];
+                       
+            $response = wp_remote_post(trailingslashit($this->api_base_url) . 'v1/plugin/feedback', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->api_key,
+                    'Content-Type'  => 'application/json',
+                ],
+                'body' => json_encode($payload),
+                'timeout' => 10,
+            ]);
+
+            if (is_wp_error($response)) {
+                return false;
+            }
+
+            $code = wp_remote_retrieve_response_code($response);
+            if ($code !== 200 && $code !== 201) {
+                return false;
+            }
+
+            return true;
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
 }
