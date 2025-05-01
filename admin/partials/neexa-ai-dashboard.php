@@ -110,7 +110,7 @@ if ($hasToken) {
 
         <!-- Impressions -->
         <div class="card">
-            <h3>Impressions</h3>
+            <h3>Reach</h3>
             <p><?php echo $stats['conversations']['checkouts_this_month'] ?? 0; ?></p>
             <span class="card-subtext">This Month</span>
         </div>
