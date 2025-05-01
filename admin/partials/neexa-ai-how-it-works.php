@@ -22,7 +22,7 @@
   <h3>Step 1: Connect Your Neexa Account</h3>
   <p>
     Get started by <a href="https://app.neexa.co/#login" target="_blank">logging into your Neexa account</a> or
-    <a href="https://app.neexa.co/#get-started" target="_blank">signing up for a new one</a>. It’s quick and free!
+    <a href="https://app.neexa.co/#get-started" target="_blank">signing up for a new one</a>. It's quick and free!
   </p>
 
   <h3>Step 2: Add Your Business Info</h3>
@@ -32,7 +32,7 @@
   </p>
   <ol>
     <li>Manually enter your content (copy-paste from your documents or site), or</li>
-    <li>Use Neexa’s website scraper to auto-import details from your URL.</li>
+    <li>Use Neexa's website scraper to auto-import details from your URL.</li>
   </ol>
 
   <h3>Step 3: Enable Extra Features</h3>
@@ -49,7 +49,7 @@
 
   <h3>Step 5: Add Your WhatsApp Number</h3>
   <p>
-    Stay in the loop! Add your WhatsApp number to get instant notifications when there’s a new deal
+    Stay in the loop! Add your WhatsApp number to get instant notifications when there's a new deal
     or a conversation that needs your attention.
   </p>
 
