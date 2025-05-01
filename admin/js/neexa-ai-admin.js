@@ -217,7 +217,9 @@
 
 	};
 
-
+	/*
+	* management tabs switching
+	*/
 	const agentsManagement = () => {
 
 		// Tab switching functionality
@@ -268,6 +270,9 @@
 		});
 	};
 
+	/*
+	* 
+	*/
 	function openFullScreenChildWindow(url) {
 		const screenWidth = screen.width;
 		const screenHeight = screen.height;
@@ -292,7 +297,7 @@
 
 				const nextUrl = anchor.dataset.href;
 
-				const initialUrl = window.neexa_ai_env_vars['frontend-host'] + '/wordpress/next';
+				const initialUrl = window.neexa_ai_env_vars['frontend-host'] + '#/plugin-auth/next';
 
 				const child = openFullScreenChildWindow(initialUrl);
 
@@ -308,10 +313,13 @@
 					if (data.type === "issue-next") {
 						child.postMessage(
 							{
-								token: window.neexa_ai_env_vars['auth-token'],
-								next_url: nextUrl
+								type: "next-url",
+								payload: {
+									next_url: nextUrl,
+									token: window.neexa_ai_env_vars['auth-token'],
+								}
 							},
-							"*"
+							window.neexa_ai_env_vars['frontend-host']
 						);
 					}
 				});
@@ -334,17 +342,16 @@
 		});
 	}
 
-
 	$(function () {
 		OAuthHandler();
 
 		agentsManagement();
 
+		deactivationForm();
+
 		onboardingHandler();
 
 		externalLinksManagement();
-
-		deactivationForm();
 	});
 
 })(jQuery);

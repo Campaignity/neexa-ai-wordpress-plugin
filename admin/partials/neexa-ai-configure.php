@@ -97,7 +97,7 @@ if ($hasToken) {
             <div class="plugin-tab tab <?= $tab == "general-settings" ? "active" : "" ?>" id="tab2-tab">General Settings</div>
             <div class="plugin-tab tab <?= $tab == "authentication" ? "active" : "" ?>" id="tab3-tab">Authentication</div>
         </div>
-        <a style="margin-right:10px;" href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/_/_?show_create=true" target="_blank" class="button button-secondary">
+        <a style="margin-right:10px;" data-href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/_/_?show_create=true" class="button button-secondary open-in-child">
             ➕ Create New AI Agent
         </a>
     </div>
@@ -117,7 +117,7 @@ if ($hasToken) {
                     <div class="agent-actions">
                         <div>
                             <a  style="margin-right: 5px;" class="button button-secondary" href="<?= $neexa_ai_config['plugin-home-url'] ?>">Home</a>
-                            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" target="_blank" class="button-secondary">Edit</a>
+                            <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" href="javascript:void(0)" class="button-secondary open-in-child">Edit</a>
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@ if ($hasToken) {
                             <?php settings_fields('neexa-ai-active'); ?>
                             <input type="hidden" name="neexa-ai-active-options[id]" value="<?= $otherAgent['id'] ?>">
                             <button  style="margin-right: 5px;" type="submit" class="button button-primary">Make Live</button>
-                            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $otherAgent['id'] ?>/_?show_edit=true" target="_blank" class="button button-secondary">Edit</a>
+                            <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $otherAgent['id'] ?>/_?show_edit=true" href="javascript:void(0)" class="button button-secondary open-in-child">Edit</a>
                         </form>
                     </div>
                 </div>
@@ -245,9 +245,9 @@ if ($hasToken) {
     <div class="quick-links" style="margin-top: 30px;">
         <h2>🔗 Quick Access</h2>
         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-primary" target="_blank">Go to Conversations</a>
-            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-secondary"  target="_blank">Go to CRM</a>
-            <a href="<?= $neexa_ai_config["frontend-host"] ?>/#/businesses/<?php echo $liveAgent ? $liveAgent['business']['id'] : '' ?>" class="button button-primary" target="_blank">Train AI Agent</a>
+            <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Go to Conversations</a>
+            <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-secondary open-in-child"  href="javascript:void(0)">Go to CRM</a>
+            <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#/businesses/<?php echo $liveAgent ? $liveAgent['business']['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Train AI Agent</a>
         </div>
     </div>
 
