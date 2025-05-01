@@ -1,5 +1,5 @@
 === Neexa AI ===
-Contributors: neexa, campaignity
+Contributors: neexa
 Tags: Chatbot, AI, Salesbot, Agent, AI Assistant
 Requires at least: 4.7
 Tested up to: 6.8
@@ -62,7 +62,9 @@ Yes — but if you're using aggressive caching, make sure dynamic content like t
 
 == Changelog ==
 
-= 1.0 =
-* This is the initial version and allows for setting AI Agent ID
 = 2.0 =
 * This version provides more functionality right inside wordpress. Viewing monthly statistics and setting preferences for the chat widget among others.
+
+= 1.0 =
+* This is the initial version and allows for setting AI Agent ID
+
