@@ -1,39 +1,36 @@
 <?php
-$plugin_file = 'neexa-ai/neexa-ai.php';
 $action_url = admin_url('admin.php?page=neexa-feedback-before-deactivate');
-$skip_url = wp_nonce_url(admin_url("plugins.php?action=deactivate&plugin=$plugin_file"), "deactivate-plugin_$plugin_file");
+
+$skip_url = wp_nonce_url(
+    admin_url(
+        "plugins.php?action=deactivate&plugin=" . NEEXA_AI_PLUGIN_BASENAME
+    ),
+    "deactivate-plugin_" . NEEXA_AI_PLUGIN_BASENAME
+);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && check_admin_referer('neexa_feedback_nonce')) {
     $reason = stripslashes(sanitize_text_field($_POST['neexa_reason'] ?? ''));
     $extra_feedback = $reason === 'other' ? stripslashes(sanitize_textarea_field($_POST['neexa_feedback'] ?? '')) : '';
 
-    $current_user = wp_get_current_user();
-
     $feedback_data = [
+        'status' => 'pending',
         'reason'        => $reason,
-        'message'       => $extra_feedback,
-        'site_url'      => site_url(),
         'plugin_name'   => 'Neexa AI',
+        'site_url'      => site_url(),
+        'message'       => $extra_feedback,
         'plugin_version' => NEEXA_AI_VERSION,
         'submitted_at'  => current_time('mysql'),
-        'status' => 'pending'
     ];
-
-    update_option('neexa_ai_temp_feedback', $feedback_data, false);
 
     $api_consumer = new Neexa_Ai_Api_Consumer();
 
-    $sent = $api_consumer->send_feedback_to_platform($feedback_data);
-
-    if ($sent) {
-        delete_option('neexa_ai_temp_feedback');
-    } else {
-        $feedback_data['status'] = 'failed';
-        update_option('neexa_ai_temp_feedback', $feedback_data);
-    }
+    $api_consumer->send_feedback_to_platform($feedback_data);
+    //!todo: handle send failures
 
     deactivate_plugins(NEEXA_AI_PLUGIN_BASENAME);
+
     wp_redirect(admin_url('plugins.php?deactivated=true'));
+
     exit;
 }
 ?>

@@ -190,7 +190,6 @@ class Neexa_Ai_Admin
 			'manage_options',
 			'neexa-feedback-before-deactivate',
 			function () {
-
 				require_once plugin_dir_path(__FILE__) . 'partials/neexa-ai-user-ondeactivation-feedback.php';
 			},
 		);

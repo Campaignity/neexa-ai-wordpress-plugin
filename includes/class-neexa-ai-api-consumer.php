@@ -27,7 +27,9 @@ class Neexa_Ai_Api_Consumer
 
     const UNAUTHENTICATED_ERROR_RESPONSE = "Unauthenticated.";
     private $api_base_url;
+    private $guest_token;
     private $api_key;
+
 
     public function __construct()
     {
@@ -35,6 +37,7 @@ class Neexa_Ai_Api_Consumer
 
         $this->api_key = get_option('neexa_ai_access_token');
         $this->api_base_url = $neexa_ai_config['api-host'];
+        $this->guest_token = $neexa_ai_config['guest_token'];
     }
 
     private function handle_unauthenticated_error_response()
@@ -178,10 +181,11 @@ class Neexa_Ai_Api_Consumer
                     'attributes' => $data,
                 ],
             ];
-                       
-            $response = wp_remote_post(trailingslashit($this->api_base_url) . 'v1/plugin/feedback', [
+
+            $response = wp_remote_post(trailingslashit($this->api_base_url) . 'v1/auth_agnostic_plugin_feedback', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . $this->api_key,
+                    'X-Plugin-Token' => $this->guest_token,
                     'Content-Type'  => 'application/json',
                 ],
                 'body' => json_encode($payload),
@@ -202,5 +206,4 @@ class Neexa_Ai_Api_Consumer
             return false;
         }
     }
-
 }
