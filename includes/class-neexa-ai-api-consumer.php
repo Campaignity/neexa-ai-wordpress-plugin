@@ -196,6 +196,9 @@ class Neexa_Ai_Api_Consumer
                 return false;
             }
 
+            $res = wp_remote_retrieve_body($response);
+            // print_r($res);
+
             $code = wp_remote_retrieve_response_code($response);
             if ($code !== 200 && $code !== 201) {
                 return false;

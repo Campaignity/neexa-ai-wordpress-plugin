@@ -325,7 +325,7 @@
 		const radios = document.querySelectorAll("input[name='neexa_reason']");
 
 		// Show modal immediately on load
-		modal.style.display = "flex";
+		modal && (modal.style.display = "flex");
 
 		radios.forEach(function (radio) {
 			radio.addEventListener("change", function () {

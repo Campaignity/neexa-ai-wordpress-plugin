@@ -227,6 +227,36 @@ class Neexa_Ai_Admin
 		}
 	}
 
+
+	public function save_deactivation_feedback()
+	{
+		if (check_admin_referer('neexa_feedback_nonce')) {
+			$reason = stripslashes(sanitize_text_field($_POST['neexa_reason'] ?? ''));
+			$extra_feedback = $reason === 'other' ? stripslashes(sanitize_textarea_field($_POST['neexa_feedback'] ?? '')) : '';
+
+			$feedback_data = [
+				'status' => 'pending',
+				'reason'        => $reason,
+				'plugin_name'   => 'Neexa AI',
+				'site_url'      => site_url(),
+				'message'       => $extra_feedback,
+				'plugin_version' => NEEXA_AI_VERSION,
+				'submitted_at'  => current_time('mysql'),
+			];
+
+			$api_consumer = new Neexa_Ai_Api_Consumer();
+
+			$api_consumer->send_feedback_to_platform($feedback_data);
+			//!todo: handle send failures
+
+			deactivate_plugins(NEEXA_AI_PLUGIN_BASENAME);
+
+			wp_redirect(admin_url('plugins.php?deactivated=true'));
+
+			exit;
+		}
+	}
+
 	public function override_deactivate_link($links)
 	{
 		if (current_user_can('activate_plugins')) {

@@ -1,5 +1,5 @@
 <?php
-$action_url = admin_url('admin.php?page=neexa-feedback-before-deactivate');
+$action_url = admin_url('admin-post.php?action=deactivation_feedback');
 
 $skip_url = wp_nonce_url(
     admin_url(
@@ -7,32 +7,6 @@ $skip_url = wp_nonce_url(
     ),
     "deactivate-plugin_" . NEEXA_AI_PLUGIN_BASENAME
 );
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && check_admin_referer('neexa_feedback_nonce')) {
-    $reason = stripslashes(sanitize_text_field($_POST['neexa_reason'] ?? ''));
-    $extra_feedback = $reason === 'other' ? stripslashes(sanitize_textarea_field($_POST['neexa_feedback'] ?? '')) : '';
-
-    $feedback_data = [
-        'status' => 'pending',
-        'reason'        => $reason,
-        'plugin_name'   => 'Neexa AI',
-        'site_url'      => site_url(),
-        'message'       => $extra_feedback,
-        'plugin_version' => NEEXA_AI_VERSION,
-        'submitted_at'  => current_time('mysql'),
-    ];
-
-    $api_consumer = new Neexa_Ai_Api_Consumer();
-
-    $api_consumer->send_feedback_to_platform($feedback_data);
-    //!todo: handle send failures
-
-    deactivate_plugins(NEEXA_AI_PLUGIN_BASENAME);
-
-    wp_redirect(admin_url('plugins.php?deactivated=true'));
-
-    exit;
-}
 ?>
 
 <div id="neexa-feedback-modal">
