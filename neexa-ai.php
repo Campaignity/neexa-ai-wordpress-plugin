@@ -35,6 +35,7 @@ if (! defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
 define('NEEXA_AI_VERSION', '2.0.0');
+define('NEEXA_AI_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 /**
  * The code that runs during plugin activation.
