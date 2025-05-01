@@ -1,5 +1,7 @@
-# neexa-ai-wordpress-plugin
-The wordpress Plugin to integrate neexa.ai into wordpress websites
+# Neexa AI 
 
+Get Neexa installed on your wordpress site
 
-[neexa.ai](https://neexa.ai)
+simple, effective, effortless
+
+[https://neexa.co](https://neexa.co)
