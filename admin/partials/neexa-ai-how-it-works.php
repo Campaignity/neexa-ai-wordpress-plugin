@@ -12,17 +12,22 @@
  * @subpackage Neexa_Ai/admin/partials
  */
 ?>
+
+<?php
+global $neexa_ai_config;
+?>
+
 <div class="wrap neexa-how-it-works">
 
-  <h2  style="display: flex; flex-wrap:wrap;">
+  <h2 style="display: flex; flex-wrap:wrap;">
     <div class="neexa-d-logo" style="align-self:center;background-image: url('<?php echo plugin_dir_url(__FILE__); ?>../img/neexa-logomark.svg')"></div>
     <span style="align-self:center">How Neexa Works</span>
   </h2>
 
   <h3>Step 1: Connect Your Neexa Account</h3>
   <p>
-    Get started by <a href="https://app.neexa.co/#login" target="_blank">logging into your Neexa account</a> or
-    <a href="https://app.neexa.co/#get-started" target="_blank">signing up for a new one</a>. It's quick and free!
+    Get started by <a href="<?= $neexa_ai_config['plugin-home-url'] ?>">logging into your Neexa account</a> or
+    <a href="<?= $neexa_ai_config['plugin-home-url'] ?>">signing up for a new one</a>. It's quick and free!
   </p>
 
   <h3>Step 2: Add Your Business Info</h3>
