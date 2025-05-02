@@ -3,7 +3,7 @@ Contributors: neexa
 Tags: Chatbot, AI, Salesbot, Agent, AI Assistant
 Requires at least: 4.7
 Tested up to: 6.8
-Stable tag: 2.0
+Stable tag: 2.0.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -61,6 +61,9 @@ Yes — but if you're using aggressive caching, make sure dynamic content like t
 1. This is your Neexa.AI dashboard for managing conversations and other Information.
 
 == Changelog ==
+
+= 2.0.1 =
+* Making plugin compartible with version 1.0
 
 = 2.0 =
 * This version provides more functionality right inside wordpress. Viewing monthly statistics and setting preferences for the chat widget among others.
