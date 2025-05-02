@@ -180,7 +180,6 @@ class Neexa_Ai
 		$this->loader->add_action('wp_ajax_save_neexa_ai_access_token', $plugin_admin, 'save_access_token');
 		$this->loader->add_action('wp_ajax_neexa_fetch_agents', $plugin_admin, 'fetch_ai_agents');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
-		$this->loader->add_action("admin_footer", $plugin_admin, 'render_deactivate_modal');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action("admin_notices", $plugin_admin, 'neexa_admin_notices');
 		$this->loader->add_action('admin_menu', $plugin_admin, 'add_plugin_admin_menu');
