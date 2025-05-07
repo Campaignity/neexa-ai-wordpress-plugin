@@ -37,10 +37,12 @@ if ($hasToken) {
 
     /* get info about active agent */
     $liveAgentId = $activeOptions["id"] ?? null;
+
     if ($liveAgentId) {
 
         /* agent info */
         $response = $neexaAPI->get_ai_agent_info($liveAgentId, ['append' => 'featureStatus,deploymentStatus']);
+        
         if (!empty($response['success']) && $response['success']) {
             $liveAgent = array_merge(
                 $response['data']['data']['attributes'],
@@ -96,7 +98,7 @@ if ($hasToken) {
             <div class="agent-controls">
                 <a href="<?= $neexa_ai_config['plugin-configuration-url'] ?>" class="button">Switch Agent</a>
                 <?php if ($liveAgent) { ?>
-                    <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" href="javascript:void(0)" class="button button-secondary open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" href="javascript:void(0)" class="button button-secondary open-in-child">Edit</a>
                 <?php } ?>
             </div>
         </div>
@@ -147,15 +149,15 @@ if ($hasToken) {
                 <span class="status-label">Enabled:</span>
                 <span class="status-icon <?php echo $liveAgent['feature_status']['data_collection'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['feature_status']['data_collection'] ? '✔ Data Collection' : '✖ Data Collection'; ?>
-                    <a data-href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automations&subtab=data-collection" href="javascript:void(0)" class="open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automations&subtab=data-collection" href="javascript:void(0)" class="open-in-child">Edit</a>
                 </span>
                 <span class="status-icon <?php echo $liveAgent['feature_status']['crm'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['feature_status']['crm'] ? '✔ CRM' : '✖ CRM'; ?>
-                    <a data-href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automations&subtab=follow-ups" href="javascript:void(0)" class="open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=automations&subtab=follow-ups" href="javascript:void(0)" class="open-in-child">Edit</a>
                 </span>
                 <span class="status-icon <?php echo $liveAgent['feature_status']['out_reach'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['feature_status']['out_reach'] ? '✔ Outreach' : '✖ Outreach'; ?>
-                    <a data-href="<?= $neexa_ai_config['frontend-host'] ?>/#/out-reach" href="javascript:void(0)" class="open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config['frontend-host'] ?>/#/out-reach" href="javascript:void(0)" class="open-in-child">Edit</a>
                 </span>
             </div>
             <div style="margin-top: 10px;">
@@ -166,19 +168,19 @@ if ($hasToken) {
                 </span>
                 <span class="status-icon <?php echo $liveAgent['deployment_status']['whatsapp'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['deployment_status']['whatsapp'] ? '✔ WhatsApp' : '✖ WhatsApp'; ?>
-                    <a data-href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=whatsapp" href="javascript:void(0)" class="open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=whatsapp" href="javascript:void(0)" class="open-in-child">Edit</a>
                 </span>
                 <span class="status-icon <?php echo $liveAgent['deployment_status']['email'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['deployment_status']['email'] ? '✔ Email' : '✖ Email'; ?>
-                    <a data-href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=email" href="javascript:void(0)" class="open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=email" href="javascript:void(0)" class="open-in-child">Edit</a>
                 </span>
                 <span class="status-icon <?php echo $liveAgent['deployment_status']['instagram'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['deployment_status']['instagram'] ? '✔ Instagram' : '✖ Instagram'; ?>
-                    <a data-href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=instagram" href="javascript:void(0)" class="open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=instagram" href="javascript:void(0)" class="open-in-child">Edit</a>
                 </span>
                 <span class="status-icon <?php echo $liveAgent['deployment_status']['facebook'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo $liveAgent['deployment_status']['facebook'] ? '✔ Facebook' : '✖ Facebook'; ?>
-                    <a data-href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=facebook" href="javascript:void(0)" class="open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config['frontend-host'] ?>/#/inbox/<?= $liveAgent["id"] ?>/_?show_edit=true&tab=deploy&subtab=facebook" href="javascript:void(0)" class="open-in-child">Edit</a>
                 </span>
             </div>
         </div>
@@ -189,9 +191,9 @@ if ($hasToken) {
     <div class="quick-links">
         <h2>🔗 Quick Access</h2>
         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-            <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Go to Conversations</a>
-            <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm/<?php echo $liveAgent ? $liveAgent['id'] : '' ?>" class="button button-secondary open-in-child" href="javascript:void(0)">Go to CRM</a>
-            <a data-href="<?= $neexa_ai_config["frontend-host"] ?>/#/businesses/<?php echo $liveAgent ? $liveAgent['business']['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Train AI Agent</a>
+            <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox<?php echo $liveAgent ? '/' . $liveAgent['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Go to Conversations</a>
+            <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm<?php echo $liveAgent ? '/' . $liveAgent['id'] : '' ?>" class="button button-secondary open-in-child" href="javascript:void(0)">Go to CRM</a>
+            <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/businesses<?php echo $liveAgent ? '/' . $liveAgent['business']['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Train AI Agent</a>
         </div>
     </div>
 

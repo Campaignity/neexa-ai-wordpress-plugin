@@ -276,8 +276,13 @@ class Neexa_Ai_Admin
 
 		global $neexa_ai_config;
 
+		
 		if (isset($_POST['neexa_deauth']) && check_admin_referer('neexa_deauth_action', 'neexa_deauth_nonce')) {
 
+			$api_consumer = new Neexa_Ai_Api_Consumer();
+
+			$api_consumer->destroy_auth();
+			
 			// delete_option('neexa-ai-options');
 			delete_option('neexa_ai_access_token');
 			delete_option('neexa-ai-active-options');

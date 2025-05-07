@@ -42,7 +42,7 @@ class Neexa_Ai_Api_Consumer
 
     private function handle_unauthenticated_error_response()
     {
-        // update_option('neexa_ai_access_token', null);
+        update_option('neexa_ai_access_token', null);
     }
 
     /**
@@ -67,6 +67,8 @@ class Neexa_Ai_Api_Consumer
             $body = wp_remote_retrieve_body($response);
 
             $body = json_decode($body, true);
+
+
 
             if (wp_remote_retrieve_response_code($response) !== 200) {
                 $errorMessage = $body["message"] ?? "Data fetching failed. Reload page to retry...";
@@ -96,7 +98,7 @@ class Neexa_Ai_Api_Consumer
 
         $whole_of_this_month = $this->get_this_month_date_range();
 
-        return $this->get("/v1/chat_widgets/$agent_id/summary_stats", [
+        return $this->get("/v1/wp-plugin/chat_widgets/$agent_id/summary_stats", [
             "filter[start_of_month]" => $whole_of_this_month[0],
             "filter[start_of_today]" => $whole_of_today[0],
         ]);
@@ -107,7 +109,7 @@ class Neexa_Ai_Api_Consumer
      */
     public function get_ai_agent_info($agent_id, $params = [])
     {
-        return $this->get("/v1/chat_widgets/{$agent_id}", $params);
+        return $this->get("/v1/wp-plugin/chat_widgets/{$agent_id}", $params);
     }
 
     /**
@@ -115,7 +117,7 @@ class Neexa_Ai_Api_Consumer
      */
     public function get_ai_agents($params = [])
     {
-        return $this->get("/v1/chat_widgets", $params);
+        return $this->get("/v1/wp-plugin/chat_widgets", $params);
     }
 
     private function get_today_date_range()
@@ -205,6 +207,22 @@ class Neexa_Ai_Api_Consumer
             }
 
             return true;
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+
+    public function destroy_auth()
+    {
+        try {
+            wp_remote_request(trailingslashit($this->api_base_url) . 'v1/wp-plugin/api_keys', [
+                'method'    => 'DELETE',
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $this->api_key,
+                    'Content-Type'  => 'application/json',
+                ],
+            ]);
         } catch (\Throwable $e) {
             return false;
         }

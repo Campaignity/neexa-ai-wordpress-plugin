@@ -351,7 +351,7 @@
 
 		onboardingHandler();
 
-		externalLinksManagement();
+		// externalLinksManagement();
 	});
 
 })(jQuery);
