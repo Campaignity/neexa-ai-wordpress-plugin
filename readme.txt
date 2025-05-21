@@ -1,4 +1,4 @@
-=== Neexa AI ===
+=== Neexa | Sales AI Agent for B2C Businesses ===
 Contributors: neexa
 Tags: Chatbot, AI, Salesbot, Agent, AI Assistant
 Requires at least: 4.7
