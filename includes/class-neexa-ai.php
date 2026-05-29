@@ -112,7 +112,7 @@ class Neexa_Ai
 		 * the config
 		 */
 		global $neexa_ai_config;
-		$neexa_ai_config = require_once plugin_dir_path(dirname(__FILE__)) . 'includes/config-merge.php';
+		$neexa_ai_config = require plugin_dir_path(dirname(__FILE__)) . 'includes/config.php';
 
 		/**
 		 * response for external api calls
