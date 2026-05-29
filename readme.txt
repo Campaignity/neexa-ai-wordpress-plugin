@@ -1,8 +1,8 @@
-=== Neexa | Sales AI Agent for B2C Businesses ===
+=== Neexa | Sales and Enrollment AI Agent for B2C Businesses and Schools ===
 Contributors: neexa
-Tags: Chatbot, AI, Salesbot, Agent, AI Assistant
+Tags: Chatbot, AI, Salesbot, Agent, AI Assistant, Enrollment Assistant,
 Requires at least: 4.7
-Tested up to: 6.8
+Tested up to: 7.0
 Stable tag: 2.1.0
 Requires PHP: 7.0
 License: GPLv2 or later
@@ -61,6 +61,9 @@ Yes — but if you're using aggressive caching, make sure dynamic content like t
 1. This is your Neexa.AI dashboard for managing conversations and other Information.
 
 == Changelog ==
+
+= 2.1.1 =
+* Making plugin better and more widget customization
 
 = 2.1.0 =
 * Making plugin more safe
