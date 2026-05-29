@@ -4,6 +4,7 @@
 /.distignore
 /README.md
 /build-zip.sh
+/local-deploy.sh
 /includes/config-local.php
 /includes/config-local.example.php
 /includes/config-staging.php

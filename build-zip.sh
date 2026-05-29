@@ -1,7 +1,7 @@
 #!/bin/bash
 # Build a distributable zip from the current source.
 # Usage:
-#   ./build-zip.sh          → production zip  (config-prod.php baked in)
+#   ./build-zip.sh          → production zip
 #   ./build-zip.sh staging  → staging zip
 set -e
 
@@ -18,7 +18,6 @@ rsync -a \
     --exclude-from="$SCRIPT_DIR/.distignore" \
     "$SCRIPT_DIR/" "$PLUGIN_DIR/"
 
-# Bake the chosen environment config in as config.php
 cp "$PLUGIN_DIR/includes/config-${ENV}.php" "$PLUGIN_DIR/includes/config.php"
 
 cd "$TMP_DIR"
