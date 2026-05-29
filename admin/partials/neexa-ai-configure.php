@@ -327,6 +327,6 @@ if ($hasToken) {
 
     <!-- Footer -->
     <p class="dashboard-footer">
-        Need help? <a href="https://docs.neexa.co/blog?ref=wordpress-plugin" target="_blank">Visit support</a>.
+        Need help? <a href="https://learn.neexa.co?ref=wordpress-plugin" target="_blank">Visit support</a>.
     </p>
 </div>
