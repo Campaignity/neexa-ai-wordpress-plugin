@@ -1,79 +1,99 @@
 === Neexa | Sales and Enrollment AI Agent for B2C Businesses and Schools ===
 Contributors: neexa
-Tags: Chatbot, AI, Salesbot, Agent, AI Assistant, Enrollment Assistant,
+Tags: chatbot, AI, sales, lead generation, customer support
 Requires at least: 4.7
-Tested up to: 7.0
-Stable tag: 2.1.0
+Tested up to: 6.7
+Stable tag: 2.1.1
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
+Add a 24/7 AI sales agent to your WordPress site — engage visitors, answer questions, capture leads, and close sales automatically.
+
 == Description ==
 
-This plugin seamlessly integrates Neexa.AI's 24/7 AI Powered Sales Agent/Assistant onto any WordPress site. Please note that the functionality of this plugin relies on Neexa.AI, a third-party service.
+Neexa integrates an AI-powered sales and support agent directly onto your WordPress site. Once connected, the widget handles customer enquiries, collects leads, and keeps selling even while you sleep — all managed from your Neexa dashboard.
+
+**Key features:**
+
+* Instant setup — connect your Neexa account and go live in minutes
+* Customisable chat widget (position, appearance, visibility, mobile style)
+* Real-time conversation dashboard with CRM and follow-up automation
+* WhatsApp, Instagram, Facebook, and Email channel integrations
+* Lightweight — no impact on page load speed
+
+**How it works:**
+
+1. Install and activate the plugin
+2. Connect your Neexa account via the plugin home page
+3. Select an AI agent from your Neexa workspace and click Make Live
+4. Adjust widget settings (position, theme, visibility) to match your site
+5. The chat widget appears instantly on your front end
 
 **Disclosure:**
-By using this plugin, you acknowledge and agree that certain data may be transmitted to Neexa.AI for the proper functioning of the AI Sales Agent/Assistant. This includes but is not limited to user interactions, conversations, and related data. When you send us feedback, we also collect the website url to be able to assist further when there is need.
 
-== Third-Party Service Information ==
+By using this plugin you acknowledge that user interactions and conversation data are transmitted to Neexa.AI for the plugin to function. When you submit feedback, your site URL is also collected to help with support. See the links below for full details.
 
-To ensure transparency, we provide the following details about the third-party service:
+== Third-Party Service ==
 
-- **Service Provider:** Neexa.AI
-- **Service URL:** [Neexa.AI](https://neexa.ai)
-- **Terms of Use:** [Neexa.AI Terms of Use](https://campaignity.com/terms)
-- **Privacy Policy:** [Neexa.AI Privacy Policy](https://campaignity.com/privacy)
+This plugin relies on Neexa.AI to deliver AI agent functionality.
+
+* **Service:** [Neexa.AI](https://neexa.ai)
+* **Terms of Use:** [campaignity.com/terms](https://campaignity.com/terms)
+* **Privacy Policy:** [campaignity.com/privacy](https://campaignity.com/privacy)
 
 == Frequently Asked Questions ==
 
-= Will the assistant appear immediately after setup? =
+= Will the chat widget appear immediately after setup? =
 
-Yes, as long as you have authenticated with Neexa AI and clicked on the "Make Live" button.
+Yes — once you have authenticated and clicked Make Live on an agent, the widget appears on your site straight away.
 
 = How do I connect my site to Neexa AI? =
 
-Once the plugin is installed, click on "Get Started" or "Connect to Neexa" to connect your site to Neexa AI.
+After activating the plugin, go to the Neexa AI menu and click Connect to Neexa. Log in with your Neexa credentials. You will be redirected to the Configure page to select an agent.
 
-= Can I use multiple assistants on one website? =
+= Can I use multiple AI agents on one website? =
 
-You can create more than one AI assistant and switch between them by clicking on the "Make Live" button.
+You can create as many AI agents as you need in your Neexa workspace. Switch the active one at any time from Configure → AI Agent → Make Live.
 
-= Where can I manage conversations or training data? =
+= Where do I manage conversations and training data? =
 
-All conversation logs, training data, and AI behavior settings can be managed from your Neexa AI dashboard. Simply click on the corresponding link in the plugin dashboard to directly head to Neexa AI dashboard.
+Everything is managed from your Neexa dashboard. Use the Quick Access links on the plugin home page to jump directly to Conversations, CRM, or Agent Training.
 
 = Does the plugin slow down my site? =
 
-No — the plugin is lightweight, it doesn't slow down your site.
+No — the plugin is lightweight. The chat widget script is loaded asynchronously from the Neexa CDN and does not block page rendering.
 
-= How do I style or position the assistant on my site? =
+= How do I change the position or appearance of the widget? =
 
-You can use custom CSS or plugin configurations to change the appearance and position of the chat widget. Developers can also use hooks and filters for advanced customization.
+Go to Configure → General Settings. You can change the chat position, appearance mode (light/dark), default visibility, and mobile mini style without writing any code.
 
-= Can it work with caching plugins? =
+= Does it work with caching plugins? =
 
-Yes — but if you're using aggressive caching, make sure dynamic content like the assistant script is excluded from caching rules where necessary. Please Purge the cache after the plugin installation if the chat widget does not appear.
-
-
+Yes. If the widget does not appear after installation, purge your cache. For aggressive full-page caching setups, exclude the widget script URL from caching rules.
 
 == Screenshots ==
 
-1. This is your Neexa.AI dashboard for managing conversations and other Information.
+1. Plugin home page — live agent status, monthly stats, and quick access links.
 
 == Changelog ==
 
 = 2.1.1 =
-* Making plugin better and more widget customization
+* Added widget customisation options: mobile mini style, default visibility, hide & seek mode, and hide offset
+* Improved admin dashboard design and presentation
+* Fixed broken frontend URL links in the dashboard and configure pages
+* Rewrote How It Works page with plugin-specific step-by-step guidance
+* Removed unused public JavaScript and CSS assets from front-end page loads
 
 = 2.1.0 =
-* Making plugin more safe
+* Security and stability improvements
 
 = 2.0.1 =
-* Making plugin compartible with version 1.0
+* Backward compatibility with version 1.0 agent configuration
 
 = 2.0 =
-* This version provides more functionality right inside wordpress. Viewing monthly statistics and setting preferences for the chat widget among others.
+* New plugin dashboard with monthly conversation stats, CRM metrics, and channel status
+* Widget preferences (position, appearance mode, visibility) configurable from WordPress admin
 
 = 1.0 =
-* This is the initial version and allows for setting AI Agent ID
-
+* Initial release — configure your Neexa AI agent ID to embed the chat widget
