@@ -75,9 +75,9 @@ if ($hasToken) {
 <?php endif; ?>
 
 <div class="neexa-dashboard">
-    <h1 class="dashboard-header" style="display: flex; flex-wrap:wrap;">
-        <div class="neexa-d-logo" style="align-self:center;background-image: url('<?php echo plugin_dir_url(__FILE__); ?>../img/neexa-logomark.svg')"></div>
-        <span style="align-self:center">Welcome to Neexa</span>
+    <h1 class="dashboard-header">
+        <div class="neexa-d-logo" style="background-image: url('<?php echo plugin_dir_url(__FILE__); ?>../img/neexa-logomark.svg')"></div>
+        <span>Welcome to Neexa</span>
     </h1>
 
     <div class="analytics-row">
@@ -90,15 +90,21 @@ if ($hasToken) {
                     </div>
                 <?php } ?>
                 <?php if ($liveAgent) { ?>
-                    <div class="agent-name"><?= wp_trim_words($liveAgent['name'] ?? "", 20) ?> is Live</div>
+                    <div class="agent-name">
+                        <?= wp_trim_words($liveAgent['name'] ?? "", 20) ?>
+                        <span class="neexa-live-badge">Live</span>
+                    </div>
                 <?php } else { ?>
-                    <div class="notice notice-warning">No AI Agent is Live</div>
+                    <div class="neexa-empty-state">
+                        <p>No AI Agent is configured yet.</p>
+                        <a href="<?= esc_url($neexa_ai_config['plugin-configuration-url']) ?>" class="button button-primary">Configure an Agent &rarr;</a>
+                    </div>
                 <?php } ?>
             </div>
             <div class="agent-controls">
                 <a href="<?= $neexa_ai_config['plugin-configuration-url'] ?>" class="button">Switch Agent</a>
                 <?php if ($liveAgent) { ?>
-                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" href="javascript:void(0)" class="button button-secondary open-in-child">Edit</a>
+                    <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?= $liveAgent['id'] ?>/_?show_edit=true" href="javascript:void(0)" class="button button-secondary open-in-child">Edit</a>
                 <?php } ?>
             </div>
         </div>
@@ -160,7 +166,7 @@ if ($hasToken) {
                     <a data-href="skip" target="_blank" href="<?= $neexa_ai_config['frontend-host'] ?>/#/out-reach" href="javascript:void(0)" class="open-in-child">Edit</a>
                 </span>
             </div>
-            <div style="margin-top: 10px;">
+            <div>
                 <span class="status-label">Channels:</span>
                 <span class="status-icon <?php echo isset($options['live_status']) &&  $options['live_status'] ? 'material-check' : 'material-cross'; ?>">
                     <?php echo isset($options['live_status']) &&  $options['live_status'] ? '✔ Website' : '✖ Website'; ?>
@@ -190,7 +196,7 @@ if ($hasToken) {
     <!-- Quick Links -->
     <div class="quick-links">
         <h2>🔗 Quick Access</h2>
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
             <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox<?php echo $liveAgent ? '/' . $liveAgent['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Go to Conversations</a>
             <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm<?php echo $liveAgent ? '/' . $liveAgent['id'] : '' ?>" class="button button-secondary open-in-child" href="javascript:void(0)">Go to CRM</a>
             <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/businesses<?php echo $liveAgent ? '/' . $liveAgent['business']['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Train AI Agent</a>

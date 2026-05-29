@@ -97,8 +97,8 @@ if ($hasToken) {
             <div class="plugin-tab tab <?= $tab == "general-settings" ? "active" : "" ?>" id="tab2-tab">General Settings</div>
             <div class="plugin-tab tab <?= $tab == "authentication" ? "active" : "" ?>" id="tab3-tab">Authentication</div>
         </div>
-        <a style="margin-right:10px;" data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/_/_?show_create=true" class="button button-secondary open-in-child">
-            ➕ Create New AI Agent
+        <a style="margin-right:10px;" data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/_/_?show_create=true" class="button button-secondary open-in-child">
+            + Create New AI Agent
         </a>
     </div>
 
@@ -122,10 +122,10 @@ if ($hasToken) {
                     </div>
                 </div>
             <?php } else { ?>
-                <div class="notice notice-warning" style="margin-bottom: 20px;">
-                    <p>No AI Agent is live</p>
+                <div class="neexa-empty-state" style="align-items:flex-start;padding:12px 0 20px;">
+                    <p>No AI Agent is active on this site yet.</p>
+                    <p style="font-size:13px;color:var(--neexa-text-muted);margin:0 0 14px;">Select an agent from the list below and click <strong>Make Live</strong>.</p>
                 </div>
-
             <?php } ?>
 
             <div class="section-title">Other Available Agents</div>
@@ -148,7 +148,7 @@ if ($hasToken) {
                             <?php settings_fields('neexa-ai-active'); ?>
                             <input type="hidden" name="neexa-ai-active-options[id]" value="<?= $otherAgent['id'] ?>">
                             <button style="margin-right: 5px;" type="submit" class="button button-primary">Make Live</button>
-                            <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#inbox/<?= $otherAgent['id'] ?>/_?show_edit=true" href="javascript:void(0)" class="button button-secondary open-in-child">Edit</a>
+                            <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox/<?= $otherAgent['id'] ?>/_?show_edit=true" href="javascript:void(0)" class="button button-secondary open-in-child">Edit</a>
                         </form>
                     </div>
                 </div>
@@ -156,8 +156,9 @@ if ($hasToken) {
             <?php } ?>
 
             <?php if (!$hasOthers) { ?>
-                <div class="notice notice-warning" style="margin-bottom: 20px;">
-                    <p>List is empty</p>
+                <div class="neexa-empty-state" style="align-items:flex-start;padding:12px 0;">
+                    <p>No other agents found.</p>
+                    <a target="_blank" href="<?= esc_url($neexa_ai_config['frontend-host']) ?>/#/inbox/_/_?show_create=true" class="button button-primary">Create your first AI Agent &rarr;</a>
                 </div>
             <?php } ?>
 
@@ -293,19 +294,31 @@ if ($hasToken) {
     </div>
 
     <div class="plugin-tab-content tab-content <?= $tab == "authentication" ? "active" : "" ?>" id="tab3-content">
-        <div class="deauth-box">
-            <p><strong>Heads up:</strong> Disconnecting your Neexa account will immediately remove the AI agent from your website. You can reconnect later to add AI Agent.</p>
+
+        <div class="neexa-connection-status">
+            <span class="neexa-live-badge" style="background:var(--neexa-success);font-size:11px;">&#10003; Connected</span>
+            <span style="font-size:13px;color:var(--neexa-text-muted);margin-left:10px;">
+                This WordPress site is linked to your Neexa account.
+            </span>
+        </div>
+
+        <div class="deauth-box" style="margin-top:24px;">
+            <p><strong>Disconnect Neexa</strong></p>
+            <p>This will immediately remove the AI agent chat widget from your website and unlink this site from your Neexa account. Your Neexa account and data are not deleted — you can reconnect at any time.</p>
             <form method="post">
                 <?php wp_nonce_field('neexa_deauth_action', 'neexa_deauth_nonce'); ?>
-                <button type="submit" name="neexa_deauth" class="button button-secondary" onclick="return confirm('Are you sure you want to disconnect Neexa?')">Disconnect Neexa</button>
+                <button type="submit" name="neexa_deauth" class="button button-secondary"
+                    onclick="return confirm('Disconnect Neexa from this site? The widget will stop showing immediately.')">
+                    Disconnect
+                </button>
             </form>
         </div>
     </div>
 
     <!-- Quick Links -->
     <div class="quick-links" style="margin-top: 30px;">
-        <h2>🔗 Quick Access</h2>
-        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <h2>Quick Access</h2>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
             <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox<?php echo $liveAgent ? '/' . $liveAgent['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Go to Conversations</a>
             <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm<?php echo $liveAgent ? '/' . $liveAgent['id'] : '' ?>" class="button button-secondary open-in-child" href="javascript:void(0)">Go to CRM</a>
             <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/businesses<?php echo $liveAgent ? '/' . $liveAgent['business']['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Train AI Agent</a>
