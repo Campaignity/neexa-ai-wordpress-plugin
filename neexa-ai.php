@@ -16,7 +16,7 @@
  * Plugin Name:       Neexa | Sales AI Agent for B2C Businesses
  * Plugin URI:        https://neexa.co
  * Description:       This plugin seamlessly integrates Neexa.AI's 24/7 AI Powered Sales Agent/Assistant onto any WordPress site.
- * Version:           2.1.0
+ * Version:           2.1.1
  * Author:            Neexa
  * Author URI:        https://neexa.co/
  * License:           GPL-2.0+
@@ -34,7 +34,7 @@ if (! defined('WPINC')) {
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-define('NEEXA_AI_VERSION', '2.0.1');
+define('NEEXA_AI_VERSION', '2.1.1');
 define('NEEXA_AI_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 /**

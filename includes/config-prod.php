@@ -8,9 +8,13 @@ return [
     'api-host' => 'https://bkd-v2.neexa.ai/api/',
     'ajax-url' => admin_url('admin-ajax.php'),
     'default-settings' => array(
-        'chat_position'   => 'bottom_right',
-        'appearance_mode' => 'light',
-        'live_status' => '1',
+        'chat_position'     => 'bottom_right',
+        'appearance_mode'   => 'light',
+        'mobile_mini_style' => 'greeting_only',
+        'default_visibility'=> 'open',
+        'is_hide_and_seek'  => '',
+        'hide_offset'       => '20',
+        'live_status'       => '1',
     ),
     'ai-agent-roles-full-name' => array(
         'salesman' => "Sales Assistant",

@@ -214,6 +214,67 @@ if ($hasToken) {
                 </div>
             </div>
 
+            <!-- MOBILE MINI STYLE -->
+            <div class="material-setting-group">
+                <label class="material-setting-label">Mobile Mini Style</label>
+                <div class="material-radio-group">
+                    <?php
+                    $mini_styles = [
+                        'greeting_only'        => 'Greeting only',
+                        'greeting_with_input'  => 'Greeting + input',
+                    ];
+                    foreach ($mini_styles as $value => $label) :
+                    ?>
+                        <label class="material-radio">
+                            <input class="track-change" type="radio" name="neexa-ai-options[mobile_mini_style]" value="<?php echo esc_attr($value); ?>" <?php checked($options['mobile_mini_style'] ?? '', $value); ?>>
+                            <span class="checkmark"></span>
+                            <?php echo esc_html($label); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- DEFAULT VISIBILITY -->
+            <div class="material-setting-group">
+                <label class="material-setting-label">Default Visibility</label>
+                <div class="material-radio-group">
+                    <?php
+                    $visibilities = [
+                        'open'   => 'Open',
+                        'closed' => 'Closed (icon only)',
+                    ];
+                    foreach ($visibilities as $value => $label) :
+                    ?>
+                        <label class="material-radio">
+                            <input class="track-change" type="radio" name="neexa-ai-options[default_visibility]" value="<?php echo esc_attr($value); ?>" <?php checked($options['default_visibility'] ?? '', $value); ?>>
+                            <span class="checkmark"></span>
+                            <?php echo esc_html($label); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- HIDE & SEEK -->
+            <div class="material-setting-group">
+                <label class="material-setting-label" for="hide_and_seek_toggle">Hide &amp; Seek</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <label class="switch">
+                        <input class="track-change" type="checkbox" name="neexa-ai-options[is_hide_and_seek]" id="hide_and_seek_toggle" value="1" <?php checked($options['is_hide_and_seek'] ?? '', '1'); ?>>
+                        <span class="slider round"></span>
+                    </label>
+                    <span style="font-size: 14px; color: #555;">Widget hides until hovered</span>
+                </div>
+            </div>
+
+            <!-- HIDE OFFSET -->
+            <div class="material-setting-group" id="hide_offset_row" style="<?php echo empty($options['is_hide_and_seek']) ? 'display:none;' : ''; ?>">
+                <label class="material-setting-label" for="hide_offset_input">Hide Offset (px)</label>
+                <input class="track-change regular-text" type="number" min="10" max="200" id="hide_offset_input"
+                    name="neexa-ai-options[hide_offset]"
+                    value="<?php echo esc_attr($options['hide_offset'] ?? '20'); ?>">
+                <p class="description">Controls how much of the peek tab is visible at the screen edge.</p>
+            </div>
+
             <!-- LIVE STATUS TOGGLE -->
             <div class="material-setting-group">
                 <label class="material-setting-label" for="live_status_toggle">Visibility Status</label>

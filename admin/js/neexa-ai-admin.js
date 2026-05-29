@@ -268,6 +268,15 @@
 				saveBtn.disabled = !changed;
 			});
 		});
+
+		// Toggle hide-offset row when hide-and-seek checkbox changes
+		const hideSeekToggle = document.getElementById('hide_and_seek_toggle');
+		const hideOffsetRow  = document.getElementById('hide_offset_row');
+		if (hideSeekToggle && hideOffsetRow) {
+			hideSeekToggle.addEventListener('change', function () {
+				hideOffsetRow.style.display = this.checked ? '' : 'none';
+			});
+		}
 	};
 
 	/*

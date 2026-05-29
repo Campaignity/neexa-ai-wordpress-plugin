@@ -96,16 +96,20 @@ class Neexa_Ai_Public
 					]
 				);
 
-				wp_add_inline_script(
-					"cam_neexai_agent_id",
-					'var neexa_xgmx_cc_wpq_ms = "' . esc_html($liveAgentId) . '";',
-					"before"
-				);
+				$init_config = wp_json_encode([
+					'agent_id'          => $liveAgentId,
+					'appearance_mode'   => $options['appearance_mode']   ?? 'light',
+					'chat_position'     => $options['chat_position']     ?? 'bottom_right',
+					'mobile_mini_style' => $options['mobile_mini_style'] ?? 'greeting_only',
+					'default_visibility'=> $options['default_visibility'] ?? 'open',
+					'is_hide_and_seek'  => !empty($options['is_hide_and_seek']),
+					'hide_offset'       => intval($options['hide_offset'] ?? 65),
+				]);
 
 				wp_add_inline_script(
 					"cam_neexai_agent_id",
-					'var neexa_xgmx_cc_wpq_ms_preferences = ' . wp_json_encode($options) . ';',
-					"before"
+					'window.addEventListener("load",function(){window.neexa&&window.neexa.init(' . $init_config . ');});',
+					"after"
 				);
 			} else {
 

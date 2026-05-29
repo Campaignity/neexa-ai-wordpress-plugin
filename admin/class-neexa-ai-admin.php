@@ -314,9 +314,13 @@ class Neexa_Ai_Admin
 					return array_merge(
 						$current,
 						array(
-							'live_status' => isset($input['live_status']) ? sanitize_text_field($input['live_status']) :  "",
-							'chat_position'   => isset($input['chat_position']) ? sanitize_text_field($input['chat_position']) : ($current['chat_position'] ?? ""),
-							'appearance_mode' => isset($input['appearance_mode']) ? sanitize_text_field($input['appearance_mode']) : ($current['appearance_mode'] ?? ""),
+							'live_status'       => isset($input['live_status']) ? sanitize_text_field($input['live_status']) : "",
+							'chat_position'     => isset($input['chat_position']) ? sanitize_text_field($input['chat_position']) : ($current['chat_position'] ?? ""),
+							'appearance_mode'   => isset($input['appearance_mode']) ? sanitize_text_field($input['appearance_mode']) : ($current['appearance_mode'] ?? ""),
+							'mobile_mini_style' => isset($input['mobile_mini_style']) ? sanitize_text_field($input['mobile_mini_style']) : ($current['mobile_mini_style'] ?? ""),
+							'default_visibility'=> isset($input['default_visibility']) ? sanitize_text_field($input['default_visibility']) : ($current['default_visibility'] ?? ""),
+							'is_hide_and_seek'  => isset($input['is_hide_and_seek']) ? '1' : '',
+							'hide_offset'       => isset($input['hide_offset']) ? (string) absint($input['hide_offset']) : ($current['hide_offset'] ?? "20"),
 						)
 					);
 				}
