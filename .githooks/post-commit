@@ -1,18 +1,16 @@
 #!/bin/bash
-# Syncs plugin source to svn/trunk after every commit.
-# On a tagged commit, also creates svn/tags/<version> and commits both.
+# Keeps svn/trunk in sync with every git commit.
+# Publishing a release to WP.org is handled separately by release.sh.
 set -e
 
 PLUGIN_DIR="$(git rev-parse --show-toplevel)"
-SVN_DIR="$PLUGIN_DIR/../svn"
-SVN_TRUNK="$SVN_DIR/trunk"
+SVN_TRUNK="$PLUGIN_DIR/../svn/trunk"
 
 if [ ! -d "$SVN_TRUNK" ]; then
-    echo "[svn] svn/trunk not found — skipping SVN sync"
+    echo "[svn] svn/trunk not found — skipping sync"
     exit 0
 fi
 
-# ---- Sync trunk ----
 echo "[svn] Syncing trunk..."
 rsync -a --delete \
     --exclude-from="$PLUGIN_DIR/.distignore" \
@@ -21,25 +19,4 @@ rsync -a --delete \
 svn add --force "$SVN_TRUNK" > /dev/null 2>&1
 svn status "$SVN_TRUNK" | grep '^!' | awk '{print $2}' | xargs -r svn delete --force > /dev/null 2>&1
 
-# ---- Check for a git tag on HEAD ----
-TAG=$(git tag --points-at HEAD | head -n1)
-
-if [ -z "$TAG" ]; then
-    echo "[svn] Trunk synced (no tag on HEAD — skipping SVN commit)"
-    echo "[svn] Run: svn commit '$SVN_TRUNK' -m 'your message'"
-    exit 0
-fi
-
-SVN_TAG_DIR="$SVN_DIR/tags/$TAG"
-
-if [ -d "$SVN_TAG_DIR" ]; then
-    # Tag dir already exists locally — just commit trunk changes
-    echo "[svn] Tag $TAG already exists locally — committing trunk only"
-    svn commit "$SVN_TRUNK" -m "Sync trunk ($TAG)"
-else
-    # Create the SVN tag and commit trunk + tag together
-    echo "[svn] Creating SVN tag $TAG..."
-    svn copy "$SVN_TRUNK" "$SVN_TAG_DIR"
-    svn commit "$SVN_TRUNK" "$SVN_TAG_DIR" -m "Release $TAG"
-    echo "[svn] Released $TAG"
-fi
+echo "[svn] Trunk synced. Run ./release.sh to publish to WordPress.org."
