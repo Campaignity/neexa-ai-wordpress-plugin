@@ -84,7 +84,8 @@ class Neexa_Ai_Public
 
 				$liveAgentId = $activeOptions["id"];
 
-				wp_enqueue_script(
+				// 1. Register the handle so we can attach the inline callback first.
+				wp_register_script(
 					"cam_neexai_agent_id",
 					$neexa_ai_config['widget-loader-script-url'],
 					[],
@@ -94,6 +95,7 @@ class Neexa_Ai_Public
 					]
 				);
 
+				// 2. Define neexaAsyncInit before the script tag — main.js calls it on load.
 				$init_config = wp_json_encode([
 					'agent_id'          => $liveAgentId,
 					'appearance_mode'   => $options['appearance_mode']   ?? 'light',
@@ -101,14 +103,17 @@ class Neexa_Ai_Public
 					'mobile_mini_style' => $options['mobile_mini_style'] ?? 'greeting_only',
 					'default_visibility'=> $options['default_visibility'] ?? 'open',
 					'is_hide_and_seek'  => !empty($options['is_hide_and_seek']),
-					'hide_offset'       => intval($options['hide_offset'] ?? 65),
+					'hide_offset'       => intval($options['hide_offset'] ?? 20),
 				]);
 
 				wp_add_inline_script(
 					"cam_neexai_agent_id",
-					'window.addEventListener("load",function(){window.neexa&&window.neexa.init(' . $init_config . ');});',
-					"after"
+					'window.neexaAsyncInit = function() { window.neexa.init(' . $init_config . '); };',
+					"before"
 				);
+
+				// 3. Enqueue — outputs: <inline callback> then <script src="main.js">.
+				wp_enqueue_script("cam_neexai_agent_id");
 			} else {
 
 				/* backward compartibility with version 1*/
