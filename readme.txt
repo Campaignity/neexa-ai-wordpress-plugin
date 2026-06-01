@@ -2,7 +2,7 @@
 Contributors: neexa
 Tags: chatbot, AI, sales, lead generation, customer support
 Requires at least: 4.7
-Tested up to: 6.7
+Tested up to: 7.0
 Stable tag: 2.1.1
 Requires PHP: 7.0
 License: GPLv2 or later
