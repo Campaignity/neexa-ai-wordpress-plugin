@@ -157,8 +157,8 @@ if ($hasToken) {
 
             <?php if (!$hasOthers) { ?>
                 <div class="neexa-empty-state" style="align-items:flex-start;padding:12px 0;">
-                    <p>No other agents found.</p>
-                    <a target="_blank" href="<?= esc_url($neexa_ai_config['frontend-host']) ?>/#/inbox/_/_?show_create=true" class="button button-primary">Create your first AI Agent &rarr;</a>
+                    <p><?= $liveAgent ? "No other agents found." : "You don't have any AI agents yet." ?></p>
+                    <a target="_blank" href="<?= esc_url($neexa_ai_config['frontend-host']) ?>/#/inbox/_/_?show_create=true" class="button button-primary"><?= $liveAgent ? "Create another AI Agent" : "Create your first AI Agent" ?> &rarr;</a>
                 </div>
             <?php } ?>
 
