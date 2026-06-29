@@ -135,7 +135,7 @@ class Neexa_Ai_Admin
 			function () {
 				require_once plugin_dir_path(__FILE__) . 'partials/neexa-ai-dashboard.php';
 			},
-			plugin_dir_url(__FILE__) . "img/neexa-logomark.png?v=5",
+			plugin_dir_url(__FILE__) . "img/neexa-logomark.svg?v=6",
 			2
 		);
 

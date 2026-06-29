@@ -3,7 +3,7 @@ Contributors: neexa
 Tags: chatbot, AI, sales, lead generation, customer support
 Requires at least: 4.7
 Tested up to: 7.0
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -77,6 +77,9 @@ Yes. If the widget does not appear after installation, purge your cache. For agg
 1. Plugin home page — live agent status, monthly stats, and quick access links.
 
 == Changelog ==
+
+= 2.1.2 =
+* Fixed admin menu icon rendering at full size and overlapping menu items when another plugin's admin styles override Neexa's icon sizing
 
 = 2.1.1 =
 * Added widget customisation options: mobile mini style, default visibility, hide & seek mode, and hide offset

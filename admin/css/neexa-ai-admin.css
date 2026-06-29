@@ -16,10 +16,16 @@
     --neexa-radius:        8px;
 }
 
-/* ---- Sidebar menu icon ---- */
-.toplevel_page_neexa-ai-home .wp-menu-image img {
-    width: 20px;
-    padding: 6px 0 0 !important;
+/* ---- Sidebar menu icon ----
+   Scoped to the menu item's ID (high specificity) + !important so a
+   co-installed plugin's admin CSS can't override it and blow the 686x724
+   source image up to its native size. Constrain both axes. */
+#adminmenu #toplevel_page_neexa-ai-home .wp-menu-image img {
+    width: 20px !important;
+    height: auto !important;
+    max-width: 20px !important;
+    padding: 7px 0 0 !important;
+    box-sizing: content-box;
 }
 
 /* ---- Onboarding iframe (full-screen) ---- */
