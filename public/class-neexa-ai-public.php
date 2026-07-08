@@ -91,7 +91,8 @@ class Neexa_Ai_Public
 					[],
 					time(),
 					[
-						"in_footer" => false
+						"in_footer" => false,
+						"strategy"  => "async"
 					]
 				);
 
@@ -126,7 +127,8 @@ class Neexa_Ai_Public
 						[],
 						time(),
 						[
-							"in_footer" => false
+							"in_footer" => false,
+							"strategy"  => "async"
 						]
 					);
 
