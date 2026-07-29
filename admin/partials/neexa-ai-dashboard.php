@@ -198,7 +198,7 @@ if ($hasToken) {
         <h2>🔗 Quick Access</h2>
         <div style="display:flex;gap:12px;flex-wrap:wrap;">
             <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/inbox<?php echo $liveAgent ? '/' . $liveAgent['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Go to Conversations</a>
-            <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm<?php echo $liveAgent ? '/' . $liveAgent['id'] : '' ?>" class="button button-secondary open-in-child" href="javascript:void(0)">Go to CRM</a>
+            <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/autonomous-crm" class="button button-secondary open-in-child" href="javascript:void(0)">Go to CRM</a>
             <a data-href="skip" target="_blank" href="<?= $neexa_ai_config["frontend-host"] ?>/#/businesses<?php echo $liveAgent ? '/' . $liveAgent['business']['id'] : '' ?>" class="button button-primary open-in-child" href="javascript:void(0)">Train AI Agent</a>
         </div>
     </div>
